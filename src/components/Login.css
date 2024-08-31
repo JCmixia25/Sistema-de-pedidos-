@@ -1,0 +1,129 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden; /* Evita el desplazamiento vertical */
+}
+
+.login-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Mantiene la altura completa de la ventana */
+  background-image: url('./inicio.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  width: 85px;
+  height: 85px;
+  z-index: 2;
+  background-image: url('icono.jpeg');
+  background-size: cover;
+  background-position: center;
+}
+
+.login-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Color de fondo semi-transparente */
+  z-index: -1; /* Asegura que el fondo semi-transparente esté detrás del contenido */
+}
+
+.login-container h2 {
+  margin-bottom: 2rem;
+  background-color: #174270;
+  color: white;
+  padding: 0.75rem 1.5rem; /* Aumenta el padding */
+  border-radius: 4px;
+  font-size: 1.8rem; /* Aumenta el tamaño de fuente */
+  font-weight: bold; /* Agrega negrita */
+}
+
+.login-container .login-image {
+  width: 60px; /* Aumenta el ancho */
+  height: 60px; /* Aumenta el alto */
+  margin-bottom: 1.5rem; /* Aumenta el margen inferior */
+}
+
+.login-container .login-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.login-container form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
+  padding: 2.5rem; /* Aumenta el padding */
+  border-radius: 10px; /* Aumenta el radio de borde */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  width: 400px; /* Aumenta el ancho */
+}
+
+.login-container .form-title {
+  margin-bottom: 1.8rem; /* Aumenta el margen inferior */
+  font-size: 2rem; /* Aumenta el tamaño de fuente */
+  font-weight: bold;
+  color: #174270;
+}
+
+.login-container .form-icon {
+  width: 100px; /* Aumenta el ancho */
+  height: 100px; /* Aumenta el alto */
+  margin-bottom: 1.5rem; /* Aumenta el margen inferior */
+}
+
+.login-container .form-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.login-container label {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.2rem; /* Aumenta el margen inferior */
+  width: 100%;
+  font-weight: bold;
+  color: #174270; /* Color azul oscuro para los títulos */
+  font-size: 1.1rem; /* Aumenta el tamaño de fuente */
+}
+
+.login-container input {
+  padding: 0.75rem; /* Aumenta el padding */
+  border: 1px solid #ccc;
+  border-radius: 6px; /* Aumenta el radio de borde */
+  background-color: #f9f9f9; /* Fondo gris claro para los campos de entrada */
+  font-size: 1.1rem; /* Aumenta el tamaño de fuente */
+}
+
+.login-container button {
+  margin-top: 1.8rem; /* Aumenta el margen superior */
+  padding: 1rem 2rem; /* Aumenta el padding */
+  background-color: #207223;
+  color: white;
+  border: none;
+  border-radius: 6px; /* Aumenta el radio de borde */
+  cursor: pointer;
+  font-size: 1.1rem; /* Aumenta el tamaño de fuente */
+  width: 100%; /* Ancho completo del botón */
+  font-weight: bold; /* Agrega negrita */
+}
+
+.login-container button:hover {
+  background-color: #45a049;
+}
