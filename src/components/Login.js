@@ -19,6 +19,7 @@ function Login() {
       <form onSubmit={handleSubmit}>
         <label>
           Nombre:
+
           <input
             type="text"
             value={name}
@@ -28,7 +29,7 @@ function Login() {
           />
         </label>
         <label>
-          Contraseña
+          Contraseña:
           <input
             type="password"
             value={password}
