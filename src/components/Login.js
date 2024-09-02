@@ -1,34 +1,40 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
-import icono from "../icono.jpeg";
+// import icono from "/icono.jpeg";
+
+
+
 
 function Login() {
-  const [name, setName] = useState('');
+
+  // const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log('Nombre:', name);
+    console.log('Correo:', email);
     console.log('Contraseña:', password);
     navigate('/home'); // Redirige al usuario a "Home"
   };
 
   return (
     <div className="login-container">
-      <h2>INICIAR SESIÓN</h2>
-      <div className="login-image">
+      {/* <h2>INICIAR SESIÓN</h2> */}
+      {/* <div className="login-image">
         <img src={icono} alt="Icono" />
-      </div>
+      </div> */}
       <form onSubmit={handleSubmit}>
         <label>
-          Nombre
+          Correo
           <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Ingrese su nombre"
+            type="email"
+            // value={name}
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            placeholder="Ingrese su correo"
             required
           />
         </label>

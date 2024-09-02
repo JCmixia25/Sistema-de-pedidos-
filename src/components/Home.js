@@ -7,6 +7,10 @@ import carreta from '../imagenes/carreta.jpg';
 import hercules from '../imagenes/hercules.jpg';
 import plataforma from '../imagenes/plataforma.jpg';
 
+// import {useContext} from 'react';
+// import {context} from '../context/authContext'
+// import { useAuth } from '../context/authContext';
+
 const products = [
   { id: 1, name: 'Maquinaria Agricola', image: agricultura },
   { id: 2, name: 'Cosechadora de Maiz', image: cosechadora },
@@ -16,6 +20,11 @@ const products = [
 ];
 
 const Home = () => {
+
+  // const authContext = useContext(context)
+  // const {user} = useAuth()
+  // console.log(user);
+
   const navigate = useNavigate();
 
   const handleProductClick = (productId) => {
