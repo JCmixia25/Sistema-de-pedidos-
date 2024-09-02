@@ -30,7 +30,7 @@
 /* Asegúrate de que el fondo de toda la página sea blanco */
 body {
   margin: 0;
-  background-color: white; /* Fondo blanco para toda la página */
+  background-color: rgb(60, 36, 147); /* Fondo blanco para toda la página */
 }
 
 .header-nav {
@@ -41,7 +41,7 @@ body {
   display: flex;
   justify-content: flex-end; /* Alinea los botones a la derecha */
   gap: 20px;
-  background-color: rgb(197, 193, 193); /* Fondo blanco para el contenedor */
+  background-color: rgb(56, 41, 165); /* Fondo blanco para el contenedor */
   padding: 35px 20px; /* Espacio alrededor de los botones */
   border-radius: 0; /* Sin borde redondeado */
   z-index: 1; /* Asegura que la barra de navegación esté por encima de otros elementos */

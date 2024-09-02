@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Login.css';
-import icono from "../icono.jpeg";
 
 function Login() {
   const [name, setName] = useState('');
@@ -17,10 +16,6 @@ function Login() {
 
   return (
     <div className="login-container">
-      <h2>INICIAR SESIÓN</h2>
-      <div className="login-image">
-        <img src={icono} alt="Icono" />
-      </div>
       <form onSubmit={handleSubmit}>
         <label>
           Nombre
