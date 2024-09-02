@@ -18,7 +18,7 @@ function Login() {
     <div className="login-container">
       <form onSubmit={handleSubmit}>
         <label>
-          Nombre:
+          Nombre
 
           <input
             type="text"
@@ -29,7 +29,7 @@ function Login() {
           />
         </label>
         <label>
-          Contraseña:
+          Contraseña
           <input
             type="password"
             value={password}
