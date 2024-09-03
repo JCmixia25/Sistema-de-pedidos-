@@ -6,6 +6,9 @@ import Register from "./components/Register.js";
 import Home from "./components/Home.js";
 import Contacts from "./components/Contacts.js";
 import icono from "./icono.jpeg";
+import Bienvenida from "./components/Bienvenida.js"
+
+
 import { AuthProvider } from "./context/authContext.js";
 
 function App() {
@@ -16,6 +19,7 @@ function App() {
       <AuthProvider>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/bienvenida" element={<Bienvenida/>}/>
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />

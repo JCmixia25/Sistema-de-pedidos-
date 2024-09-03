@@ -2,17 +2,21 @@ import React, { useState } from "react";
 import "./Register.css";
 import icono from "./icono.jpeg";
 import { useAuth } from "../context/authContext";
-// import { useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { signOut } from "firebase/auth";
 
 export function Register() {
+  // const [confirmPassword, setConfirmPassword] = useState("");
+  const [passwordError, setPasswordError] = useState(false);
+
   const [user, setUser] = useState({
     email: "",
     password: "",
+    password2: "",
   });
 
   const { signup } = useAuth();
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [mensaje, setMensaje] = useState("");
 
   const handleChange = ({ target: { name, value } }) => {
@@ -23,21 +27,36 @@ export function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     // console.log(user.email, user.password);
-    try {
-      await signup(user.email, user.password);
-      // navigate("/");
-    } catch (error) {
-      setMensaje(error.message);
+
+    //Validar que las contraseñas coincidan
+    if (user.password2 !== user.password) {
+      setPasswordError(true);
+      return;
+    } else {
+
+      setPasswordError(false);
+
+      try {
+        const userCredential = await signup(user.email, user.password);
+        if (userCredential) {
+          // Usuario creado exitosamente
+          setMensaje("");
+          console.log("Usuario registrado con éxito");
+          navigate("/Bienvenida");
+          // Redireccionar al usuario o realizar otras acciones
+        }
+      } catch (error) {
+        setMensaje(error.message);
+      }
     }
   };
 
   return (
     <div className="register-container">
-      {mensaje && <p>{mensaje}</p>}
       <img src={icono} alt="Icono" className="icono" />
       <form onSubmit={handleSubmit}>
         <label>
-          Correo
+          Correo electrónico
           <input
             type="email"
             name="email"
@@ -47,16 +66,32 @@ export function Register() {
           />
         </label>
         <label>
-          Password
+          Contraseña
           <input
             type="password"
             name="password"
             id="password"
             onChange={handleChange}
+            placeholder="******"
             required
           />
         </label>
+        <label>
+          Confirmar Contraseña
+          <input
+            type="password"
+            name="password2"
+            id="password2"
+            onChange={handleChange}
+            placeholder="******"
+            required
+          />
+        </label>
+        {passwordError && (
+          <div className="password-error">Las contraseñas no coinciden.</div>
+        )}
         <button type="submit">REGISTRARSE</button>
+        {mensaje && <p className="mensaje">{mensaje}</p>}
       </form>
     </div>
   );

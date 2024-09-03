@@ -1,6 +1,6 @@
 import React from "react";
 import "./Contacts.css"; 
-import inicio from "../inicio.jpeg";
+// import inicio from "../inicio.jpeg";
 import icono from "../icono.jpeg";
 import MyMapComponent from "./MyMapComponent"; 
 
