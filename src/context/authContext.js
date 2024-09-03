@@ -12,12 +12,13 @@ export const useAuth = () => {
 
 export function AuthProvider({ children }) {
 
-  const signup = (email, password) => {
+  const signup = async (email, password) => {
     // console.log(email, password);
     try{
       createUserWithEmailAndPassword(auth, email, password);
-    }catch(error){
       
+    }catch(error){
+      throw error;
     }
     
   };

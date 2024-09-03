@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import "./Register.css";
 import icono from "./icono.jpeg";
 import { useAuth } from "../context/authContext";
-import { useNavigate } from "react-router-dom";
+// import { useNavigate } from "react-router-dom";
+// import { signOut } from "firebase/auth";
 
 export function Register() {
   const [user, setUser] = useState({
@@ -11,8 +12,8 @@ export function Register() {
   });
 
   const { signup } = useAuth();
-  const navigate = useNavigate();
-  const [error, setError] = useState();
+  // const navigate = useNavigate();
+  const [mensaje, setMensaje] = useState("");
 
   const handleChange = ({ target: { name, value } }) => {
     // console.log(name, value);
@@ -24,19 +25,19 @@ export function Register() {
     // console.log(user.email, user.password);
     try {
       await signup(user.email, user.password);
-      navigate("/");
+      // navigate("/");
     } catch (error) {
-      setError(error.message);
+      setMensaje(error.message);
     }
   };
 
   return (
     <div className="register-container">
-      {error && <p>error</p>}
+      {mensaje && <p>{mensaje}</p>}
       <img src={icono} alt="Icono" className="icono" />
       <form onSubmit={handleSubmit}>
         <label>
-          Correo electrónico
+          Correo
           <input
             type="email"
             name="email"
@@ -46,7 +47,7 @@ export function Register() {
           />
         </label>
         <label>
-          Contraseña
+          Password
           <input
             type="password"
             name="password"
