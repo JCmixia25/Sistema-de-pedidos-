@@ -1,35 +1,142 @@
 .home-container {
-    padding: 20px;
-    text-align: center;
-    background-color: #f9f9f9;
-  }
-  
-  .products-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-    gap: 15px;
-  }
-  
-  .product-card {
-    background-color: white;
-    border: 1px solid #ccc;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    transition: transform 0.3s;
-  }
-  
-  .product-card:hover {
-    transform: scale(1.05);
-  }
-  
-  .product-card img {
-    width: 100%;
-    height: auto;
-  }
-  
-  .product-card h2 {
-    font-size: 1.2rem;
-    color: #174270;
-    margin: 10px 0;
-  }
+  padding: 20px;
+}
+
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Centra el contenedor */
+  margin-bottom: 20px; /* Espacio inferior */
+  position: relative; /* Necesario para posicionar las sugerencias */
+}
+
+.search-input {
+  width: 300px; /* Ajusta el ancho según sea necesario */
+  padding: 10px;
+  border: 2px solid #a3c4d4; /* Borde azul claro */
+  border-radius: 4px 0 0 4px; /* Bordes redondeados solo en la izquierda */
+  outline: none; /* Elimina el borde del foco */
+  background-color: white; /* Color de fondo blanco */
+}
+
+.search-icon {
+  font-size: 20px; /* Tamaño del icono */
+  color: white; /* Color del icono */
+  background-color: #4caf50; /* Fondo verde */
+  padding: 10px; /* Relleno alrededor del icono */
+  border-radius: 0 4px 4px 0; /* Bordes redondeados solo en la derecha */
+  cursor: pointer;
+}
+
+.search-input::placeholder {
+  color: #999; /* Color del texto de marcador de posición */
+}
+
+.suggestions-list {
+  position: absolute; /* Posiciona la lista de sugerencias */
+  background-color: white;
+  border: 1px solid #ccc;
+  width: 100%;
+  z-index: 1000; /* Asegúrate de que se muestre sobre otros elementos */
+  max-height: 200px; /* Limita la altura de la lista */
+  overflow-y: auto; /* Permite desplazamiento si hay muchas sugerencias */
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0; /* Efecto hover */
+}
+
+.suggestion-item img {
+  width: 30px; /* Tamaño de la imagen de sugerencia */
+  height: 30px; /* Tamaño de la imagen de sugerencia */
+  margin-right: 10px; /* Espaciado entre imagen y texto */
+}
+
+.categories {
+  margin-top: 20px;
+}
+
+.category-title {
+  cursor: pointer;
+  color: #174270;
+  margin: 15px 0;
+  font-size: 1.5rem;
+  text-align: left; /* Alinea el texto a la izquierda */
+}
+
+.subcategory-title {
+  margin: 10px 0;
+  font-size: 1.3rem;
+  color: #f1e6e6; /* COLOR DE LOS SUBTITULOS DE LOS SENSORES */
+}
+
+.products-list {
+  margin-left: 20px;
+}
+
+.product-card {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  cursor: pointer;
+  justify-content: flex-start; /* Asegura que los elementos se alineen a la izquierda */
+}
+
+.product-card img {
+  width: 50px; /* Ajusta el tamaño según sea necesario */
+  height: 50px; /* Ajusta el tamaño según sea necesario */
+  margin-right: 10px;
+}
+
+.product-card h4 {
+  margin: 0;
+  text-align: left; /* Asegura que el texto esté alineado a la izquierda */
+  flex-grow: 1; /* Permite que el nombre del producto ocupe el espacio disponible */
+  color: #090909; /* Color verde brillante */
+  font-weight: bold; /* Texto más grueso */
+}
+.product-detail {
+  text-align: center;
+  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco con un poco más de opacidad */
+  padding: 20px;
+  border-radius: 12px; /* Bordes más redondeados */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Sombra más pronunciada */
+}
+
+.product-detail h1 {
+  font-size: 2.5rem; /* Aumenta el tamaño del título */
+  color: #174270; /* Color del título */
+  margin-bottom: 15px; /* Espacio entre título y descripción */
+  text-transform: uppercase; /* Convierte el texto a mayúsculas */
+  letter-spacing: 1px; /* Espaciado entre letras */
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2); /* Sombra en el texto */
+}
+
+.product-detail p {
+  margin: 15px 0; /* Espacio alrededor de la descripción */
+  font-size: 1.2rem; /* Tamaño de la descripción */
+  color: #333; /* Color más oscuro para mayor contraste */
+  line-height: 1.6; /* Espaciado entre líneas */
+  text-align: center; /* Texto centrado */
+  background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco con transparencia */
+  border: 1px solid #a3c4d4; /* Borde azul claro */
+  border-radius: 8px; /* Bordes redondeados */
+  padding: 10px; /* Relleno interno */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Sombra para un efecto de elevación */
+}
+
+.product-detail img {
+  width: 300px; /* Ajusta según sea necesario */
+  height: auto; /* Mantiene la proporción */
+  margin-top: 15px; /* Espacio entre la descripción y la imagen */
+  border-radius: 8px; /* Bordes redondeados para la imagen */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2); /* Sombra en la imagen */
+}
