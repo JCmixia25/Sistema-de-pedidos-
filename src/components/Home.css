@@ -1,9 +1,10 @@
-
-
 .home-container {
     padding: 100px;
     text-align: center;
     background-color: #f9f9f9;
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-size: cover; /* Asegura que la imagen cubra toda el área del contenedor */
+    background-position: center; /* Centra la imagen dentro del contenedor */
   }
 
   /* Resto del CSS... */
@@ -14,7 +15,15 @@
   align-items: center;
   justify-content: center;
   margin-bottom: 20px;
-  position: relative;
+  position: sticky; /* Fija el contenedor cuando se desplaza fuera del viewport */
+  top: 0; /* Se quedará pegado en la parte superior al hacer scroll */
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  background-color: white; /* Fondo blanco para que sea visible si hay transparencia */
+  padding: 10px; /* Espaciado interno para el contenedor */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra para resaltar */
+  border-radius: 8px; /* Bordes redondeados */
+  width: 100%; /* Ajusta el ancho para que ocupe toda la pantalla */
+
 }
 
 .search-input {
@@ -177,3 +186,4 @@ h1 {
   padding: 10px;
   margin: 0;
   border-radius: 5px;}
+
