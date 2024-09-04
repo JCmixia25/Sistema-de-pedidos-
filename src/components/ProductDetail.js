@@ -25,7 +25,7 @@ const ProductDetail = () => {
   const product = products.find(p => p.id === parseInt(id));
 
   if (!product) {
-    return <div>Producto no encontrado</div>;
+    return <div>Producto no encontrado:</div>;
   }
 
   return (
