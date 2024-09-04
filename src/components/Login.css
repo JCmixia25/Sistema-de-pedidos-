@@ -6,7 +6,7 @@ html, body {
 }
 
 body {
-  background-image: url('./inicio.jpeg');
+ background-image: url('./inicio.jpeg');
   background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
   background-position: center; /* Centra la imagen en la pantalla */
   background-repeat: no-repeat; /* Evita repetir la imagen */
