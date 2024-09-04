@@ -5,6 +5,7 @@ import Login from "./components/Login.js";
 import Register from "./components/Register.js";
 import Home from "./components/Home.js";
 import Contacts from "./components/Contacts.js";
+import Bienvenida from "./components/Bienvenida.jsx";
 import ProductDetail from "./components/ProductDetail"; // Importa el componente
 import icono from "./icono.jpeg";
 import { AuthProvider } from "./context/authContext.js";
@@ -16,7 +17,7 @@ function App() {
       <Botones />
       <AuthProvider>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Bienvenida />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
