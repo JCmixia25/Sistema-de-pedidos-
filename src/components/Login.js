@@ -1,30 +1,54 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import './Login.css';
+import React, { useContext, useState } from "react";
+import "./Register.css";
+import "../../src/index";
+import icono from "./icono.jpeg";
+import { useAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom";
 
-function Login() {
-  const [name, setName] = useState('');
-  const [password, setPassword] = useState('');
+
+export function Register() {
+
+
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
+
+  const { login } = useAuth();
   const navigate = useNavigate();
+  const [mensaje, setMensaje] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleChange = ({ target: { name, value } }) => {
+    setUser({ ...user, [name]: value });
+  };
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log('Nombre:', name);
-    console.log('Contraseña:', password);
-    navigate('/home'); // Redirige al usuario a "Home"
+
+    try {
+      
+      const userLogin = await login(user.email, user.password);
+      if (userLogin) {
+        setMensaje("");
+        console.log(userLogin);
+        navigate("/");
+      }
+    } catch (error) {
+      setMensaje(error.message);
+    }
   };
 
   return (
-    <div className="login-container">
+    <div className="register-container">
+      <img src={icono} alt="Icono" className="icono" />
       <form onSubmit={handleSubmit}>
         <label>
-          Nombre
-
+          Correo electrónico
           <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Ingrese su nombre"
+            type="email"
+            name="email"
+            onChange={handleChange}
+            placeholder="ejemplo.@mail.com"
             required
           />
         </label>
@@ -32,16 +56,18 @@ function Login() {
           Contraseña
           <input
             type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            placeholder="Ingrese su contraseña"
+            name="password"
+            id="password"
+            onChange={handleChange}
+            placeholder="******"
             required
           />
         </label>
         <button type="submit">INGRESAR</button>
+        {mensaje && <p className="mensaje">{mensaje}</p>}
       </form>
     </div>
   );
 }
 
-export default Login;
+export default Register;
