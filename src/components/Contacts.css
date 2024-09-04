@@ -12,7 +12,7 @@ body, html {
     font-family: 'Arial', sans-serif;
     border-radius: 10px;
     box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3); 
-    background-image: url('../inicio.jpeg'); 
+  /*  background-image: url('../inicio.jpeg'); */
     background-size: cover; 
     background-position: center; 
     background-repeat: no-repeat; 

@@ -1,9 +1,13 @@
+
+
 .home-container {
-    padding: 5px;
+    padding: 100px;
     text-align: center;
     background-color: #f9f9f9;
   }
 
+  /* Resto del CSS... */
+  
 
 .search-container {
   display: flex;
@@ -166,3 +170,10 @@
   border-radius: 8px;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
+
+h1 { 
+    
+  background-color: #00712D;
+  padding: 10px;
+  margin: 0;
+  border-radius: 5px;}
