@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useState } from "react";
 import "./Register.css";
 import "../../src/index";
 import icono from "./icono.jpeg";
@@ -8,13 +8,12 @@ import { useNavigate } from "react-router-dom";
 
 export function Register() {
 
-
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
-  const { login } = useAuth();
+  const { setEstado, login } = useAuth();
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState("");
 
@@ -29,9 +28,10 @@ export function Register() {
       
       const userLogin = await login(user.email, user.password);
       if (userLogin) {
+        setEstado(true);
         setMensaje("");
         console.log(userLogin);
-        navigate("/");
+        navigate("/home");
       }
     } catch (error) {
       setMensaje(error.message);

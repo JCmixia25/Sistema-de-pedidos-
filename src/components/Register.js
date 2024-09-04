@@ -7,7 +7,7 @@ import { useNavigate } from "react-router-dom";
 
 export function Register() {
   // const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordError, setPasswordError] = useState(false);
+  const [passwordError, setPasswordError] = useState(true);
 
   const [user, setUser] = useState({
     email: "",
@@ -15,7 +15,8 @@ export function Register() {
     password2: "",
   });
 
-  const { signup } = useAuth();
+  const {signup } = useAuth();
+
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState("");
 

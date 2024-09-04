@@ -5,6 +5,7 @@ import {
 } from "firebase/auth";
 import { auth } from "../conexion/firebase";
 
+
 export const authContext = createContext();
 
 export const useAuth = () => {
@@ -14,6 +15,8 @@ export const useAuth = () => {
 };
 
 export function AuthProvider({ children }) {
+  
+  const [estado, setEstado] = useState(false);
 
   const signup = async (email, password) => {
     try {
@@ -38,7 +41,7 @@ export function AuthProvider({ children }) {
   };
 
   return (
-    <authContext.Provider value={{ signup, login }}>
+    <authContext.Provider value={{ signup, login, estado, setEstado }}>
       {children}
     </authContext.Provider>
   );
