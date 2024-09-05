@@ -9,6 +9,8 @@ import Bienvenida from "./components/Bienvenida.jsx";
 import ProductDetail from "./components/ProductDetail"; // Importa el componente
 import icono from "./icono.jpeg";
 import { useAuth } from "./context/authContext.js";
+import Inicio from "./components-private/Inicio.js";
+import {Encabezado} from "./components-private/Encabezado.js"
 
 function App() {
   const { estado } = useAuth();
@@ -34,9 +36,10 @@ function App() {
     return (
       <div className="App">
         <img src={icono} alt="Icono" className="icono" />
-        <Botones />
+        <Encabezado />
         <Routes>
-          
+          <Route path="/" element={<Inicio />} />
+          <Route path="/inicio" element={<Inicio />} />
         </Routes>
       </div>
     );

@@ -29,9 +29,11 @@ export function Register() {
       const userLogin = await login(user.email, user.password);
       if (userLogin) {
         setEstado(true);
+        localStorage.setItem("login", "true");
+        //localStorage.removeItem("hasVisited");
         setMensaje("");
         console.log(userLogin);
-        navigate("/home");
+        navigate("/inicio");
       }
     } catch (error) {
       setMensaje(error.message);

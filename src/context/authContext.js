@@ -1,4 +1,4 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
@@ -39,6 +39,15 @@ export function AuthProvider({ children }) {
       throw error;
     }
   };
+
+  useEffect(() => {
+    if (localStorage.getItem("login")) {
+      setEstado(true);
+    } else{
+      setEstado(false);
+    }
+  }, []);
+
 
   return (
     <authContext.Provider value={{ signup, login, estado, setEstado }}>
