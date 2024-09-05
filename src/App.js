@@ -13,36 +13,36 @@ import Inicio from "./components-private/Inicio.js";
 import { Encabezado } from "./components-private/Encabezado.js";
 
 function App() {
-  const { estado } = useAuth();
-  //validamos si hay sesion activa
-  if (!estado) {
-    return (
-      <div className="App">
-          <Botones />
-        <Routes>
-          <Route path="/" element={<Bienvenida />} />
-          <Route path="/bienvenida" element={<Bienvenida />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/contact" element={<Contacts />} />
-          <Route path="/home/:id" element={<ProductDetail />} />{" "}
-          {/* Nueva ruta para el detalle del producto */}
-        </Routes>
-      </div>
-    );
-  } else {
-    return (
-      <div className="App">
-        <img src={icono} alt="Icono" className="icono" />
-        <Encabezado />
-        <Routes>
-          <Route path="/" element={<Inicio />} />
-          <Route path="/inicio" element={<Inicio />} />
-        </Routes>
-      </div>
-    );
-  }
+const { estado } = useAuth();
+//validamos si hay sesion activa
+if (!estado) {
+return (
+<div className="App">
+<Botones />
+<Routes>
+<Route path="/" element={<Bienvenida />} />
+<Route path="/bienvenida" element={<Bienvenida />} />
+<Route path="/home" element={<Home />} />
+<Route path="/login" element={<Login />} />
+<Route path="/register" element={<Register />} />
+<Route path="/contact" element={<Contacts />} />
+<Route path="/home/:id" element={<ProductDetail />} />{" "}
+{/* Nueva ruta para el detalle del producto */}
+</Routes>
+</div>
+);
+} else {
+return (
+<div className="App">
+<img src={icono} alt="Icono" className="icono" />
+<Encabezado />
+<Routes>
+<Route path="/" element={<Inicio />} />
+<Route path="/inicio" element={<Inicio />} />
+</Routes>
+</div>
+);
+}
 }
 
-export default App;
+export default App; 
