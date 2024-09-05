@@ -1,12 +1,14 @@
 import React, { useState } from "react";
 import "./Botones.css";
 import { Link, NavLink } from "react-router-dom";
+import icono from "./icono.jpeg";
 
 export const Botones = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <nav>
+      <img src={icono} alt="Icono" className="icono" />
       <Link to="/" className="title">
         {/* Agregar aquí el contenido del título */}
       </Link>
@@ -28,7 +30,6 @@ export const Botones = () => {
         <li>
           <NavLink to="/contact">CONTACTENOS</NavLink>
         </li>
-        
       </ul>
     </nav>
   );
