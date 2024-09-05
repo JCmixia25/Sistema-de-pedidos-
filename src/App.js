@@ -5,6 +5,7 @@ import Login from "./components/Login.js";
 import Register from "./components/Register.js";
 import Home from "./components/Home.js";
 import Contacts from "./components/Contacts.js";
+import Bienvenida from "./components/Bienvenida.jsx";
 import ProductDetail from "./components/ProductDetail"; // Importa el componente
 import icono from "./icono.jpeg";
 import { useAuth } from "./context/authContext.js";

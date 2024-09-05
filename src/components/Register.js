@@ -62,7 +62,7 @@ export function Register() {
             type="email"
             name="email"
             onChange={handleChange}
-            placeholder="ejemplo.@mail.com"
+            placeholder="ejemplo.@gmail.com"
             required
           />
         </label>
