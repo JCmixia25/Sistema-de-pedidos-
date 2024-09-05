@@ -19,6 +19,9 @@ function App() {
         <img src={icono} alt="Icono" className="icono" />
         <Botones />
         <Routes>
+          <Route path="/" element={<Bienvenida />} />
+          <Route path="/bienvenida" element={<Bienvenida />} />
+          <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contacts />} />
@@ -33,8 +36,7 @@ function App() {
         <img src={icono} alt="Icono" className="icono" />
         <Botones />
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/home" element={<Home />} />
+          
         </Routes>
       </div>
     );
