@@ -11,9 +11,10 @@ import ProductDetail from "./components/ProductDetail"; // Importa el componente
 import icono from "./icono.jpeg";
 import { useAuth } from "./context/authContext.js";
 import Inicio from "./components-private/Inicio.js";
-import {Encabezado} from "./components-private/Encabezado.js"
+import { Encabezado } from "./components-private/Encabezado.js";
 
 function App() {
+<<<<<<< HEAD
   const { estado } = useAuth();
 
   if (!estado) {
@@ -46,6 +47,38 @@ function App() {
       </div>
     );
   }
+=======
+const { estado } = useAuth();
+//validamos si hay sesion activa
+if (!estado) {
+return (
+<div className="App">
+<Botones />
+<Routes>
+<Route path="/" element={<Bienvenida />} />
+<Route path="/bienvenida" element={<Bienvenida />} />
+<Route path="/home" element={<Home />} />
+<Route path="/login" element={<Login />} />
+<Route path="/register" element={<Register />} />
+<Route path="/contact" element={<Contacts />} />
+<Route path="/home/:id" element={<ProductDetail />} />{" "}
+{/* Nueva ruta para el detalle del producto */}
+</Routes>
+</div>
+);
+} else {
+return (
+<div className="App">
+<img src={icono} alt="Icono" className="icono" />
+<Encabezado />
+<Routes>
+<Route path="/" element={<Inicio />} />
+<Route path="/inicio" element={<Inicio />} />
+</Routes>
+</div>
+);
+}
+>>>>>>> c4ec9938c6e13770c83a1714e10c374382b5236c
 }
 
-export default App;
+export default App; 

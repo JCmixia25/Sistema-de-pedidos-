@@ -1,13 +1,10 @@
 import React from "react";
 import "./Contacts.css"; 
-import inicio from "../inicio.jpeg";
-import icono from "../icono.jpeg";
 import MyMapComponent from "./MyMapComponent"; 
 
 const Contacts = () => {
   return (
     <div className="contacts-container">
-      <img src={icono} alt="Icono" className="icono" />
       <h1>CONTÁCTENOS</h1>
       <div className="contact-info">
         <h2>Información de Contacto</h2>

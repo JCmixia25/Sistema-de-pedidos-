@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import "./Register.css";
 import "../../src/index";
-import icono from "./icono.jpeg";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 
@@ -30,7 +29,7 @@ export function Register() {
       if (userLogin) {
         setEstado(true);
         localStorage.setItem("login", "true");
-        //localStorage.removeItem("hasVisited");
+        
         setMensaje("");
         console.log(userLogin);
         navigate("/inicio");
@@ -42,7 +41,6 @@ export function Register() {
 
   return (
     <div className="register-container">
-      <img src={icono} alt="Icono" className="icono" />
       <form onSubmit={handleSubmit}>
         <label>
           Correo electrónico

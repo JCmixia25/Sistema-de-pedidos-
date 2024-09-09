@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../components/Botones";
+import "../components-private/Encabezado.css";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
@@ -37,7 +37,7 @@ export const Encabezado = () => {
         </li>
         <li>
           {/* <NavLink to="/home">CERRAR SESION</NavLink> */}
-          <button onClick={cerrarSesion}>CERRAR SESION</button>
+           <button id="btnLogout" onClick={cerrarSesion} className="cerrar-sesion">CERRAR SESION</button>
         </li>
       </ul>
     </nav>

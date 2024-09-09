@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import "./Register.css";
-import icono from "./icono.jpeg";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 // import { signOut } from "firebase/auth";
 
 export function Register() {
   // const [confirmPassword, setConfirmPassword] = useState("");
-  const [passwordError, setPasswordError] = useState(true);
+  const [passwordError, setPasswordError] = useState(false);
 
   const [user, setUser] = useState({
     email: "",
@@ -21,15 +20,13 @@ export function Register() {
   const [mensaje, setMensaje] = useState("");
 
   const handleChange = ({ target: { name, value } }) => {
-    // console.log(name, value);
+    
     setUser({ ...user, [name]: value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // console.log(user.email, user.password);
 
-    //Validar que las contraseñas coincidan
     if (user.password2 !== user.password) {
       setPasswordError(true);
       return;
@@ -54,7 +51,6 @@ export function Register() {
 
   return (
     <div className="register-container">
-      <img src={icono} alt="Icono" className="icono" />
       <form onSubmit={handleSubmit}>
         <label>
           Correo electrónico
