@@ -13,6 +13,7 @@ import { useAuth } from "./context/authContext.js";
 import Inicio from "./components-private/Inicio.js";
 import { Encabezado } from "./components-private/Encabezado.js";
 import Show from './components/Show.js';
+import PieDePagina from './components/PieDePagina.js';
 
 function App() {
   const { estado } = useAuth();
@@ -34,6 +35,7 @@ function App() {
           <Route path="/home/:id" element={<ProductDetail />} />{" "}
           {/* Nueva ruta para el detalle del producto */}
         </Routes>
+        <PieDePagina />
       </div>
     );
   } else {
