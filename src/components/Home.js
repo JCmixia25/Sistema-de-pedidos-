@@ -130,17 +130,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <h1>Productos de Pedidos Persia</h1>
-      <div className="search-container">
-        <input
-          type="text"
-          placeholder="Buscar un producto, una marca..."
-          value={searchTerm}
-          onChange={handleSearchChange}
-          onKeyPress={handleSearchSubmit}
-          className="search-input"
-        />
-        <FaSearch className="search-icon" onClick={handleSearchSubmit} />
-      </div>
+
       {suggestions.length > 0 && (
         <div className="suggestions-list">
           {suggestions.map(product => (

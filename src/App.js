@@ -12,6 +12,7 @@ import icono from "./icono.jpeg";
 import { useAuth } from "./context/authContext.js";
 import Inicio from "./components-private/Inicio.js";
 import { Encabezado } from "./components-private/Encabezado.js";
+import Show from './components/Show.js';
 
 function App() {
   const { estado } = useAuth();
@@ -19,8 +20,9 @@ function App() {
   if (!estado) {
     return (
       <div className="App">
-        <img src={icono} alt="Icono" className="icono" />
+        {/* <img src={icono} alt="Icono" className="icono" /> */}
         <Botones />
+        {/* <Show /> */}
         <Routes>
           <Route path="/" element={<Bienvenida />} />
           <Route path="/bienvenida" element={<Bienvenida />} />
