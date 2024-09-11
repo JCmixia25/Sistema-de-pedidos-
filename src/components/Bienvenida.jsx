@@ -1,7 +1,5 @@
-// src/components/Carrusel.jsx
-
 import React, { useState, useEffect } from 'react';
-import './Bienvenida.css'; // Asegúrate de que este archivo esté enlazado correctamente
+import './Bienvenida.css'; 
 
 const Carrusel = () => {
   const images = [
@@ -26,20 +24,18 @@ const Carrusel = () => {
 
   useEffect(() => {
     const interval = setInterval(() => {
-      goToNext();  // Cambia a la siguiente imagen cada 3 segundos
+      goToNext(); 
     }, 2000);
 
-    // Limpia el intervalo cuando el componente se desmonta
     return () => clearInterval(interval);
-  }, [currentIndex]);  // Vuelve a ejecutar useEffect si cambia currentIndex
+  }, [currentIndex]);
 
   return (
-    
-   
     <div className="carrusel">
-    <header className="texto">
-    <p className="welcome-text">BIENVENIDO PEDIDOS PERSIA</p>
-    </header>
+      <div className="carrusel-shadow"></div> {/* Capa de sombra */}
+      <header className="texto">
+        <p>BIENVENIDO PEDIDOS PERSIA</p>
+      </header>
       <button className="carrusel-button left" onClick={goToPrevious}>
         &#10094;
       </button>

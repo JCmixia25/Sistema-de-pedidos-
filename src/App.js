@@ -5,6 +5,7 @@ import Login from "./components/Login.js";
 import Register from "./components/Register.js";
 import Home from "./components/Home.js";
 import Contacts from "./components/Contacts.js";
+import Agregarpro from "./components/agregarpro.js";
 import Bienvenida from "./components/Bienvenida.jsx";
 import ProductDetail from "./components/ProductDetail"; // Importa el componente
 import icono from "./icono.jpeg";
@@ -14,16 +15,18 @@ import { Encabezado } from "./components-private/Encabezado.js";
 
 function App() {
   const { estado } = useAuth();
-  //validamos si hay sesion activa
+
   if (!estado) {
     return (
       <div className="App">
-          <Botones />
+        <img src={icono} alt="Icono" className="icono" />
+        <Botones />
         <Routes>
           <Route path="/" element={<Bienvenida />} />
           <Route path="/bienvenida" element={<Bienvenida />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/agregarpro" element={<Agregarpro />} />
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contacts />} />
           <Route path="/home/:id" element={<ProductDetail />} />{" "}
@@ -45,4 +48,4 @@ function App() {
   }
 }
 
-export default App;
+export default App;
