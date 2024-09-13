@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import ItemList from "./ItemList";
 import { pedirDatos } from "../helpers/pedirDatos"
+import "./ItemListContainer.css"
 
  const ItemListContainer = () => {
     
@@ -17,7 +18,7 @@ import { pedirDatos } from "../helpers/pedirDatos"
     }, [])
 
     return(
-        <div>
+        <div className="container-productos">
             {/* <ItemList productos={productos}/> */}
             {/* <ItemListContainer/> */}
             <ItemList productos={productos}/>
