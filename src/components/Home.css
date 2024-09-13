@@ -1,35 +1,53 @@
 .home-container {
-    padding: 100px;
+    /* padding: 100px; */
+    width: 79.5%;
+    height: 100%;
+    float: right;
+    border: solid 1px brown;
     text-align: center;
-    background-color: #f9f9f9;
+    background-color: white;
     background-repeat: no-repeat; /* Evita que la imagen se repita */
     background-size: cover; /* Asegura que la imagen cubra toda el área del contenedor */
     background-position: center; /* Centra la imagen dentro del contenedor */
-  }
+}
+
+.container-izquierdo{
+  border: solid 1px chartreuse;
+  width: 20%;
+  height: 100%;
+  background-color: white;
+  float: left;
+}
+
+.container-primario{
+  height: 500px;
+  background-color: #f0f0f0;
+}
 
   /* Resto del CSS... */
-  
-
 .search-container {
-  display: flex;
+  display: flex; 
   align-items: center;
-  justify-content: center;
-  margin-bottom: 20px;
-  position: sticky; /* Fija el contenedor cuando se desplaza fuera del viewport */
+  padding-right: 0;
+  
+  /* width: 70vh; */
+  /* position: absolute; */
+  /* justify-content: center; */
+  /* margin-bottom: 20px; */
+  /*position: sticky; Fija el contenedor cuando se desplaza fuera del viewport */
   top: 0; /* Se quedará pegado en la parte superior al hacer scroll */
   z-index: 1000; /* Asegura que esté por encima de otros elementos */
-  background-color: white; /* Fondo blanco para que sea visible si hay transparencia */
-  padding: 10px; /* Espaciado interno para el contenedor */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra para resaltar */
+  /*background-color: white;  Fondo blanco para que sea visible si hay transparencia */
+  /* padding: 10px;  Espaciado interno para el contenedor */
+  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); Sombra para resaltar */
   border-radius: 8px; /* Bordes redondeados */
-  width: 100%; /* Ajusta el ancho para que ocupe toda la pantalla */
-
+  /* width: 90vh;  Ajusta el ancho para que ocupe toda la pantalla */
 }
 
 .search-input {
-  width: 300px;
-  padding: 12px;
-  border: 2px solid #4caf50; /* Green border */
+  width: 50vh;
+  padding: 1vh;
+  border: 2px solid #088395; 
   border-radius: 4px 0 0 4px;
   outline: none;
   background-color: #fff; 
@@ -43,8 +61,8 @@
 .search-icon {
   font-size: 20px;
   color: white;
-  background-color: #4caf50;
-  padding: 12px;
+  background-color: #088395;
+  padding: 1vh;
   border-radius: 0 4px 4px 0;
   cursor: pointer;
   transition: background-color 0.3s; /* Smooth background transition */

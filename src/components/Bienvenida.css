@@ -1,7 +1,8 @@
 .carrusel {
     position: relative; /* Cambiado a relative para posicionar la sombra y el texto dentro del carrusel */
     width: 100%; 
-    height: 81.5vh; /* Asegura que cubra toda la pantalla */
+    /*height: 81.5vh;Asegura que cubra toda la pantalla */
+   
     display: flex;
     align-items: center;
     justify-content: center;
@@ -25,7 +26,7 @@
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    /* height: 100%; */
     background-color: rgba(0, 0, 0, 0.5); /* Sombra semi-transparente negra */
     z-index: 5; /* Debajo del texto pero encima de las imágenes */
 }
