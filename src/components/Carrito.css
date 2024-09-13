@@ -24,6 +24,7 @@ html, body {
 h2 {
     text-align: center;
     margin-bottom: 20px;
+    font-size: 28px; /* Tamaño de encabezado aumentado */
 }
 
 .producto {
@@ -51,10 +52,11 @@ h2 {
 .producto-nombre {
     font-weight: bold;
     text-align: left;
+    font-size: 20px; /* Tamaño de letra aumentado */
 }
 
 .producto-codigo {
-    font-size: 14px;
+    font-size: 16px; /* Tamaño de letra aumentado */
     margin-top: 5px;
     text-align: left;
 }
@@ -89,8 +91,18 @@ h2 {
 }
 
 .resumen-compra {
-    margin-top: 10px; /* Reduce el margen superior para moverlo más arriba */
-    text-align: right;
+    margin-top: 10px; /* Margen superior para mantener el espacio original */
+    text-align: left; /* Alinea el texto a la izquierda */
+    width: 100%; /* Asegura que el contenedor ocupe el 100% del ancho */
+    padding-left: 2100px; /* Mueve el texto hacia la derecha (ajusta el valor según sea necesario) */
+    position: relative; /* Permite usar 'top' sin afectar el flujo de otros elementos */
+    top: -450px; /* Ajusta este valor para subir el texto sin afectar el espacio inferior */
+    font-size: 36px; /* Tamaño de fuente más grande */
+}
+
+.resumen-compra > h3 {
+    font-size: 60px; /* Tamaño deseado */
+    padding-left: 70px; /* Ajusta este valor según sea necesario */
 }
 
 .btn-finalizar {
@@ -101,6 +113,7 @@ h2 {
     background-color: #4caf50;
     color: white;
     cursor: pointer;
+    font-size: 40px; /* Tamaño de letra aumentado */
 }
 
 .btn-continuar {
@@ -111,4 +124,5 @@ h2 {
     background-color: #2196f3;
     color: white;
     cursor: pointer;
+    font-size: 40px; /* Tamaño de letra aumentado */
 }

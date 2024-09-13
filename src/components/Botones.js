@@ -1,10 +1,8 @@
 import React, { useState } from "react";
 import "./Botones.css";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import icono from "./icono.png";
-import { useNavigate } from "react-router-dom";
-
-import { FaSearch } from "react-icons/fa";
+import { FaSearch, FaShoppingCart } from "react-icons/fa"; // Importa el icono de carrito
 import agricultura from "../imagenes/agricultura.jpg";
 import cosechadora from "../imagenes/cosechadora.jpg";
 import carreta from "../imagenes/carreta.jpg";
@@ -60,74 +58,17 @@ const categories = [
 
 export const Botones = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-
-  const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
-  const [expandedCategory, setExpandedCategory] = useState(null);
-  const [suggestions, setSuggestions] = useState([]);
 
   const handleSearchChange = (e) => {
     const term = e.target.value;
     setSearchTerm(term);
-    setSuggestions(findProductsByName(term)); // Actualiza las sugerencias
-  };
-
-  const handleProductClick = (productId) => {
-    navigate(`/home/${productId}`);
-  };
-
-  const toggleCategory = (index) => {
-    setExpandedCategory(expandedCategory === index ? null : index);
   };
 
   const handleSearchSubmit = (e) => {
     if (e.key === "Enter" || e.type === "click") {
-      const product = findProductByName(searchTerm);
-      if (product) {
-        handleProductClick(product.id);
-      }
+      // Aquí puedes manejar la búsqueda
     }
-  };
-
-  const findProductByName = (name) => {
-    for (const category of categories) {
-      const products = category.products || [];
-      if (category.subcategories) {
-        for (const subcategory of category.subcategories) {
-          const matchedProduct = subcategory.products.find(
-            (product) => product.name.toLowerCase() === name.toLowerCase()
-          );
-          if (matchedProduct) return matchedProduct;
-        }
-      } else {
-        const matchedProduct = products.find(
-          (product) => product.name.toLowerCase() === name.toLowerCase()
-        );
-        if (matchedProduct) return matchedProduct;
-      }
-    }
-    return null; // No se encontró el producto
-  };
-
-  const findProductsByName = (name) => {
-    const results = [];
-    for (const category of categories) {
-      const products = category.products || [];
-      if (category.subcategories) {
-        for (const subcategory of category.subcategories) {
-          const matchedProducts = subcategory.products.filter((product) =>
-            product.name.toLowerCase().includes(name.toLowerCase())
-          );
-          results.push(...matchedProducts);
-        }
-      } else {
-        const matchedProducts = products.filter((product) =>
-          product.name.toLowerCase().includes(name.toLowerCase())
-        );
-        results.push(...matchedProducts);
-      }
-    }
-    return results; // Retorna todos los productos coincidentes
   };
 
   return (
@@ -161,11 +102,16 @@ export const Botones = () => {
               <FaSearch className="search-icon" onClick={handleSearchSubmit} />
             </div>
             <div className="inicio-sesion">
-              <p className="inicio-sesion-text">Iniciar<br/>sesión</p>
+              <p className="inicio-sesion-text">Iniciar<br/>Sesión</p>
             </div>
             <div className="carrito-compras">
-              <p className="inicio-sesion-text">Mi<br/>carrito</p>
-            </div>
+  <NavLink to="/carrito" className="carrito-boton">
+    <div className="icono-y-texto">
+      <FaShoppingCart className="carrito-icono" />
+      <p className="inicio-sesion-text">Mi Carrito</p>
+    </div>
+  </NavLink>
+</div>
           </div>
           <div className="div-link">
             <ul className={menuOpen ? "open" : ""}>
