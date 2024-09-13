@@ -1,0 +1,41 @@
+[
+    {
+        "id": 1,
+        "titulo": "arnés eléctrico",
+        "descripcion": "arnés eléctrico para fertilizadora",
+        "categoria": "electrico",
+        "imagen": "https://m.media-amazon.com/images/I/6113J9LwGWL.jpg",
+        "precio": 1500
+
+    },
+    {
+        "id": 2,
+        "titulo": "conector",
+        "descripcion": "conector eléctrico para fertilizadora",
+        "categoria": "electrico",
+        "imagen": "https://mm.digikey.com/Volume0/opasdata/d220001/medias/images/734/206554-1.jpg",
+        "precio": 500
+
+    },
+    {
+        "id": 3,
+        "titulo": "sensor inductivo",
+        "descripcion": "sensor para detectar las rpm de la máquina",
+        "imagen": "https://tienda.tettsa.gt/wp-content/uploads/2023/02/LJ12A3-4-ZBX-C.jpeg",
+        "precio": 1000
+    },
+    {
+        "id": 4,
+        "titulo": "Bomba bertolini",
+        "descripcion": "bomba de 300 Lm / min ",
+        "imagen": "https://images.kramp.com/images/8b/9a/626100973vs.jpg",
+        "precio": 50000
+    },
+    {
+        "id": 5,
+        "titulo": "Antena Novatel",
+        "descripcion": "Antena GPS novatel de 10 hz",
+        "imagen": "https://precisionfarmingiberia.com/wp-content/uploads/2020/08/novatel.jpg",
+        "precio": 50000
+    }
+]

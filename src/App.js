@@ -14,6 +14,9 @@ import Inicio from "./components-private/Inicio.js";
 import { Encabezado } from "./components-private/Encabezado.js";
 import Show from './components/Show.js';
 import PieDePagina from './components/PieDePagina.js';
+import ListaProductos from './productos/ListaProductos'
+import ItemDetailContainer from "./productos/ItemDetailContainer.js";
+import ItemListContainer from "./productos/ItemListContainer.js";
 
 function App() {
   const { estado } = useAuth();
@@ -24,8 +27,10 @@ function App() {
         {/* <img src={icono} alt="Icono" className="icono" /> */}
         <Botones />
         {/* <Show /> */}
-        <Routes>
-          <Route path="/" element={<Bienvenida />} />
+        {/* <ItemListContainer/> */}
+        {/* <ItemDetailContainer itemId={2}/> */}
+         <Routes>
+           <Route path="/" element={<Bienvenida />} />
           <Route path="/bienvenida" element={<Bienvenida />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -33,9 +38,10 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contacts />} />
           <Route path="/home/:id" element={<ProductDetail />} />{" "}
+          <Route path="/listaProductos" element={<ListaProductos/>}/> 
           {/* Nueva ruta para el detalle del producto */}
         </Routes>
-        <PieDePagina />
+         <PieDePagina /> 
       </div>
     );
   } else {
