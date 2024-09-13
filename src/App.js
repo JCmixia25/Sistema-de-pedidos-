@@ -36,6 +36,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/agregarpro" element={<Agregarpro />} />
+          <Route path="/carrito" element={<Carrito />} />
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contacts />} />
           <Route path="/home/:id" element={<ProductDetail />} />{" "}
