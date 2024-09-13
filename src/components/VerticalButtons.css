@@ -1,0 +1,20 @@
+.button-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+  }
+  
+.vertical-button {
+    margin-bottom: 10px;
+    text-align: left;
+    background-color: aliceblue;
+    color: black;
+    margin: 0;
+    border-radius: 5px;
+    border: solid 1.5px darkgrey;
+}
+
+.vertical-button:hover{
+    background-color: #003366;
+    color: white;
+}
