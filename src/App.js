@@ -6,6 +6,7 @@ import Register from "./components/Register.js";
 import Home from "./components/Home.js";
 import Contacts from "./components/Contacts.js";
 import Agregarpro from "./components/agregarpro.js";
+import Carrito from "./components/Carrito.js";
 import Bienvenida from "./components/Bienvenida.jsx";
 import ProductDetail from "./components/ProductDetail"; // Importa el componente
 import icono from "./icono.jpeg";
@@ -14,40 +15,6 @@ import Inicio from "./components-private/Inicio.js";
 import { Encabezado } from "./components-private/Encabezado.js";
 
 function App() {
-<<<<<<< HEAD
-  const { estado } = useAuth();
-
-  if (!estado) {
-    return (
-      <div className="App">
-        <img src={icono} alt="Icono" className="icono" />
-        <Botones />
-        <Routes>
-          <Route path="/" element={<Bienvenida />} />
-          <Route path="/bienvenida" element={<Bienvenida />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/agregarpro" element={<Agregarpro />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/contact" element={<Contacts />} />
-          <Route path="/home/:id" element={<ProductDetail />} />{" "}
-          {/* Nueva ruta para el detalle del producto */}
-        </Routes>
-      </div>
-    );
-  } else {
-    return (
-      <div className="App">
-        <img src={icono} alt="Icono" className="icono" />
-        <Encabezado />
-        <Routes>
-          <Route path="/" element={<Inicio />} />
-          <Route path="/inicio" element={<Inicio />} />
-        </Routes>
-      </div>
-    );
-  }
-=======
 const { estado } = useAuth();
 //validamos si hay sesion activa
 if (!estado) {
@@ -61,6 +28,8 @@ return (
 <Route path="/login" element={<Login />} />
 <Route path="/register" element={<Register />} />
 <Route path="/contact" element={<Contacts />} />
+<Route path="/agregarpro" element={<Agregarpro />} />
+<Route path="/carrito" element={<Carrito />} />
 <Route path="/home/:id" element={<ProductDetail />} />{" "}
 {/* Nueva ruta para el detalle del producto */}
 </Routes>
@@ -78,7 +47,6 @@ return (
 </div>
 );
 }
->>>>>>> c4ec9938c6e13770c83a1714e10c374382b5236c
 }
 
 export default App; 
