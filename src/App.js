@@ -6,6 +6,7 @@ import Register from "./components/Register.js";
 import Home from "./components/Home.js";
 import Contacts from "./components/Contacts.js";
 import Agregarpro from "./components/agregarpro.js";
+import Carrito from "./components/Carrito.js";
 import Bienvenida from "./components/Bienvenida.jsx";
 import ProductDetail from "./components/ProductDetail"; 
 import icono from "./icono.jpeg";
@@ -35,6 +36,7 @@ function App() {
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/agregarpro" element={<Agregarpro />} />
+          <Route path="/carrito" element={<Carrito />} />
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contacts />} />
           <Route path="/home/:id" element={<ProductDetail />} />{" "}
