@@ -1,0 +1,11 @@
+.imagen-producto{
+    width: 80%;
+    height: 75%;
+}
+.container-datos-productos{
+    border: solid 1px chartreuse;
+    margin: 5px;
+    width: 25%;
+    height: 25%;
+    display: inline-block;
+}

@@ -1,9 +1,10 @@
 import React from 'react'
+import "./Item.css"
 
 const Item = ( {producto}) => {
     return(
-        <div>
-            <img alt="No se puedo mostrar la imagen " src={producto.imagen}/>
+        <div className="container-datos-productos">
+            <img className="imagen-producto" alt="No se puedo mostrar la imagen " src={producto.imagen}/>
             <div>
                 <h4>{producto.titulo}</h4>
                 <p>Precio: ${producto.precio}</p>

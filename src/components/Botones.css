@@ -189,3 +189,19 @@ nav .menu span {
   color: rgb(14, 14, 14); /* Color del icono */
 }
 
+.search-iconn{
+  color: white;
+}
+
+.container-icon-search{
+  width: 4.5vh;
+  background-color: #071952;
+  height: 4.5vh;
+  position: relative;
+  padding-top: 5px;
+  border-bottom-right-radius: 5px;
+  border-top-right-radius: 5px;
+}
+.container-icon-search:hover{
+  background-color: blue;
+}

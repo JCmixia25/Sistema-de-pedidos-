@@ -99,19 +99,28 @@ export const Botones = () => {
                 onKeyPress={handleSearchSubmit}
                 className="search-input"
               />
-              <FaSearch className="search-icon" onClick={handleSearchSubmit} />
+              <div className="container-icon-search">
+                <FaSearch
+                  className="search-iconn"
+                  onClick={handleSearchSubmit}
+                />
+              </div>
             </div>
             <div className="inicio-sesion">
-              <p className="inicio-sesion-text">Iniciar<br/>Sesión</p>
+              <p className="inicio-sesion-text">
+                Iniciar
+                <br />
+                Sesión
+              </p>
             </div>
             <div className="carrito-compras">
-  <NavLink to="/carrito" className="carrito-boton">
-    <div className="icono-y-texto">
-      <FaShoppingCart className="carrito-icono" />
-      <p className="inicio-sesion-text">Mi Carrito</p>
-    </div>
-  </NavLink>
-</div>
+              <NavLink to="/carrito" className="carrito-boton">
+                <div className="icono-y-texto">
+                  <FaShoppingCart className="carrito-icono" />
+                  <p className="inicio-sesion-text">Mi Carrito</p>
+                </div>
+              </NavLink>
+            </div>
           </div>
           <div className="div-link">
             <ul className={menuOpen ? "open" : ""}>
