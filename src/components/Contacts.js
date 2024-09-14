@@ -5,6 +5,7 @@ import MyMapComponent from "./MyMapComponent";
 const Contacts = () => {
   return (
     <div className="contacts-container">
+      <div className="inner-container">
       <h1>CONTÁCTENOS</h1>
       <div className="contact-info">
         <h2>Información de Contacto</h2>
@@ -53,6 +54,7 @@ const Contacts = () => {
         <p><strong>Dirección:</strong> 33 CALLE "C", 10-16, ZONA 7, COLONIA BAMVI II GUATEMALA</p>
         {/* Aquí añades el mapa con la nueva ubicación */}
         <MyMapComponent />
+      </div>
       </div>
     </div>
   );
