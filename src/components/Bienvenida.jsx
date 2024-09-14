@@ -34,7 +34,7 @@ const Carrusel = () => {
     <div className="carrusel">
       <div className="carrusel-shadow"></div> {/* Capa de sombra */}
       <header className="texto">
-        <p>BIENVENIDO PEDIDOS PERSIA</p>
+        <p className="texto-mensaje">BIENVENIDO PEDIDOS PERSIA</p>
       </header>
       <button className="carrusel-button left" onClick={goToPrevious}>
         &#10094;

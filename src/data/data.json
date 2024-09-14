@@ -37,5 +37,12 @@
         "descripcion": "Antena GPS novatel de 10 hz",
         "imagen": "https://precisionfarmingiberia.com/wp-content/uploads/2020/08/novatel.jpg",
         "precio": 50000
+    },
+    {
+        "id": 6,
+        "titulo": "Antena Novatel",
+        "descripcion": "Antena GPS novatel de 10 hz",
+        "imagen": "https://precisionfarmingiberia.com/wp-content/uploads/2020/08/novatel.jpg",
+        "precio": 50000
     }
 ]

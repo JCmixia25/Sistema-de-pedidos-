@@ -7,10 +7,10 @@ const Item = ( {producto}) => {
             <img className="imagen-producto" alt="No se puedo mostrar la imagen " src={producto.imagen}/>
             <div>
                 <h4>{producto.titulo}</h4>
-                <p>Precio: ${producto.precio}</p>
-                <p>Categoria: {producto.categoria}</p>
-                <p>{producto.descripcion}</p>
-                <a href={`/item/${producto.id}`}>Ver más</a>
+                <p className="informacion-producto">Precio: ${producto.precio}</p>
+                <p className="informacion-producto">Categoria: {producto.categoria}</p>
+                <p className="informacion-producto">{producto.descripcion}</p>
+                <a className="informacion-producto" href={`/item/${producto.id}`}>Ver más</a>
             </div>
         </div>
     )

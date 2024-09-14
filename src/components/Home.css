@@ -1,45 +1,51 @@
 /* Asegura que el contenedor izquierdo esté fijo en la pantalla */
 .container-izquierdo {
-  position: fixed; /* Fija el contenedor en su posición */
+
+  float: left;
   top: 5;
   left: 0;
-  width: 20%; /* Mantiene el ancho del contenedor */
-  height: 69vh; /* Hace que ocupe toda la altura de la pantalla */
-  background-color: white;
-  border: solid 1px chartreuse;
+  width: 25%; /* Mantiene el ancho del contenedor */
   z-index: 1000; /* Asegura que esté por encima de otros elementos si es necesario */
+  
+  
+  /* background-color: rgb(76, 98, 236); */
+  /* border: solid 1px chartreuse; */
+  /* Fija el contenedor en su posición */
+  /* display: inline-block; */
+  /* height: 69vh;  Hace que ocupe toda la altura de la pantalla */
+ 
 }
 
 /* Ajustes para el contenedor de la derecha */
 .home-container {
-  margin-left: 20%; /* Mueve el contenido a la derecha para no solaparse con el contenedor izquierdo */
-  width: 80%; /* Ajusta el ancho para que ocupe el 80% restante */
-  height: 69vh; /* Hace que cubra toda la pantalla */
+  width: 90%; /* Ajusta el ancho para que ocupe el 80% restante */
   float: right;
-  border: solid 1px brown;
   text-align: center;
+  /* background-color: #2e7d32; */
+
+  /* display: inline-block; */
+ /* Mueve el contenido a la derecha para no solaparse con el contenedor izquierdo */
+  /*height: 69vh;  Hace que cubra toda la pantalla */
+  /* background-repeat: no-repeat; */
+  /* background-size: cover; */
+  /* background-position: center; */
+  /*overflow-y: auto; Hace que el contenido sea desplazable */
+}
+
+.container-primario {
+  display: flex;
   background-color: white;
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: center;
-  overflow-y: auto; /* Hace que el contenido sea desplazable */
+
+
+  /* height: 80vh; */
 }
 
-
-
-
-.container-primario{
-  height: 80%;
-  height: 80%;
-  background-color: #f0f0f0;
-}
-
-  /* Resto del CSS... */
+/* Resto del CSS... */
 .search-container {
-  display: flex; 
+  display: flex;
   align-items: center;
   padding-right: 0;
-  
+
   /* width: 70vh; */
   /* position: absolute; */
   /* justify-content: center; */
@@ -57,10 +63,10 @@
 .search-input {
   width: 50vh;
   padding: 1vh;
-  border: 2px solid #088395; 
+  border: 2px solid #088395;
   border-radius: 4px 0 0 4px;
   outline: none;
-  background-color: #fff; 
+  background-color: #fff;
   transition: border-color 0.3s; /* Smooth border transition */
 }
 
@@ -209,10 +215,9 @@
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
 }
 
-h1 { 
-    
-  background-color: #00712D;
+h1 {
+  background-color: #00712d;
   padding: 10px;
   margin: 0;
-  border-radius: 5px;}
-
+  border-radius: 5px;
+}
