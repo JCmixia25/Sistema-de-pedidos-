@@ -4,7 +4,7 @@
   top: 5;
   left: 0;
   width: 20%; /* Mantiene el ancho del contenedor */
-  height: 61vh; /* Hace que ocupe toda la altura de la pantalla */
+  height: 69vh; /* Hace que ocupe toda la altura de la pantalla */
   background-color: white;
   border: solid 1px chartreuse;
   z-index: 1000; /* Asegura que esté por encima de otros elementos si es necesario */
@@ -14,7 +14,7 @@
 .home-container {
   margin-left: 20%; /* Mueve el contenido a la derecha para no solaparse con el contenedor izquierdo */
   width: 80%; /* Ajusta el ancho para que ocupe el 80% restante */
-  height: 61vh; /* Hace que cubra toda la pantalla */
+  height: 69vh; /* Hace que cubra toda la pantalla */
   float: right;
   border: solid 1px brown;
   text-align: center;

@@ -1,11 +1,13 @@
 .pie-de-pagina {
-    background-color:  #071952;
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-  }
+  background-color: #071952;
+  color: white;
+  text-align: center;
+  padding: 10px 0; /* Reduce el padding vertical */
+  font-size: 0.9rem; /* Disminuye el tamaño del texto si es necesario */
+}
 
-  .informacion{
-    color: white;
-  }
-  
+.informacion {
+  color: white;
+  margin: 0; /* Asegúrate de que no haya márgenes adicionales */
+  padding: 0; /* Evita padding extra si hay */
+}
