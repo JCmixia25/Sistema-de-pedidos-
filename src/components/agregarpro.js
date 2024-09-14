@@ -127,7 +127,7 @@ export function AddProduct() {
       </form>
 
       {/* Formulario para subir imágenes */}
-      <h2>Agregar Imágenes del Producto</h2>
+      <h2>Agregar Imágenes del Productos</h2>
       <form onSubmit={handleImageSubmit} className="image-form">
         <label>
           Imagen 1
