@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 /* Estilos para el componente Item */
 .item-container {
     display: flex;
@@ -53,17 +52,3 @@
     text-decoration: underline; /* Subraya el enlace al pasar el cursor */
   }
   
-=======
-.item-producto{
-    /* background-color: aquamarine; */
-    border: solid 1px darkorange; 
-    display: inline-block;
-    margin: 5px;
-    padding: 10%;
-    width: 20%;
-}
-.imagen-producto{
-    padding: 20%;
-    width: 40%;
-}
->>>>>>> df6fa8078b686725bcef05cc07617e177b6b3ae2
