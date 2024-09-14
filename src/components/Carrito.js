@@ -4,7 +4,7 @@ import hercules from '../imagenes/hercules.jpg';
 import plataforma from '../imagenes/plataforma.jpg';
 import agricultura from '../imagenes/agricultura.jpg';
 import cosechadora from '../imagenes/cosechadora.jpg';
-import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa'; // Importa los íconos necesarios
+import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
 const productosIniciales = [
   {

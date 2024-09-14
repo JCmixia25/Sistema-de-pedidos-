@@ -8,7 +8,7 @@ html, body {
     height: 100%;
     margin: 0;
     background-color: #4A90E2;
-    overflow: hidden;
+    overflow: auto; /* Cambiado a auto */
 }
 
 .carrito-container {
@@ -24,21 +24,21 @@ html, body {
 h2 {
     text-align: center;
     margin-bottom: 20px;
-    font-size: 28px; /* Tamaño de encabezado aumentado */
+    font-size: 24px; /* Ajustado */
 }
 
 .producto {
     display: flex;
-    align-items: center; /* Alineación vertical centrada */
-    justify-content: space-between; /* Espacio entre elementos */
+    align-items: center;
+    justify-content: space-between;
     padding: 10px;
     border-bottom: 1px solid #ddd;
-    position: relative; /* Permite el uso de posicionamiento absoluto en hijos */
+    position: relative;
 }
 
 .producto-imagen {
-    width: 200px; /* Tamaño de imagen aumentado */
-    height: auto; /* Mantiene la proporción de la imagen */
+    width: 150px; /* Ajustado */
+    height: auto;
     margin-right: 10px;
 }
 
@@ -52,11 +52,11 @@ h2 {
 .producto-nombre {
     font-weight: bold;
     text-align: left;
-    font-size: 20px; /* Tamaño de letra aumentado */
+    font-size: 18px; /* Ajustado */
 }
 
 .producto-codigo {
-    font-size: 16px; /* Tamaño de letra aumentado */
+    font-size: 14px; /* Ajustado */
     margin-top: 5px;
     text-align: left;
 }
@@ -75,54 +75,41 @@ h2 {
     cursor: pointer;
 }
 
-/* Nueva regla para centrar los íconos de eliminar */
 .btn-eliminar {
     background-color: transparent;
     border: none;
     cursor: pointer;
     color: red;
-    font-size: 20px; /* Tamaño del ícono */
-    display: flex;
-    align-items: center; /* Centrar verticalmente */
-    justify-content: center; /* Centrar horizontalmente */
-    position: absolute; /* Posiciona el botón dentro del contenedor */
-    right: 50%; /* Mueve el botón hacia el centro horizontalmente */
-    transform: translateX(50%); /* Ajusta el botón para centrarlo completamente */
+    font-size: 20px;
 }
 
 .resumen-compra {
-    margin-top: 10px; /* Margen superior para mantener el espacio original */
-    text-align: left; /* Alinea el texto a la izquierda */
-    width: 100%; /* Asegura que el contenedor ocupe el 100% del ancho */
-    padding-left: 2100px; /* Mueve el texto hacia la derecha (ajusta el valor según sea necesario) */
-    position: relative; /* Permite usar 'top' sin afectar el flujo de otros elementos */
-    top: -450px; /* Ajusta este valor para subir el texto sin afectar el espacio inferior */
-    font-size: 36px; /* Tamaño de fuente más grande */
+    margin-top: 10px;
+    text-align: left;
+    width: 100%;
+    padding: 0; /* Ajustado */
+    position: relative;
+    font-size: 36px;
 }
 
 .resumen-compra > h3 {
-    font-size: 60px; /* Tamaño deseado */
-    padding-left: 70px; /* Ajusta este valor según sea necesario */
+    font-size: 48px; /* Ajustado */
+}
+
+.btn-finalizar, .btn-continuar {
+    margin-top: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    color: white;
+    cursor: pointer;
+    font-size: 24px; /* Ajustado */
 }
 
 .btn-finalizar {
-    margin-top: 10px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
     background-color: #4caf50;
-    color: white;
-    cursor: pointer;
-    font-size: 40px; /* Tamaño de letra aumentado */
 }
 
 .btn-continuar {
-    margin-top: 10px;
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
     background-color: #2196f3;
-    color: white;
-    cursor: pointer;
-    font-size: 40px; /* Tamaño de letra aumentado */
 }
