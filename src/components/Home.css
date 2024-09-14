@@ -1,26 +1,36 @@
-.home-container {
-    /* padding: 100px; */
-    width: 79.5%;
-    height: 100%;
-    float: right;
-    border: solid 1px brown;
-    text-align: center;
-    background-color: white;
-    background-repeat: no-repeat; /* Evita que la imagen se repita */
-    background-size: cover; /* Asegura que la imagen cubra toda el área del contenedor */
-    background-position: center; /* Centra la imagen dentro del contenedor */
+/* Asegura que el contenedor izquierdo esté fijo en la pantalla */
+.container-izquierdo {
+  position: fixed; /* Fija el contenedor en su posición */
+  top: 5;
+  left: 0;
+  width: 20%; /* Mantiene el ancho del contenedor */
+  height: 61vh; /* Hace que ocupe toda la altura de la pantalla */
+  background-color: white;
+  border: solid 1px chartreuse;
+  z-index: 1000; /* Asegura que esté por encima de otros elementos si es necesario */
 }
 
-.container-izquierdo{
-  border: solid 1px chartreuse;
-  width: 20%;
-  height: 100%;
+/* Ajustes para el contenedor de la derecha */
+.home-container {
+  margin-left: 20%; /* Mueve el contenido a la derecha para no solaparse con el contenedor izquierdo */
+  width: 80%; /* Ajusta el ancho para que ocupe el 80% restante */
+  height: 61vh; /* Hace que cubra toda la pantalla */
+  float: right;
+  border: solid 1px brown;
+  text-align: center;
   background-color: white;
-  float: left;
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  overflow-y: auto; /* Hace que el contenido sea desplazable */
 }
+
+
+
 
 .container-primario{
-  height: 500px;
+  height: 80%;
+  height: 80%;
   background-color: #f0f0f0;
 }
 
