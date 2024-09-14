@@ -3,20 +3,18 @@
   position: fixed; /* Fija el contenedor en su posición */
   top: 5;
   left: 0;
-  width: 20%; /* Mantiene el ancho del contenedor */
-  height: 61vh; /* Hace que ocupe toda la altura de la pantalla */
+  width: 18%; /* Mantiene el ancho del contenedor */
+  height: 69vh; /* Hace que ocupe toda la altura de la pantalla */
   background-color: white;
-  border: solid 1px chartreuse;
   z-index: 1000; /* Asegura que esté por encima de otros elementos si es necesario */
 }
 
 /* Ajustes para el contenedor de la derecha */
 .home-container {
   margin-left: 20%; /* Mueve el contenido a la derecha para no solaparse con el contenedor izquierdo */
-  width: 80%; /* Ajusta el ancho para que ocupe el 80% restante */
-  height: 61vh; /* Hace que cubra toda la pantalla */
+  width: 82%; /* Ajusta el ancho para que ocupe el 80% restante */
+  height: 69vh; /* Hace que cubra toda la pantalla */
   float: right;
-  border: solid 1px brown;
   text-align: center;
   background-color: white;
   background-repeat: no-repeat;
@@ -50,7 +48,7 @@
   /*background-color: white;  Fondo blanco para que sea visible si hay transparencia */
   /* padding: 10px;  Espaciado interno para el contenedor */
   /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); Sombra para resaltar */
-  border-radius: 8px; /* Bordes redondeados */
+  border-radius: 4px; /* Bordes redondeados */
   /* width: 90vh;  Ajusta el ancho para que ocupe toda la pantalla */
 }
 

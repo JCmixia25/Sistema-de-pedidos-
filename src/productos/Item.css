@@ -1,0 +1,54 @@
+/* Estilos para el componente Item */
+.item-container {
+    display: flex;
+    align-items: flex-start; /* Alinea la imagen y el contenido al inicio verticalmente */
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #ccc; /* Borde para diferenciar los items */
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para resaltar el item */
+    transition: box-shadow 0.3s; /* Efecto de transición para la sombra */
+  }
+  
+  .item-container:hover {
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2); /* Sombra más intensa al pasar el cursor */
+  }
+  
+  .item-container img {
+    max-width: 150px; /* Tamaño máximo para la imagen */
+    width: 100%; /* Se adapta al tamaño del contenedor */
+    height: auto; /* Mantiene la proporción original */
+    border-radius: 8px; /* Bordes redondeados para la imagen */
+    margin-right: 20px; /* Espacio entre la imagen y el contenido */
+  }
+  
+  .item-container div {
+    flex: 1; /* Ocupa el resto del espacio para el contenido */
+  }
+  
+  .item-container h4 {
+    font-size: 1.6rem; /* Tamaño de fuente para el título */
+    margin: 0 0 10px 0;
+    color: #333; /* Color del texto */
+  }
+  
+  .item-container p {
+    font-size: 1.1rem;
+    color: #666; /* Color para el texto de la descripción y categoría */
+    margin: 5px 0;
+  }
+  
+  .item-container a {
+    color: #00712D;
+    font-weight: bold;
+    text-decoration: none;
+    font-size: 1.1rem;
+    margin-top: 10px;
+    display: inline-block;
+  }
+  
+  .item-container a:hover {
+    color: #004d1a; /* Cambia de color al hacer hover */
+    text-decoration: underline; /* Subraya el enlace al pasar el cursor */
+  }
+  

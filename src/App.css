@@ -1,6 +1,5 @@
 .App {
   text-align: center;
-  height: 25%;
 }
 
 /* Imagen de fondo */
@@ -31,7 +30,7 @@
 /* Asegúrate de que el fondo de toda la página sea blanco */
 body {
   margin: 0;
-  background-color: rgb(60, 36, 147); /* Fondo blanco para toda la página */
+  background-color: rgb(243, 242, 247); /* Fondo blanco para toda la página */
 }
 
 .header-nav {

@@ -1,28 +1,34 @@
 import { useEffect, useState } from 'react';
 import ItemList from "./ItemList";
-import { pedirDatos } from "../helpers/pedirDatos"
+import { pedirDatos } from "../helpers/pedirDatos"; // Asegúrate que la ruta es correcta
 
- const ItemListContainer = () => {
-    
+const ItemListContainer = () => {
     const [productos, setProductos] = useState([]);
-    console.log(productos);
+    const [loading, setLoading] = useState(true); // Estado para controlar la carga
 
     useEffect(() => {
-
-        //setProductos(pedirDatos);
+        // Simula la petición de datos
         pedirDatos()
             .then((res) => {
-                setProductos(res);
+                setProductos(res); // Almacena los productos en el estado
             })
-    }, [])
+            .catch((error) => {
+                console.error("Error al cargar los productos:", error);
+            })
+            .finally(() => {
+                setLoading(false); // Finaliza la carga
+            });
+    }, []);
 
-    return(
+    if (loading) {
+        return <p>Cargando productos...</p>; // Mensaje mientras se cargan los productos
+    }
+
+    return (
         <div>
-            {/* <ItemList productos={productos}/> */}
-            {/* <ItemListContainer/> */}
-            <ItemList productos={productos}/>
+            <ItemList productos={productos} /> {/* Pasamos los productos a ItemList */}
         </div>
     );
 }
 
-export default ItemListContainer
+export default ItemListContainer;
