@@ -1,0 +1,36 @@
+/* Estilos para ajustar el tamaño de las imágenes en ItemDetail */
+.item-detail-container {
+    display: flex;
+    align-items: center; /* Alinea el contenido verticalmente */
+    justify-content: space-between; /* Acomoda espacio entre imagen y descripción */
+    margin: 20px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Sombra para destacar el detalle del producto */
+  }
+  
+  .item-detail-container img {
+    max-width: 300px; /* Ajusta este valor según el tamaño máximo que desees */
+    width: 100%; /* Asegura que ocupe el 100% del contenedor si es más pequeño */
+    height: auto; /* Mantiene la relación de aspecto original */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para la imagen */
+    margin-right: 20px;
+  }
+  
+  .item-detail-container div {
+    flex: 1; /* Hace que la descripción ocupe todo el espacio restante */
+  }
+  
+  .item-detail-container h3 {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  
+  .item-detail-container p {
+    font-size: 1.2rem;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
