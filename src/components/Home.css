@@ -6,7 +6,9 @@
   left: 0;
   width: 25%; /* Mantiene el ancho del contenedor */
   z-index: 1000; /* Asegura que esté por encima de otros elementos si es necesario */
-  
+  /* margin-top: 10px; */
+  padding-top: 20px;
+  box-shadow: 0px 0px 15px 2px rgb(174, 172, 172);
   
   /* background-color: rgb(76, 98, 236); */
   /* border: solid 1px chartreuse; */
@@ -40,39 +42,7 @@
   /* height: 80vh; */
 }
 
-/* Resto del CSS... */
-.search-container {
-  display: flex;
-  align-items: center;
-  padding-right: 0;
 
-  /* width: 70vh; */
-  /* position: absolute; */
-  /* justify-content: center; */
-  /* margin-bottom: 20px; */
-  /*position: sticky; Fija el contenedor cuando se desplaza fuera del viewport */
-  top: 0; /* Se quedará pegado en la parte superior al hacer scroll */
-  z-index: 1000; /* Asegura que esté por encima de otros elementos */
-  /*background-color: white;  Fondo blanco para que sea visible si hay transparencia */
-  /* padding: 10px;  Espaciado interno para el contenedor */
-  /* box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); Sombra para resaltar */
-  border-radius: 8px; /* Bordes redondeados */
-  /* width: 90vh;  Ajusta el ancho para que ocupe toda la pantalla */
-}
-
-.search-input {
-  width: 50vh;
-  padding: 1vh;
-  border: 2px solid #088395;
-  border-radius: 4px 0 0 4px;
-  outline: none;
-  background-color: #fff;
-  transition: border-color 0.3s; /* Smooth border transition */
-}
-
-.search-input:focus {
-  border-color: #2e7d32; /* Darker green on focus */
-}
 
 .search-icon {
   font-size: 20px;

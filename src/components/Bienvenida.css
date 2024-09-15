@@ -1,14 +1,16 @@
-.carrusel {
+/*Estilos para dispositivos con una pantalla maximo de 600px*/
+@media screen and (max-width: 600px) {
+  .carrusel {
     position: relative; /* Cambiado a relative para posicionar la sombra y el texto dentro del carrusel */
-    width: 100%; 
+    width: 100%;
     height: 100%; /* Asegura que cubra toda la pantalla */
     display: flex;
     align-items: center;
     justify-content: center;
     overflow: hidden;
-}
+  }
 
-.texto{
+  .texto {
     position: absolute; /* Posiciona el texto sobre la imagen del carrusel */
     top: 50%; /* Centra el texto verticalmente */
     left: 50%; /* Centra el texto horizontalmente */
@@ -19,33 +21,34 @@
     z-index: 15;
     color: rgb(255, 255, 255); /* El texto será blanco puro */
     font-weight: bold; /* Hace el texto más visible */
-}
+  }
 
-.carrusel-shadow {
+  .carrusel-shadow {
     position: absolute;
     top: 0;
     left: 0;
-    width: 100%;
+    width: 100vh;
+    height: 200vh;
     /* height: 100%; */
     background-color: rgba(0, 0, 0, 0.037); /* Sombra semi-transparente negra */
     z-index: 5; /* Debajo del texto pero encima de las imágenes */
-}
+  }
 
-.carrusel-image-container {
+  .carrusel-image-container {
     width: 100%;
     height: 100%;
     overflow: hidden;
     z-index: 0; /* Las imágenes estarán en el fondo */
-}
+  }
 
-.carrusel-image {
+  .carrusel-image {
     width: 100%;
-    height: 85vh;
+    height: 150px;
     object-fit: cover;
     display: block;
-}
+  }
 
-.carrusel-button {
+  .carrusel-button {
     position: absolute;
     top: 50%;
     transform: translateY(-50%);
@@ -56,20 +59,100 @@
     cursor: pointer;
     font-size: 18px;
     z-index: 10; /* Asegura que los botones estén encima de la sombra */
-}
+  }
 
-.carrusel-button.left {
+  .carrusel-button.left {
     left: 10px;
-}
+  }
 
-.carrusel-button.right {
+  .carrusel-button.right {
     right: 10px;
+  }
+
+  .carrusel-button:hover {
+    background-color: rgba(0, 0, 0, 0.71);
+  }
+  .texto-mensaje {
+    color: rgb(255, 255, 255);
+    font-size: 100%;
+  }
 }
 
-.carrusel-button:hover {
+@media screen and (min-width: 600px) {
+  .carrusel {
+    position: relative; /* Cambiado a relative para posicionar la sombra y el texto dentro del carrusel */
+    width: 100%;
+    height: 100%; /* Asegura que cubra toda la pantalla */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+
+  .texto {
+    position: absolute; /* Posiciona el texto sobre la imagen del carrusel */
+    top: 50%; /* Centra el texto verticalmente */
+    left: 50%; /* Centra el texto horizontalmente */
+
+    transform: translate(-50%, -50%); /* Ajusta el texto para centrarlo */
+    font-size: 3rem; /* Cambia el tamaño de la fuente si era demasiado grande */
+    text-align: center;
+    z-index: 15;
+    color: rgb(255, 255, 255); /* El texto será blanco puro */
+    font-weight: bold; /* Hace el texto más visible */
+  }
+
+  .carrusel-shadow {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 200px;
+    /* height: 100%; */
+    background-color: rgba(0, 0, 0, 0.037); /* Sombra semi-transparente negra */
+    z-index: 5; /* Debajo del texto pero encima de las imágenes */
+  }
+
+  .carrusel-image-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 0; /* Las imágenes estarán en el fondo */
+  }
+
+  .carrusel-image {
+    width: 100%;
+    height: 85vh;
+    object-fit: cover;
+    display: block;
+  }
+
+  .carrusel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 10; /* Asegura que los botones estén encima de la sombra */
+  }
+
+  .carrusel-button.left {
+    left: 10px;
+  }
+
+  .carrusel-button.right {
+    right: 10px;
+  }
+
+  .carrusel-button:hover {
     background-color: rgba(0, 0, 0, 0.71);
-}
-.texto-mensaje{
-    color:rgb(255, 255, 255);
+  }
+  .texto-mensaje {
+    color: rgb(255, 255, 255);
     font-size: 100%;
+  }
 }

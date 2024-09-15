@@ -1,15 +1,29 @@
+
 .imagen-producto{
-    width: 30vh;
-    height: 30vh;
+    width: 25%;
+    height: 20%;
+    border-radius: 10px;
+    
 }
+
 .container-datos-productos{
     /* border: solid 1px chartreuse; */
+
+    border-radius: 5px;
     padding: 10px;
-    background-color: lightblue;
+    border: solid 1px darkslateblue;
+    background-color: cornsilk;
     margin: 5px;
-    width: 25%;
-    height: 25%;
+    width: 200px;
+    height: 200px;
     display: inline-block;
+    z-index: 0;
+}
+
+.container-datos-productos:hover{
+    border: solid 1px dodgerblue;
+    background-color: antiquewhite;
+    z-index: 10;
 }
 
 .informacion-producto{

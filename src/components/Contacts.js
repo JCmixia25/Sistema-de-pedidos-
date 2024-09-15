@@ -5,7 +5,6 @@ import MyMapComponent from "./MyMapComponent";
 const Contacts = () => {
   return (
     <div className="contacts-container">
-      <h1>CONTÁCTENOS</h1>
       <div className="contact-info">
         <h2>Información de Contacto</h2>
         <p><strong>Teléfono:</strong> +502 59620587</p>
@@ -40,6 +39,7 @@ const Contacts = () => {
           </li>
         </ul>
       </div>
+      <br/>
       <div className="about-us">
         <h2>¿Quiénes Somos?</h2>
         <p><strong>PERSIA:</strong> Somos un equipo de gente apasionada cuya meta es mejorar la vida de cada uno a través de productos disruptivos. Construimos grandes productos para solucionar sus problemas de negocio.
@@ -48,6 +48,7 @@ const Contacts = () => {
         <p><strong>Visión:</strong> Ser la principal referencia en la venta de productos persas a nivel Nacional e Internacional.</p>
         <p><strong>Valores:</strong> Calidad, Transparencia, Compromiso, Innovación.</p>
       </div>
+      <br/>
       <div className="location">
         <h2>Ubicación</h2>
         <p><strong>Dirección:</strong> 33 CALLE "C", 10-16, ZONA 7, COLONIA BAMVI II GUATEMALA</p>

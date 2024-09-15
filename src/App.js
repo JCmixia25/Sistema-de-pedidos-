@@ -8,14 +8,14 @@ import Contacts from "./components/Contacts.js";
 import Agregarpro from "./components/agregarpro.js";
 import Carrito from "./components/Carrito.js";
 import Bienvenida from "./components/Bienvenida.jsx";
-import ProductDetail from "./components/ProductDetail"; 
+import ProductDetail from "./components/ProductDetail";
 import icono from "./icono.jpeg";
 import { useAuth } from "./context/authContext.js";
 import Inicio from "./components-private/Inicio.js";
 import { Encabezado } from "./components-private/Encabezado.js";
-import Show from './components/Show.js';
-import PieDePagina from './components/PieDePagina.js';
-import ListaProductos from './productos/ListaProductos'
+import Show from "./components/Show.js";
+import PieDePagina from "./components/PieDePagina.js";
+import ListaProductos from "./productos/ListaProductos";
 import ItemDetailContainer from "./productos/ItemDetailContainer.js";
 import ItemListContainer from "./productos/ItemListContainer.js";
 
@@ -30,8 +30,8 @@ function App() {
         {/* <Show /> */}
         {/* <ItemListContainer/> */}
         {/* <ItemDetailContainer itemId={2}/> */}
-         <Routes>
-           <Route path="/" element={<Bienvenida />} />
+        <Routes>
+          <Route path="/" element={<Bienvenida />} />
           <Route path="/bienvenida" element={<Bienvenida />} />
           <Route path="/home" element={<Home />} />
           <Route path="/login" element={<Login />} />
@@ -40,10 +40,10 @@ function App() {
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contacts />} />
           <Route path="/home/:id" element={<ProductDetail />} />{" "}
-          <Route path="/listaProductos" element={<ListaProductos/>}/> 
+          <Route path="/listaProductos" element={<ListaProductos />} />
           {/* Nueva ruta para el detalle del producto */}
         </Routes>
-         <PieDePagina /> 
+        <PieDePagina />
       </div>
     );
   } else {
@@ -60,4 +60,4 @@ function App() {
   }
 }
 
-export default App;
+export default App;

@@ -1,13 +1,31 @@
-.pie-de-pagina {
-  background-color: #071952;
-  color: white;
-  text-align: center;
-  padding: 10px 0; /* Reduce el padding vertical */
-  font-size: 0.9rem; /* Disminuye el tamaño del texto si es necesario */
+@media screen and (max-width: 600px) {
+  .pie-de-pagina {
+    background-color: #071952;
+    color: white;
+    text-align: center;
+    padding: 50px; /* Reduce el padding vertical */
+    font-size: 5px; /* Disminuye el tamaño del texto si es necesario */
+  }
+
+  .informacion {
+    color: white;
+    margin: 0; /* Asegúrate de que no haya márgenes adicionales */
+    padding: 0; /* Evita padding extra si hay */
+  }
 }
 
-.informacion {
-  color: white;
-  margin: 0; /* Asegúrate de que no haya márgenes adicionales */
-  padding: 0; /* Evita padding extra si hay */
+@media screen and (min-width: 600px) {
+  .pie-de-pagina {
+    background-color: #071952;
+    color: white;
+    text-align: center;
+    padding: 100px; /* Reduce el padding vertical */
+    font-size: 0.9rem; /* Disminuye el tamaño del texto si es necesario */
+  }
+
+  .informacion {
+    color: white;
+    margin: 0; /* Asegúrate de que no haya márgenes adicionales */
+    padding: 0; /* Evita padding extra si hay */
+  }
 }
