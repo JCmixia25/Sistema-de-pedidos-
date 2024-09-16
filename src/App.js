@@ -25,11 +25,7 @@ function App() {
   if (!estado) {
     return (
       <div className="App">
-        {/* <img src={icono} alt="Icono" className="icono" /> */}
         <Botones />
-        {/* <Show /> */}
-        {/* <ItemListContainer/> */}
-        {/* <ItemDetailContainer itemId={2}/> */}
         <Routes>
           <Route path="/" element={<Bienvenida />} />
           <Route path="/bienvenida" element={<Bienvenida />} />
@@ -41,7 +37,9 @@ function App() {
           <Route path="/contact" element={<Contacts />} />
           <Route path="/home/:id" element={<ProductDetail />} />{" "}
           <Route path="/listaProductos" element={<ListaProductos />} />
-          {/* Nueva ruta para el detalle del producto */}
+          <Route path="/item/:id" element={<ItemDetailContainer/>} />
+          <Route path="/productos" element={<ItemListContainer />} />
+          <Route path="/productos/:categoria" element={<ItemListContainer/>}/>
         </Routes>
         <PieDePagina />
       </div>

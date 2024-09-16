@@ -21,6 +21,7 @@
         "id": 3,
         "titulo": "Sensor inductivo",
         "descripcion": "sensor para detectar las rpm de la máquina",
+        "categoria": "electrico",
         "imagen": "https://tienda.tettsa.gt/wp-content/uploads/2023/02/LJ12A3-4-ZBX-C.jpeg",
         "precio": 1000
     },
@@ -28,6 +29,7 @@
         "id": 4,
         "titulo": "Bomba bertolini",
         "descripcion": "bomba de 300 Lm / min ",
+        "categoria": "mecanica",
         "imagen": "https://images.kramp.com/images/8b/9a/626100973vs.jpg",
         "precio": 50000
     },
@@ -35,6 +37,7 @@
         "id": 5,
         "titulo": "Antena Novatel",
         "descripcion": "Antena GPS novatel de 10 hz",
+        "categoria": "electronica",
         "imagen": "https://precisionfarmingiberia.com/wp-content/uploads/2020/08/novatel.jpg",
         "precio": 50000
     },
@@ -42,6 +45,7 @@
         "id": 6,
         "titulo": "Antena Novatel",
         "descripcion": "Antena GPS novatel de 10 hz",
+        "categoria": "electronica",
         "imagen": "https://precisionfarmingiberia.com/wp-content/uploads/2020/08/novatel.jpg",
         "precio": 50000
     }

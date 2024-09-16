@@ -1,28 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState } from "react";
 import ItemList from "./ItemList";
-import { pedirDatos } from "../helpers/pedirDatos"
+import { pedirDatos } from "../helpers/pedirDatos";
+import { useParams } from "react-router-dom";
+import VerticalButtons from "../components/VerticalButtons";
 
- const ItemListContainer = () => {
-    
-    const [productos, setProductos] = useState([]);
-    console.log(productos);
+const ItemListContainer = () => {
+  const [productos, setProductos] = useState([]);
+  const categoria = useParams().categoria;
+  console.log(categoria);
 
-    useEffect(() => {
+  useEffect(() => {
+    //setProductos(pedirDatos);
+    pedirDatos().then((res) => {
+      if (categoria) {
+        setProductos(res.filter((prod) => prod.categoria === categoria));
+      } else {
+        setProductos(res);
+      }
+    });
+  }, []);
 
-        //setProductos(pedirDatos);
-        pedirDatos()
-            .then((res) => {
-                setProductos(res);
-            })
-    }, [])
+  return (
+    <div className="container-primario">
+      <div className="container-izquierdo">
+        <VerticalButtons />
+      </div>
+      <div className="home-container">
+        <ItemList productos={productos} />
+      </div>
+    </div>
+  );
+};
 
-    return(
-        <div>
-            {/* <ItemList productos={productos}/> */}
-            {/* <ItemListContainer/> */}
-            <ItemList productos={productos}/>
-        </div>
-    );
-}
-
-export default ItemListContainer
+export default ItemListContainer;

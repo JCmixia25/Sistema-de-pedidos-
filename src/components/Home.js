@@ -10,6 +10,7 @@ import plataforma from "../imagenes/plataforma.jpg";
 import VerticalButtons from "./VerticalButtons";
 import ItemDetailContainer from "../productos/ItemDetailContainer";
 import ItemListContainer from "../productos/ItemListContainer";
+import { Route, Routes } from "react-router-dom";
 
 const categories = [
   {
@@ -129,13 +130,9 @@ const Home = () => {
   };
 
   return (
-    <div className="container-primario">
-      <div className="container-izquierdo">
-      <VerticalButtons/>
-      </div>
-      <div className="home-container">
-               <ItemListContainer/>
-               {/* <ItemDetailContainer itemId={2}/> */}
+    <div >
+      <div >
+        HOLA HOME
       </div>
     </div>
   );
