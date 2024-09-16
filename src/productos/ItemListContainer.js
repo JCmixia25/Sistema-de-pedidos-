@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import ItemList from "./ItemList";
 import { pedirDatos } from "../helpers/pedirDatos";
-import { useParams } from "react-router-dom";
+import { NavLink, useParams } from "react-router-dom";
 import VerticalButtons from "../components/VerticalButtons";
 
 const ItemListContainer = () => {
@@ -18,7 +18,7 @@ const ItemListContainer = () => {
         setProductos(res);
       }
     });
-  }, []);
+  }, [categoria]);
 
   return (
     <div className="container-primario">

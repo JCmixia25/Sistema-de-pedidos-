@@ -1,12 +1,19 @@
-import React from 'react';
-import './VerticalButtons.css';
+import React from "react";
+import "./VerticalButtons.css";
+import { NavLink } from "react-router-dom";
 
 function VerticalButtons() {
   return (
     <div className="button-container">
-      <button className="vertical-button">Fetilización Granulada</button>
-      <button className="vertical-button">Fertilización Liquida</button>
-      <button className="vertical-button">Herbicidas</button>
+      <NavLink className="vertical-button" to="/productos/electrico">
+        ELECTRICOS
+      </NavLink>
+      <NavLink className="vertical-button" to="/productos/mecanica">
+        MECANICA
+      </NavLink>
+      <NavLink className="vertical-button" to="/productos/electronica">
+        ELECTRONICA
+      </NavLink>
     </div>
   );
 }
