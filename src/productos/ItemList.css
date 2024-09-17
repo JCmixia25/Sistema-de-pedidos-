@@ -6,7 +6,7 @@
     background-color: #f9f9f9; /* Fondo claro */
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
-    display: flex;
+    display: flow-root;
     flex-direction: row; /* Coloca la imagen y los detalles del producto en fila */
     justify-content: space-between;
     align-items: center;
@@ -24,11 +24,14 @@
 
 /* Estilo para el contenedor de texto */
 .item-detail-text {
-    flex: 1;           /* Toma todo el espacio restante después de la imagen */
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
+    flex: 1; /* Toma todo el espacio restante después de la imagen */
+    display: flex; /* Cambiamos a flex para mejor alineación */
+    flex-direction: column; /* Coloca los elementos de forma vertical */
+    justify-content: center; /* Centra verticalmente el contenido */
+    align-items: center; /* Centra horizontalmente el contenido */
+    text-align: center; /* Alinea el texto dentro del contenedor */
 }
+
 
 /* Estilo para el título del producto */
 .item-detail-text h3 {
