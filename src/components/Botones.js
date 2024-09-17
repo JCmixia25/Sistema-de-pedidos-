@@ -123,24 +123,28 @@ export const Botones = () => {
             </div>
           </div>
           <div className="div-link">
-          <ul className={menuOpen ? "open" : ""}>      
-              <li  className="li-var">
-                <NavLink className="btn-nav" to="/productos">PRODUCTOS</NavLink>
+            <ul className={menuOpen ? "open" : ""}>
+              <li className="li-var">
+                <NavLink className="btn-nav" to="/productos">
+                  PRODUCTOS
+                </NavLink>
               </li>
               <li>
-                <NavLink className="btn-nav" to="/register">REGISTRARSE</NavLink>
+                <NavLink className="btn-nav" to="/register">
+                  REGISTRARSE
+                </NavLink>
               </li>
               <li>
-                <NavLink className="btn-nav" to="/login">INICIAR SESION</NavLink>
+                <NavLink className="btn-nav" to="/login">
+                  INICIAR SESION
+                </NavLink>
               </li>
               <li>
-                <NavLink className="btn-nav" to="/contact">SOBRE NOSOTROS</NavLink>
-              </li>
-              <li>
-                <NavLink className="btn-nav" to="/home/electrico">ELECTRICOS</NavLink>
+                <NavLink className="btn-nav" to="/contact">
+                  SOBRE NOSOTROS
+                </NavLink>
               </li>
             </ul>
-
           </div>
         </div>
       </nav>

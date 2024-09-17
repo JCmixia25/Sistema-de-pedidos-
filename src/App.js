@@ -1,4 +1,4 @@
-import { Route, Routes } from "react-router-dom";
+import { NavLink, Route, Routes } from "react-router-dom";
 import "./App.css";
 import { Botones } from "./components/Botones";
 import Login from "./components/Login.js";
@@ -18,6 +18,7 @@ import PieDePagina from "./components/PieDePagina.js";
 import ListaProductos from "./productos/ListaProductos";
 import ItemDetailContainer from "./productos/ItemDetailContainer.js";
 import ItemListContainer from "./productos/ItemListContainer.js";
+import VerticalButtons from "./components/VerticalButtons.js";
 
 function App() {
   const { estado } = useAuth();
@@ -26,10 +27,11 @@ function App() {
     return (
       <div className="App">
         <Botones />
+        
         <Routes>
           <Route path="/" element={<Bienvenida />} />
           <Route path="/bienvenida" element={<Bienvenida />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/inicio" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/agregarpro" element={<Agregarpro />} />
           <Route path="/carrito" element={<Carrito />} />
@@ -40,6 +42,7 @@ function App() {
           <Route path="/item/:id" element={<ItemDetailContainer/>} />
           <Route path="/productos" element={<ItemListContainer />} />
           <Route path="/productos/:categoria" element={<ItemListContainer/>}/>
+          <Route path="/listBotones" element={<VerticalButtons/>}/>
         </Routes>
         <PieDePagina />
       </div>
