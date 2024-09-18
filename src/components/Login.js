@@ -1,12 +1,9 @@
 import React, { useState } from "react";
-import "./Register.css";
-import "../../src/index";
+import "./Login.css"; // Asegúrate de que este archivo contenga los estilos correctos
 import { useAuth } from "../context/authContext";
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
-
-export function Register() {
-
+export function Login() {
   const [user, setUser] = useState({
     email: "",
     password: "",
@@ -24,12 +21,10 @@ export function Register() {
     e.preventDefault();
 
     try {
-      
       const userLogin = await login(user.email, user.password);
       if (userLogin) {
         setEstado(true);
         localStorage.setItem("login", "true");
-        
         setMensaje("");
         console.log(userLogin);
         navigate("/inicio");
@@ -40,19 +35,20 @@ export function Register() {
   };
 
   return (
-    <div className="register-container">
+    <div className="login-container"> {/* Cambié el nombre a 'login-form-container' */}
       <form onSubmit={handleSubmit}>
-        <label>
+        <label htmlFor="email">
           Correo electrónico
           <input
             type="email"
             name="email"
+            id="email"
             onChange={handleChange}
-            placeholder="ejemplo.@gmail.com"
+            placeholder="ejemplo@gmail.com"
             required
           />
         </label>
-        <label>
+        <label htmlFor="password">
           Contraseña
           <input
             type="password"
@@ -63,11 +59,20 @@ export function Register() {
             required
           />
         </label>
-        <button type="submit">INGRESAR</button>
+        <button type="submit" className="btn-ingresar">INGRESAR</button>
         {mensaje && <p className="mensaje">{mensaje}</p>}
+        
+        <div class="action-buttons">
+          <NavLink className="btn-texto" to="/">
+          ¿Olvidaste tu Contraseña?
+          </NavLink>
+          <NavLink className="btn-texto" to="/register">
+                ¿No tienes cuenta?
+          </NavLink>
+        </div>
       </form>
     </div>
   );
 }
 
-export default Register;
+export default Login;
