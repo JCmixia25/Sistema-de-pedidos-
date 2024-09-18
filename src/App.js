@@ -28,13 +28,10 @@ function App() {
 
   const [carrito, setCarrito] = useState([]);
 
-  const user = "Carpi";
-  const edad = 27;
-
   if (!estado) {
     return (
       <div className="App">
-        <CartContext.Provider value={{user, edad}}/>
+        <CartContext.Provider value="hola" />
         <Botones />
         <Routes>
           <Route path="/" element={<Bienvenida />} />

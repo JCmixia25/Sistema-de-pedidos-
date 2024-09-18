@@ -1,21 +1,25 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import "./ItemDetail.css";
+import { CartContext } from '../context/CartContext';
 
 
 const ItemDetail = ({ item }) => {
+    const carrito = useContext(CartContext);
+    console.log("carrito", carrito)
+
     const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
     // Función para avanzar a la siguiente imagen
     const handleNextImage = () => {
         setCurrentImageIndex((prevIndex) =>
-            prevIndex === item.imagenes.length - 1 ? 0 : prevIndex + 1
+            prevIndex === item.imagen.length - 1 ? 0 : prevIndex + 1
         );
     };
 
     // Función para retroceder a la imagen anterior
     const handlePrevImage = () => {
         setCurrentImageIndex((prevIndex) =>
-            prevIndex === 0 ? item.imagenes.length - 1 : prevIndex - 1
+            prevIndex === 0 ? item.imagen.length - 1 : prevIndex - 1
         );
     };
 
@@ -26,7 +30,8 @@ const ItemDetail = ({ item }) => {
                     &#10094;
                 </button>
                 <img
-                    src={item.imagenes[currentImageIndex]}
+                    // src={item.imagen[currentImageIndex]}
+                    src={item.imagen}
                     alt={item.titulo}
                     className="carousel-image"
                 />
