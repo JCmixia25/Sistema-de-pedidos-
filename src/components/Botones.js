@@ -2,59 +2,7 @@ import React, { useState } from "react";
 import "./Botones.css";
 import { NavLink } from "react-router-dom";
 import icono from "./icono.png";
-import { FaSearch, FaShoppingCart } from "react-icons/fa"; // Importa el icono de carrito
-import agricultura from "../imagenes/agricultura.jpg";
-import cosechadora from "../imagenes/cosechadora.jpg";
-import carreta from "../imagenes/carreta.jpg";
-import hercules from "../imagenes/hercules.jpg";
-import plataforma from "../imagenes/plataforma.jpg";
-
-const categories = [
-  {
-    name: "Fertilizantes",
-    products: [
-      { id: 1, name: "Liquido", image: agricultura },
-      { id: 2, name: "Granulado", image: cosechadora },
-    ],
-  },
-  {
-    name: "Herbicidas",
-    products: [
-      { id: 3, name: "Residuales", image: carreta },
-      { id: 4, name: "Foliares", image: hercules },
-    ],
-  },
-  {
-    name: "Sensores",
-    subcategories: [
-      {
-        name: "Suelo",
-        products: [
-          { id: 5, name: "Sensor de Humedad", image: plataforma },
-          { id: 6, name: "Sensor de pH", image: agricultura },
-        ],
-      },
-      {
-        name: "Clima",
-        products: [
-          { id: 7, name: "Termometro", image: cosechadora },
-          { id: 8, name: "Higrómetro", image: hercules },
-        ],
-      },
-      {
-        name: "Planta",
-        products: [{ id: 9, name: "Sensor de Luz", image: plataforma }],
-      },
-      {
-        name: "Agua",
-        products: [
-          { id: 10, name: "Sensor de Nivel", image: agricultura },
-          { id: 11, name: "Pluviometro", image: hercules },
-        ],
-      },
-    ],
-  },
-];
+import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa"; // Importa iconos de carrito y usuario
 
 export const Botones = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -107,11 +55,14 @@ export const Botones = () => {
               </div>
             </div>
             <div className="inicio-sesion">
-              <p className="inicio-sesion-text">
-                Iniciar
-                <br />
-                Sesión
-              </p>
+              <NavLink to="/login" className="inicio-sesion-button">
+                <FaUser className="usuario-icono" /> 
+                <p className="inicio-sesion-text">
+                  INICIAR
+                  <br />
+                  SESION
+                </p>
+              </NavLink>
             </div>
             <div className="carrito-compras">
               <NavLink to="/carrito" className="carrito-boton">
@@ -130,18 +81,13 @@ export const Botones = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink className="btn-nav" to="/register">
-                  REGISTRARSE
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="btn-nav" to="/login">
-                  INICIAR SESION
-                </NavLink>
-              </li>
-              <li>
                 <NavLink className="btn-nav" to="/contact">
                   SOBRE NOSOTROS
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="btn-nav" to="/">
+                  INICIO
                 </NavLink>
               </li>
               <li>

@@ -1,39 +1,48 @@
-import React, { useContext } from 'react'
-import ItemCount from "../productos/ItemCount"
-import { useState } from 'react';
-import { CartContext } from '../context/CartContext';
+import React, { useState } from 'react';
+import "./ItemDetail.css";
 
-const ItemDetail = ({item}) => {
 
-  const [cantidad, setCantidad] = (useState(1));
+const ItemDetail = ({ item }) => {
+    const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  const user = useContext(CartContext).user;
-  console.log(user);
+    // Función para avanzar a la siguiente imagen
+    const handleNextImage = () => {
+        setCurrentImageIndex((prevIndex) =>
+            prevIndex === item.imagenes.length - 1 ? 0 : prevIndex + 1
+        );
+    };
 
-  const handleRestar = () => {
-      cantidad > 1 && setCantidad(cantidad - 1)
-  }
+    // Función para retroceder a la imagen anterior
+    const handlePrevImage = () => {
+        setCurrentImageIndex((prevIndex) =>
+            prevIndex === 0 ? item.imagenes.length - 1 : prevIndex - 1
+        );
+    };
 
-  const handleSumar = () => {
-      cantidad < item.stock && setCantidad(cantidad + 1)
-  }
+    return (
+        <div className='item-detail'>
+            <div className='carousel'>
+                <button onClick={handlePrevImage} className="prev-btn">
+                    &#10094;
+                </button>
+                <img
+                    src={item.imagenes[currentImageIndex]}
+                    alt={item.titulo}
+                    className="carousel-image"
+                />
+                <button onClick={handleNextImage} className="next-btn">
+                    &#10095;
+                </button>
+            </div>
 
-  const handleAgregar = () => {
-    console.log(...item, cantidad)
-  }
-
-  return (
-    <div>
-        <img src={item.imagen} alt={item.titulo}/>
-        <div>
-            <h3>{item.titulo}</h3>
-            <p>{item.descripcion}</p>
-            <p>Categoria: {item.categoria}</p>
-            <p>Q{item.precio}</p>
-            <ItemCount cantidad={cantidad} handleSumar={handleSumar}  handleRestar={handleRestar} handleAgregar={handleAgregar}/>
+            <div className='item-detail-text'>
+                <h3>{item.titulo}</h3>
+                <p>{item.descripcion}</p>
+                <p className='item-category'>Categoría: {item.categoria}</p>
+                <p className='item-price'>Q{item.precio}</p>
+            </div>
         </div>
-    </div>
-  )
-}
+    );
+};
 
-export default ItemDetail
+export default ItemDetail;

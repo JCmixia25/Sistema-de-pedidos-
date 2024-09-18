@@ -9,7 +9,7 @@ const Item = ({ producto }) => {
       <img
         className="imagen-producto"
         alt="No se puedo mostrar la imagen "
-        src={producto.imagen}
+        src={producto.imagenes}
       />
       <div>
         <h4>{producto.titulo}</h4>
