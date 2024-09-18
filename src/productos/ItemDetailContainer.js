@@ -3,34 +3,21 @@ import { pedirItemPorId } from '../helpers/pedirDatos';
 import ItemDetail from './ItemDetail';
 import { useParams } from 'react-router-dom';
 
-const ItemDetailContainer = () => {
-    const [item, setItem] = useState(null);
-    const [loading, setLoading] = useState(true);
-    const id = useParams().id;
+const ItemDetailContainer = ({ onAddToCart }) => {
+  const [item, setItem] = useState(null);
+  const { id } = useParams();
 
-    useEffect(() => {
-        setLoading(true);
-        pedirItemPorId(Number(id))
-            .then((res) => {
-                setItem(res);
-                console.log(item);
-                setLoading(false);
-            })
-            .catch((error) => {
-                console.error("Error fetching item:", error);
-                setLoading(false);
-            });
-    }, [id]);
+  useEffect(() => {
+    pedirItemPorId(Number(id)).then((res) => {
+      setItem(res);
+    });
+  }, [id]);
 
-    if (loading) {
-        return <div>Loading...</div>;
-    }
-
-    return (
-        <div className='item-detail-container'>
-            {item ? <ItemDetail item={item} /> : <div>Item not found</div>}
-        </div>
-    );
+  return (
+    <div className="item-detail-container">
+      {item && <ItemDetail item={item} onAddToCart={onAddToCart} />}
+    </div>
+  );
 };
 
 export default ItemDetailContainer;
