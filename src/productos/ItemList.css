@@ -1,6 +1,66 @@
-/* .container-productojs{
+/* Estilo general para el contenedor de detalles del producto */
+.item-detail-container {
+    max-width: 1200px;   /* Limita el ancho máximo del contenedor */
+    margin: 0 auto;      /* Centra horizontalmente */
+    padding: 20px;       /* Espaciado interno */
+    background-color: #f9f9f9; /* Fondo claro */
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    display: flow-root;
+    flex-direction: row; /* Coloca la imagen y los detalles del producto en fila */
+    justify-content: space-between;
+    align-items: center;
+}
 
-    width: 30%;
-    height: 40%;
-  
-} */
+/* Estilo para la imagen del producto */
+.item-detail-container img {
+    max-width: 300px;   /* Tamaño máximo de la imagen */
+    width: 100%;        /* Asegura que la imagen ocupe todo el ancho del contenedor disponible */
+    height: auto;       /* Mantiene las proporciones de la imagen */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra para la imagen */
+    margin-right: 20px; /* Espaciado entre la imagen y los detalles */
+}
+
+/* Estilo para el contenedor de texto */
+.item-detail-text {
+    flex: 1; /* Toma todo el espacio restante después de la imagen */
+    display: flex; /* Cambiamos a flex para mejor alineación */
+    flex-direction: column; /* Coloca los elementos de forma vertical */
+    justify-content: center; /* Centra verticalmente el contenido */
+    align-items: center; /* Centra horizontalmente el contenido */
+    text-align: center; /* Alinea el texto dentro del contenedor */
+}
+
+
+/* Estilo para el título del producto */
+.item-detail-text h3 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+/* Estilo para la descripción del producto */
+.item-detail-text p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 10px;
+    line-height: 1.6;
+}
+
+/* Estilo para el precio del producto */
+.item-detail-text .item-price {
+    font-size: 1.8rem;
+    color: #088395;
+    font-weight: bold;
+    margin-top: 20px;
+}
+
+/* Estilo para la categoría del producto */
+.item-detail-text .item-category {
+    font-size: 1.1rem;
+    color: #777;
+    font-style: italic;
+    margin-bottom: 20px;
+}
