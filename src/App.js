@@ -19,15 +19,23 @@ import ListaProductos from "./productos/ListaProductos";
 import ItemDetailContainer from "./productos/ItemDetailContainer.js";
 import ItemListContainer from "./productos/ItemListContainer.js";
 import VerticalButtons from "./components/VerticalButtons.js";
+import Contacto from "./productos/Contacto.js";
+import { useState } from "react";
+import { CartContext } from "./context/CartContext.js";
 
 function App() {
   const { estado } = useAuth();
 
+  const [carrito, setCarrito] = useState([]);
+
+  const user = "Carpi";
+  const edad = 27;
+
   if (!estado) {
     return (
       <div className="App">
+        <CartContext.Provide value={{user, edad}}/>
         <Botones />
-        
         <Routes>
           <Route path="/" element={<Bienvenida />} />
           <Route path="/bienvenida" element={<Bienvenida />} />
@@ -39,12 +47,13 @@ function App() {
           <Route path="/contact" element={<Contacts />} />
           <Route path="/home/:id" element={<ProductDetail />} />{" "}
           <Route path="/listaProductos" element={<ListaProductos />} />
-          <Route path="/item/:id" element={<ItemDetailContainer/>} />
+          <Route path="/item/:id" element={<ItemDetailContainer />} />
           <Route path="/productos" element={<ItemListContainer />} />
-          <Route path="/productos/:categoria" element={<ItemListContainer/>}/>
-          <Route path="/listBotones" element={<VerticalButtons/>}/>
+          <Route path="/productos/:categoria" element={<ItemListContainer />} />
+          <Route path="/contacto" element={<Contacto />} />
         </Routes>
         <PieDePagina />
+        <CartContext.Provide />
       </div>
     );
   } else {

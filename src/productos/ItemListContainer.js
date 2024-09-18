@@ -6,6 +6,7 @@ import VerticalButtons from "../components/VerticalButtons";
 
 const ItemListContainer = () => {
   const [productos, setProductos] = useState([]);
+  const [titulo, setTitulo] = useState("PRODUCTOS");
   const categoria = useParams().categoria;
   console.log(categoria);
 
@@ -14,8 +15,10 @@ const ItemListContainer = () => {
     pedirDatos().then((res) => {
       if (categoria) {
         setProductos(res.filter((prod) => prod.categoria === categoria));
+        setTitulo(categoria.toUpperCase());
       } else {
         setProductos(res);
+        setTitulo("PRODUCTOS");
       }
     });
   }, [categoria]);
@@ -26,7 +29,7 @@ const ItemListContainer = () => {
         <VerticalButtons />
       </div>
       <div className="home-container">
-        <ItemList productos={productos} />
+        <ItemList productos={productos} titulo={titulo}/>
       </div>
     </div>
   );

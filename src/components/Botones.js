@@ -144,6 +144,11 @@ export const Botones = () => {
                   SOBRE NOSOTROS
                 </NavLink>
               </li>
+              <li>
+                <NavLink className="btn-nav" to="/contacto">
+                  CONTACTO
+                </NavLink>
+              </li>
             </ul>
           </div>
         </div>
