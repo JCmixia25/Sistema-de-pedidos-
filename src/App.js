@@ -34,7 +34,7 @@ function App() {
   if (!estado) {
     return (
       <div className="App">
-        <CartContext.Provide value={{user, edad}}/>
+        <CartContext.Provider value={{user, edad}}/>
         <Botones />
         <Routes>
           <Route path="/" element={<Bienvenida />} />
@@ -53,7 +53,7 @@ function App() {
           <Route path="/contacto" element={<Contacto />} />
         </Routes>
         <PieDePagina />
-        <CartContext.Provide />
+        <CartContext.Provider />
       </div>
     );
   } else {
