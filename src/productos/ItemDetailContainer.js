@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 
 const ItemDetailContainer = ({ onAddToCart }) => {
   const [item, setItem] = useState(null);
-  const { id } = useParams();
+  const id = useParams().id;
 
   useEffect(() => {
     pedirItemPorId(Number(id)).then((res) => {
@@ -15,7 +15,7 @@ const ItemDetailContainer = ({ onAddToCart }) => {
 
   return (
     <div className="item-detail-container">
-      {item && <ItemDetail item={item} onAddToCart={onAddToCart} />}
+        {item && <ItemDetail item={item} onAddToCart={onAddToCart} />}
     </div>
   );
 };

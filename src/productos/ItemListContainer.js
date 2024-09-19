@@ -7,6 +7,7 @@ import VerticalButtons from "../components/VerticalButtons";
 const ItemListContainer = () => {
   const [productos, setProductos] = useState([]);
   const [titulo, setTitulo] = useState("PRODUCTOS");
+  
   const categoria = useParams().categoria;
   console.log(categoria);
 

@@ -3,6 +3,9 @@ import "./ItemDetail.css";
 import { CartContext } from '../context/CartContext';
 
 const ItemDetail = ({ item, onAddToCart }) => {
+  const mensaje = useContext(CartContext);
+  console.log(mensaje);
+
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   const handleNextImage = () => {
@@ -21,7 +24,8 @@ const ItemDetail = ({ item, onAddToCart }) => {
     <div className="item-detail">
       <div className="carousel">
         <button onClick={handlePrevImage} className="prev-btn">&#10094;</button>
-        <img src={item.imagenes[currentImageIndex]} alt={item.titulo} className="carousel-image" />
+        {/* <img src={item.imagenes[currentImageIndex]} alt={item.titulo} className="carousel-image" /> */}
+        <img src={item.imagen} alt={item.titulo} className="carousel-image" />
         <button onClick={handleNextImage} className="next-btn">&#10095;</button>
       </div>
 

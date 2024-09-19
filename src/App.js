@@ -20,6 +20,8 @@ import ItemDetailContainer from "./productos/ItemDetailContainer.js";
 import ItemListContainer from "./productos/ItemListContainer.js";
 import VerticalButtons from "./components/VerticalButtons.js";
 import { useState } from "react";
+import { CartContext } from "./context/CartContext.js";
+import Contacto from "./productos/Contacto.js";
 
 function App() {
   const { estado } = useAuth();
@@ -65,6 +67,7 @@ function App() {
           <Route path="/productos" element={<ItemListContainer />} />
           <Route path="/productos/:categoria" element={<ItemListContainer />} />
           <Route path="/listBotones" element={<VerticalButtons />} />
+          <Route path="/contacto" element={<Contacto />} />
         </Routes>
         <PieDePagina />
         <CartContext.Provider />
