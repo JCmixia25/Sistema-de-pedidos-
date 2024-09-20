@@ -17,6 +17,7 @@ export const useAuth = () => {
 export function AuthProvider({ children }) {
   
   const [estado, setEstado] = useState(false);
+  // const [carrito, setCarrito] = useState([]);
 
   const signup = async (email, password) => {
     try {

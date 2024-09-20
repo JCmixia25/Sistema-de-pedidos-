@@ -1,4 +1,4 @@
-import { NavLink, Route, Routes } from "react-router-dom";
+import { NavLink, Route, Router, Routes } from "react-router-dom";
 import "./App.css";
 import { Botones } from "./components/Botones";
 import Login from "./components/Login.js";
@@ -20,12 +20,16 @@ import ItemDetailContainer from "./productos/ItemDetailContainer.js";
 import ItemListContainer from "./productos/ItemListContainer.js";
 import VerticalButtons from "./components/VerticalButtons.js";
 import { useState } from "react";
-import { CartContext } from "./context/CartContext.js";
+import { CartContext, CartProvider } from "./context/CartContext.js";
 import Contacto from "./productos/Contacto.js";
+import ItemDetail from "./productos/ItemDetail.js";
+// import ItemDetail from "./productos/ItemDetail.js";
 
 function App() {
   const { estado } = useAuth();
 
+  // const { Carrito, setCarrito } = useAuth();
+  // setCarrito("hola");
   // Estado para manejar el carrito
   const [cart, setCart] = useState([]);
 
@@ -48,6 +52,7 @@ function App() {
 
   if (!estado) {
     return (
+<<<<<<< HEAD
       <div className="App">
         <CartContext.Provider  value={cart}/>
         <Botones />
@@ -71,6 +76,40 @@ function App() {
         <PieDePagina />
         <CartContext.Provider />
       </div>
+=======
+        <div className="App">
+          <Botones />
+          <Routes>
+            <Route path="/" element={<Bienvenida />} />
+            <Route path="/bienvenida" element={<Bienvenida />} />
+            <Route path="/inicio" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/agregarpro" element={<Agregarpro />} />
+            {/* Pasar el carrito y la función agregar al carrito a los componentes */}
+            <Route
+              path="/carrito"
+              element={<Carrito productos={cart} setProductos={setCart} />}
+            />
+            <Route path="/register" element={<Register />} />
+            <Route path="/contact" element={<Contacts />} />
+            <Route path="/home/:id" element={<ProductDetail />} />
+            <Route path="/listaProductos" element={<ListaProductos />} />
+            <Route
+              path="/item/:id"
+              element={<ItemDetailContainer onAddToCart={agregarAlCarrito} />}
+            />
+            <Route path="/productos" element={<ItemListContainer />} />
+            <Route path="/detalle" element={<ItemDetail />} />
+            <Route
+              path="/productos/:categoria"
+              element={<ItemListContainer />}
+            />
+            <Route path="/listBotones" element={<VerticalButtons />} />
+            <Route path="/contacto" element={<Contacto />} />
+          </Routes>
+          <PieDePagina />
+        </div>
+>>>>>>> 0bbdbef8d26e1c2dd9196de1ab4243bde428aab1
     );
   } else {
     return (

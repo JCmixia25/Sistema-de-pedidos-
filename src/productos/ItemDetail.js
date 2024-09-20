@@ -2,10 +2,14 @@ import React, { useContext, useState } from 'react';
 import "./ItemDetail.css";
 import { CartContext } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
+import { useAuth } from '../context/authContext';
 
 const ItemDetail = ({ item, onAddToCart }) => {
-  const mensaje = useContext(CartContext);
-  console.log(mensaje);
+
+  const [cantidad, setCantidad] = useState(1);
+
+  const { carrito, setCarrito } = useAuth();
+  console.log(carrito);
 
   const { cart, setCart } = useContext (CartContext);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -22,6 +26,19 @@ const ItemDetail = ({ item, onAddToCart }) => {
       prevIndex === 0 ? item.imagenes.length - 1 : prevIndex - 1
     );
   };
+
+  // const handleAgregar = () => {
+  //   const itemAgregado = {...item, cantidad};
+  //   if(carrito.find((producto) => producto.id === itemAgregado.id)){
+      
+  //     console.log("Está en el carrito")
+  //   } else {
+  //     console.log("No está en el carrito");
+  //   }
+
+  //   setCarrito([...carrito, itemAgregado]);
+  //   console.log(itemAgregado);
+  // }
 
   const handleAddToCart = () => {
     onAddToCart(item); // Agregar al carrito
