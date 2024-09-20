@@ -1,0 +1,406 @@
+/* Estilos para dispositivos con una pantalla máximo de 600px */
+@media screen and (max-width: 600px) {
+    nav {
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      font-weight: bold;
+      border-bottom: 2px solid gray;
+      box-shadow: 0 4px 2px -2px gray;
+    }
+  
+    nav .title {
+      font-size: 1.5rem;
+      margin: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  
+    nav ul {
+      display: flex;
+    }
+  
+    nav ul li {
+      list-style: none;
+    }
+  
+    nav ul li a {
+      display: block;
+      text-decoration: none;
+      color: rgb(0, 0, 0);
+      padding-right: 0.5rem;
+      border-radius: 0.5rem;
+      font-size: 2vh;
+      transition: background-color 0.3s ease;
+    }
+  
+    nav ul li a:hover {
+      background-color: #00712d;
+      color: #d5ed9f;
+    }
+  
+    nav .menu {
+      display: none;
+      position: absolute;
+      top: 0.75rem;
+      right: 0.5rem;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 2.25rem;
+      height: 2rem;
+    }
+  
+    nav .menu span {
+      height: 0.4rem;
+      width: 100%;
+      border-radius: 0.2rem;
+    }
+  
+    /* Estilos para los datos del encabezado */
+    .div-contacto {
+      display: block;
+      height: 30px;
+      text-align: justify;
+      background-color: #071952;
+    }
+  
+    .div-image-search {
+      display: flex;
+      height: 100px;
+      background-color: #ebf4f6;
+    }
+  
+    .datos {
+      font-size: 11px;
+      margin: 0;
+      padding-left: 5px;
+      padding-top: 5px;
+      color: rgba(255, 255, 255, 0.807);
+    }
+  
+    .tel-correo {
+      display: inline-block;
+    }
+  
+    .pedidos {
+      font-size: 11px;
+      margin: 0;
+      position: absolute;
+      right: 5px;
+      top: 5px;
+      color: rgba(255, 255, 255, 0.807);
+    }
+  
+    .container-icono {
+      width: 30px;
+      display: inline-block;
+    }
+  
+
+    .search-iconn {
+      color: white;
+      height: 20px;
+    }
+  
+    .container-icon-search {
+      width: 30px;
+      background-color: #071952;
+      height: 4.5vh;
+      position: relative;
+      align-items: center;
+      padding-top: 8px;
+      border-bottom-right-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+  
+    .container-icon-search:hover {
+      background-color: #174270;
+    }
+  
+    .btn-nav {
+      color: hsl(226, 84%, 17%);
+      font-size: 10px;
+      text-decoration: none;
+    }
+  
+    .btn-nav:hover {
+      background-color: rgba(100, 148, 237, 0.307);
+      color: hsl(226, 84%, 17%);
+      border-radius: 5px;
+      font-size: 12px;
+      text-decoration: none;
+    }
+  
+    .icono {
+      left: 5px;
+      height: 50px;
+    }
+  
+    /* Resto del CSS... */
+    .search-container {
+      display: flex;
+      position: absolute;
+      height: 4.5vh;
+      bottom: 50px;
+      left: 50px;
+      width: 300px;
+      border-radius: 5px;
+    }
+  
+    .search-input {
+      width: auto;
+      padding: 6px;
+      border: 2px solid #174270;
+      border-radius: 4px 0 0 4px;
+      background-color: #fff;
+      transition: border-color 0.3s; /* Smooth border transition */
+    }
+  
+    .li-var {
+      display: block;
+      color: rgb(0, 0, 0);
+    }
+  
+    .div-link {
+      display: block;
+      height: 50px;
+      background-color: #ebf4f6;
+    }
+  }
+  
+
+  
+  
+  .usuario-icono {
+    width: 24px; /* Ajusta el tamaño según sea necesario */
+    height: 24px; /* Ajusta el tamaño según sea necesario */
+    margin-right: 1px; /* Espacio entre el icono y el texto */
+    vertical-align: middle; /* Alinear verticalmente con el texto */
+    color: #174270; /* Color del icono, ajusta según sea necesario */
+  }
+  
+  @media screen and (min-width: 601px) {
+    nav {
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      font-weight: bold;
+      border-bottom: 2px solid gray;
+      box-shadow: 0 4px 2px -2px gray;
+    }
+  
+    nav .title {
+      font-size: 1.5rem;
+      margin: 1rem;
+      font-weight: bold;
+      text-decoration: none;
+    }
+  
+    nav ul {
+      display: flex;
+    }
+  
+    nav ul li {
+      list-style: none;
+    }
+  
+    nav ul li a {
+      display: block;
+      text-decoration: none;
+      color: rgb(0, 0, 0);
+      padding-right: 0.5rem;
+      border-radius: 0.5rem;
+      font-size: 2vh;
+      transition: background-color 0.3s ease;
+    }
+  
+    nav ul li a:hover {
+      background-color: #00712d;
+      color: #d5ed9f;
+    }
+  
+    nav .menu {
+      display: none;
+      position: absolute;
+      top: 0.75rem;
+      right: 0.5rem;
+      flex-direction: column;
+      justify-content: space-between;
+      width: 2.25rem;
+      height: 2rem;
+    }
+  
+    nav .menu span {
+      height: 0.4rem;
+      width: 100%;
+      border-radius: 0.2rem;
+    }
+  
+    /* Estilos para los datos del encabezado */
+    .div-contacto {
+      display: block;
+      height: 5vh;
+      text-align: justify;
+      background-color: #071952;
+    }
+  
+    .div-image-search {
+      display: flex;
+      height: 10vh;
+      background-color: #ebf4f6;
+    }
+  
+    .div-link {
+      display: block;
+      height: 10vh;
+      background-color: #ebf4f6;
+    }
+  
+    .datos {
+      font-size: 2vh;
+      margin: 0;
+      padding-left: 15px;
+      color: rgba(255, 255, 255, 0.807);
+    }
+  
+    .tel-correo {
+      display: inline-block;
+    }
+  
+    .pedidos {
+      font-size: 2vh;
+      margin: 0;
+      position: absolute;
+      right: 10px;
+      top: 0;
+      color: rgba(255, 255, 255, 0.807);
+    }
+  
+    .container-icono {
+      width: 75px;
+      display: inline-block;
+    }
+  
+    .cerrar-sesion {
+      position: absolute;
+      right: 80px;
+      padding: 0;
+      margin: 0;
+      display: flex; /* Añadir flex para alinear items en el centro */
+      align-items: center; /* Centrar verticalmente */
+      color: rgba(255, 255, 255, 0.807);
+
+    }
+  
+    .cerrar-sesion-text {
+      font-size: 1.8vh; /* Tamaño del texto */
+      line-height: 1; /* Asegura que el texto esté bien alineado */
+      text-align: center; /* Alinear el texto al centro */
+      margin: 0; /* Elimina cualquier margen */
+      padding: 2px 0; /* Ajusta este valor para bajar el texto */
+    }
+  
+    .cerrar-sesion {
+      padding-top: 5px; /* Mantiene el ajuste de posición */
+      margin-right: 20px; /* Aumenta este valor para separar más de "Mi carrito" */
+    }
+  
+    .carrito-boton .inicio-sesion-text {
+      padding-top: 5px; /* Ajusta este valor para bajar el texto "Mi carrito" */
+    }
+  
+    .carrito-compras {
+      position: absolute;
+      right: 30px;
+      padding: 0;
+      margin: 0;
+      display: flex; /* Añadir flex para alinear items en el centro */
+      align-items: center; /* Centrar verticalmente */
+    }
+  
+    .carrito-boton {
+      display: flex; /* Usar flexbox para el botón */
+      align-items: center; /* Centrar verticalmente */
+      text-decoration: none; /* Eliminar subrayado */
+      color: white; /* Color del texto */
+      padding: 5px; /* Ajusta el espaciado interno si es necesario */
+    }
+  
+    .carrito-icono {
+      width: 24px; /* Ajusta el tamaño según sea necesario */
+      height: 24px; /* Ajusta el tamaño según sea necesario */
+      margin-right: 8px; /* Espacio entre el icono y el texto */
+      margin-top: 2px; /* Ajusta este valor para bajar el icono */
+      color: rgb(14, 14, 14); /* Color del icono */
+    }
+  
+    .search-iconn {
+      color: white;
+    }
+  
+    .container-icon-search {
+      width: 25px;
+      height: 30px;
+      background-color: #071952;
+      position: relative;
+      padding-top: 5px;
+      border-bottom-right-radius: 5px;
+      border-top-right-radius: 5px;
+    }
+  
+    .container-icon-search:hover {
+      background-color: #174270;
+    }
+  
+    .btn-nav {
+      color: hsl(226, 84%, 17%);
+      font-size: 13px;
+      text-decoration: none;
+    }
+  
+    .btn-nav:hover {
+      background-color: rgba(100, 148, 237, 0.307);
+      color: hsl(226, 84%, 17%);
+      border-radius: 5px;
+      font-size: 15px;
+      text-decoration: none;
+    }
+  
+    .icono {
+      position: absolute;
+      left: 20px;
+      width: 8vh;
+      height: 7.5vh;
+      z-index: 10;
+    }
+  
+    /* Resto del CSS... */
+    .search-container {
+      display: flex;
+      align-items: center;
+      padding-left: 5px;
+      top: 0; /* Se quedará pegado en la parte superior al hacer scroll */
+      z-index: 1000; /* Asegura que esté por encima de otros elementos */
+      border-radius: 8px; /* Bordes redondeados */
+    }
+  
+    .search-input {
+      width: 50vh;
+      padding: 6px;
+      border: 2px solid #174270;
+      border-radius: 4px 0 0 4px;
+      outline: none;
+      background-color: #fff;
+      transition: border-color 0.3s; /* Smooth border transition */
+    }
+  
+    .search-input:focus {
+      border-color: #088395; /* Darker green on focus */
+    }
+  }
+  
+  .search-input:focus {
+    border-color: #088395; /* Darker green on focus */
+  }
+  
+  
