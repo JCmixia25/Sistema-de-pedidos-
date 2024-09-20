@@ -1,18 +1,27 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './Carrito.css';
+import hercules from '../imagenes/hercules.jpg';
+import plataforma from '../imagenes/plataforma.jpg';
+import agricultura from '../imagenes/agricultura.jpg';
+import cosechadora from '../imagenes/cosechadora.jpg';
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
-const Carrito = ({ productos, setProductos }) => {
+const productosIniciales = [
+ 
+];
+
+const Carrito = () => {
+  const [productos, setProductos] = useState(productosIniciales);
 
   const aumentarCantidad = (id) => {
-    const nuevosProductos = productos.map(prod =>
+    const nuevosProductos = productos.map(prod => 
       prod.id === id ? { ...prod, cantidad: prod.cantidad + 1 } : prod
     );
     setProductos(nuevosProductos);
   };
 
   const disminuirCantidad = (id) => {
-    const nuevosProductos = productos.map(prod =>
+    const nuevosProductos = productos.map(prod => 
       prod.id === id && prod.cantidad > 1 ? { ...prod, cantidad: prod.cantidad - 1 } : prod
     );
     setProductos(nuevosProductos);
