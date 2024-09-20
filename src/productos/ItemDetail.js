@@ -1,10 +1,14 @@
 import React, { useContext, useState } from 'react';
 import "./ItemDetail.css";
 import { CartContext } from '../context/CartContext';
+import { useAuth } from '../context/authContext';
 
 const ItemDetail = ({ item, onAddToCart }) => {
-  const mensaje = useContext(CartContext);
-  console.log(mensaje);
+
+  const [cantidad, setCantidad] = useState(1);
+
+  const { carrito, setCarrito } = useAuth();
+  console.log(carrito);
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -19,6 +23,19 @@ const ItemDetail = ({ item, onAddToCart }) => {
       prevIndex === 0 ? item.imagenes.length - 1 : prevIndex - 1
     );
   };
+
+  // const handleAgregar = () => {
+  //   const itemAgregado = {...item, cantidad};
+  //   if(carrito.find((producto) => producto.id === itemAgregado.id)){
+      
+  //     console.log("Está en el carrito")
+  //   } else {
+  //     console.log("No está en el carrito");
+  //   }
+
+  //   setCarrito([...carrito, itemAgregado]);
+  //   console.log(itemAgregado);
+  // }
 
   return (
     <div className="item-detail">
@@ -35,6 +52,7 @@ const ItemDetail = ({ item, onAddToCart }) => {
         <p className="item-category">Categoría: {item.categoria}</p>
         <p className="item-price">Q{item.precio}</p>
         <button onClick={() => onAddToCart(item)} className="add-to-cart-btn">Agregar al carrito</button>
+        {/* <button onClick={handleAgregar} className="add-to-cart-btn">Agregar al carrito</button> */}
       </div>
     </div>
   );
