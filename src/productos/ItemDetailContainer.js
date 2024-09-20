@@ -5,7 +5,7 @@ import { useParams } from 'react-router-dom';
 import { doc, getDoc } from "firebase/firestore";
 import { db } from '../conexion/firebase';
 
-const ItemDetailContainer = () => {
+const ItemDetailContainer = ({onAddToCart}) => {
     const [item, setItem] = useState(null);
     const { id } = useParams();
 
@@ -23,11 +23,11 @@ const ItemDetailContainer = () => {
     // });
   }, [id]);
 
-    return (
-        <div className='item-detail-container'>
-            {item && <ItemDetail item={item} />}
-        </div>
-    );
+  return (
+    <div className="item-detail-container">
+      {item && <ItemDetail item={item} onAddToCart={onAddToCart} />}
+    </div>
+  );
 };
 
 export default ItemDetailContainer;

@@ -1,17 +1,14 @@
 import React, { useState } from 'react';
 import './Carrito.css';
-import hercules from '../imagenes/hercules.jpg';
-import plataforma from '../imagenes/plataforma.jpg';
-import agricultura from '../imagenes/agricultura.jpg';
-import cosechadora from '../imagenes/cosechadora.jpg';
+
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
 const productosIniciales = [
  
 ];
 
-const Carrito = () => {
-  const [productos, setProductos] = useState(productosIniciales);
+const Carrito = ({productos, setProductos}) => {
+  {/*const [productos, setProductos] = useState(productosIniciales);*/}
 
   const aumentarCantidad = (id) => {
     const nuevosProductos = productos.map(prod => 
@@ -58,8 +55,8 @@ const Carrito = () => {
       ))}
       <div className="resumen-compra">
         <h3>Resumen de compra</h3>
-        <button className="btn-finalizar">Finalizar compra</button>
-        <button className="btn-continuar">Continuar comprando</button>
+        <button className="btn-finalizar">Finalizar Pedido</button>
+        <button  className="btn-continuar">Continuar comprando</button>
       </div>
     </div>
   );

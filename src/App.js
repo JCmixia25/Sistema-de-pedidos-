@@ -52,31 +52,6 @@ function App() {
 
   if (!estado) {
     return (
-<<<<<<< HEAD
-      <div className="App">
-        <CartContext.Provider  value={cart}/>
-        <Botones />
-        <Routes>
-          <Route path="/" element={<Bienvenida />} />
-          <Route path="/bienvenida" element={<Bienvenida />} />
-          <Route path="/inicio" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/agregarpro" element={<Agregarpro />} />
-          <Route path="/carrito" element={<Carrito productos={cart} setProductos={setCart} />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/contact" element={<Contacts />} />
-          <Route path="/home/:id" element={<ProductDetail />} />
-          <Route path="/listaProductos" element={<ListaProductos />} />
-          <Route path="/item/:id" element={<ItemDetailContainer onAddToCart={agregarAlCarrito} />} />
-          <Route path="/productos" element={<ItemListContainer />} />
-          <Route path="/productos/:categoria" element={<ItemListContainer />} />
-          <Route path="/listBotones" element={<VerticalButtons />} />
-          <Route path="/contacto" element={<Contacto />} />
-        </Routes>
-        <PieDePagina />
-        <CartContext.Provider />
-      </div>
-=======
         <div className="App">
           <Botones />
           <Routes>
@@ -109,7 +84,6 @@ function App() {
           </Routes>
           <PieDePagina />
         </div>
->>>>>>> 0bbdbef8d26e1c2dd9196de1ab4243bde428aab1
     );
   } else {
     return (

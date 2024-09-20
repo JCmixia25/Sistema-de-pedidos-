@@ -4,14 +4,12 @@ import { CartContext } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 import { useAuth } from '../context/authContext';
 
-const ItemDetail = ({ item, onAddToCart }) => {
+const ItemDetail = ({ item, onAddToCart}) => {
 
-  const [cantidad, setCantidad] = useState(1);
 
   const { carrito, setCarrito } = useAuth();
   console.log(carrito);
 
-  const { cart, setCart } = useContext (CartContext);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const navigate = useNavigate(); // Inicializar useNavigate
 
@@ -41,7 +39,7 @@ const ItemDetail = ({ item, onAddToCart }) => {
   // }
 
   const handleAddToCart = () => {
-    onAddToCart(item); // Agregar al carrito
+    ItemDetail(item); // Agregar al carrito
     navigate("/productos"); // Redirigir a la página de productos
   };
 
@@ -58,7 +56,7 @@ const ItemDetail = ({ item, onAddToCart }) => {
         <p>{item.descripcion}</p>
         <p className="item-category">Categoría: {item.categoria}</p>
         <p className="item-price">Q{item.precio}</p>
-        <button onClick={handleAddToCart} className="add-to-cart-btn">Agregar al carrito</button>
+        <button onClick={() => onAddToCart(item)} className="add-to-cart-btn">Agregar al carrito</button>
       </div>
     </div>
   );
