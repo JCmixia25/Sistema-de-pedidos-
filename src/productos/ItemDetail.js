@@ -7,6 +7,7 @@ const ItemDetail = ({ item, onAddToCart }) => {
   const mensaje = useContext(CartContext);
   console.log(mensaje);
 
+  const { cart, setCart } = useContext (CartContext);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const navigate = useNavigate(); // Inicializar useNavigate
 
@@ -40,7 +41,6 @@ const ItemDetail = ({ item, onAddToCart }) => {
         <p>{item.descripcion}</p>
         <p className="item-category">Categoría: {item.categoria}</p>
         <p className="item-price">Q{item.precio}</p>
-        {/* Redirige y agrega al carrito cuando se hace clic */}
         <button onClick={handleAddToCart} className="add-to-cart-btn">Agregar al carrito</button>
       </div>
     </div>

@@ -49,7 +49,7 @@ function App() {
   if (!estado) {
     return (
       <div className="App">
-        <CartContext.Provider value="hola" />
+        <CartContext.Provider  value={cart}/>
         <Botones />
         <Routes>
           <Route path="/" element={<Bienvenida />} />
@@ -57,7 +57,6 @@ function App() {
           <Route path="/inicio" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/agregarpro" element={<Agregarpro />} />
-          {/* Pasar el carrito y la función agregar al carrito a los componentes */}
           <Route path="/carrito" element={<Carrito productos={cart} setProductos={setCart} />} />
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contacts />} />
