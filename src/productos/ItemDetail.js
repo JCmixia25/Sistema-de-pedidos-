@@ -39,7 +39,7 @@ const ItemDetail = ({ item, onAddToCart}) => {
   // }
 
   const handleAddToCart = () => {
-    ItemDetail(item); // Agregar al carrito
+    onAddToCart(item); // Agregar al carrito
     navigate("/productos"); // Redirigir a la página de productos
   };
 
@@ -56,7 +56,7 @@ const ItemDetail = ({ item, onAddToCart}) => {
         <p>{item.descripcion}</p>
         <p className="item-category">Categoría: {item.categoria}</p>
         <p className="item-price">Q{item.precio}</p>
-        <button onClick={() => onAddToCart(item)} className="add-to-cart-btn">Agregar al carrito</button>
+        <button onClick={handleAddToCart} className="add-to-cart-btn">Agregar al carrito</button>
       </div>
     </div>
   );

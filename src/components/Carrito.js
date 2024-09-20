@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Carrito.css';
-
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
 const productosIniciales = [
@@ -8,6 +8,8 @@ const productosIniciales = [
 ];
 
 const Carrito = ({productos, setProductos}) => {
+  const navigate = useNavigate(); // Inicializar useNavigate
+
   {/*const [productos, setProductos] = useState(productosIniciales);*/}
 
   const aumentarCantidad = (id) => {
@@ -27,6 +29,10 @@ const Carrito = ({productos, setProductos}) => {
   const eliminarProducto = (id) => {
     const nuevosProductos = productos.filter(prod => prod.id !== id);
     setProductos(nuevosProductos);
+  };
+
+  const direccionar = () => {
+    navigate("/productos"); // Redirigir a la página de productos
   };
 
   return (
@@ -56,7 +62,7 @@ const Carrito = ({productos, setProductos}) => {
       <div className="resumen-compra">
         <h3>Resumen de compra</h3>
         <button className="btn-finalizar">Finalizar Pedido</button>
-        <button  className="btn-continuar">Continuar comprando</button>
+        <button  onClick={direccionar} className="btn-continuar">Continuar comprando</button>
       </div>
     </div>
   );
