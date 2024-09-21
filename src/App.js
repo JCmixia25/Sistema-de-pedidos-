@@ -23,7 +23,6 @@ import { useState } from "react";
 import { CartContext, CartProvider } from "./context/CartContext.js";
 import Contacto from "./productos/Contacto.js";
 import ItemDetail from "./productos/ItemDetail.js";
-// import ItemDetail from "./productos/ItemDetail.js";
 
 function App() {
   const { estado } = useAuth();
@@ -92,7 +91,7 @@ function App() {
         <Encabezado />
         <Routes>
           <Route path="/" element={<Inicio />} />
-          <Route path="/inicio" element={<Inicio />} />
+          <Route path="/Inicio" element={<Inicio />} />
         </Routes>
       </div>
     );

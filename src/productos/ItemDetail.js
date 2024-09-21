@@ -40,7 +40,7 @@ const ItemDetail = ({ item, onAddToCart}) => {
 
   const handleAddToCart = () => {
     onAddToCart(item); // Agregar al carrito
-    navigate("/productos"); // Redirigir a la página de productos
+    navigate("/carrito"); // Redirigir a la página de productos
   };
 
   return (
