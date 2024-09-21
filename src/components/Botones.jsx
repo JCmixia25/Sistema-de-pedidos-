@@ -58,9 +58,9 @@ export const Botones = () => {
               <NavLink to="/login" className="inicio-sesion-button">
                 <FaUser className="usuario-icono" /> 
                 <p className="inicio-sesion-text">
-                  INICIAR
+                  Iniciar
                   <br />
-                  SESION
+                  sesion
                 </p>
               </NavLink>
             </div>

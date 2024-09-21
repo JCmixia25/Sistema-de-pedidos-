@@ -3,7 +3,7 @@ import ItemList from "./ItemList";
 import { pedirDatos } from "../helpers/pedirDatos";
 import { NavLink, useParams } from "react-router-dom";
 import VerticalButtons from "../components/VerticalButtons";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../conexion/firebase";
 
 const ItemListContainer = () => {
@@ -11,12 +11,15 @@ const ItemListContainer = () => {
   const [titulo, setTitulo] = useState("PRODUCTOS");
 
   const categoria = useParams().categoria;
-  console.log(categoria);
+  console.log("categoria: ", categoria);
 
   useEffect(() => {
     const productosRef = collection(db, "productos");
+    //Realiza filtración de productos
+    
+    const q = categoria ? query(productosRef, where("categoria", "==", categoria)) : productosRef;
 
-    getDocs(productosRef).then((resp) => {
+    getDocs(q).then((resp) => {
       // console.log(resp.docs[0].data());
 
       setProductos(
