@@ -4,14 +4,13 @@ import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import icono from "./icono.png";
-import { FaSearch, FaShoppingCart, FaUser } from "react-icons/fa"; // Importa iconos de carrito y usuario
-
+import { FaSearch, FaShoppingCart, FaUser, FaPowerOff } from "react-icons/fa"; // Importa iconos de carrito y usuario
 
 export const Encabezado = () => {
-  const { setEstado} = useAuth();
+  const { setEstado } = useAuth();
   const navigate = useNavigate();
 
-  function cerrarSesion(){
+  function cerrarSesion() {
     setEstado(false);
     localStorage.removeItem("login");
     navigate("/");
@@ -66,7 +65,7 @@ export const Encabezado = () => {
                 />
               </div>
             </div>
-           
+
             <div className="carrito-compras">
               <NavLink to="/carrito" className="carrito-boton">
                 <div className="icono-y-texto">
@@ -99,8 +98,17 @@ export const Encabezado = () => {
                 </NavLink>
               </li>
               <li>
-               {/* <NavLink to="/home">CERRAR SESION</NavLink> */}
-               <button id="btnLogout" onClick={cerrarSesion} className="cerrar-sesion">CERRAR SESION</button>
+                {/* <NavLink to="/home">CERRAR SESION</NavLink> */}
+                <button
+                  id="btnLogout"
+                  onClick={cerrarSesion}
+                  className="cerrar-sesion"
+                >
+                  <FaPowerOff className="usuario-icono" />
+                </button>
+                <div className="cerrar-sesion">
+               
+                </div>
               </li>
             </ul>
           </div>
@@ -108,5 +116,4 @@ export const Encabezado = () => {
       </nav>
     </div>
   );
-  
 };

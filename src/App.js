@@ -87,7 +87,7 @@ function App() {
   } else {
     return (
       <div className="App">
-        <img src={icono} alt="Icono" className="icono" />
+       
         <Encabezado />
         <Routes>
           <Route path="/" element={<Inicio />} />

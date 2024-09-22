@@ -13,13 +13,26 @@ const Item = ({ producto }) => {
         />
       </div>
       <div className="info-container">
-        <h4>{producto.titulo}</h4>
-        <p className="informacion-producto">Precio: Q. {producto.precio}</p>
-        <p className="informacion-producto">Categoria: {producto.categoria}</p>
-        <p className="informacion-producto">{producto.descripcion}</p>
-        <NavLink className="informacion-producto" to={`/item/${producto.id}`}>
-          Ver más
-        </NavLink>
+        <div className="contenedor-titulo">
+          <h4>{producto.titulo}</h4>
+        </div>
+        <div className="contenedor-precio">
+          <p className="informacion-producto">Precio: Q. {producto.precio}</p>
+        </div>
+        <div className="contenedor-cat">
+          <p className="informacion-producto">
+            Categoria: {producto.categoria}
+          </p>
+        </div>
+        <div className="contenedor-desc">
+            <p className="informacion-producto">{producto.descripcion}</p>
+
+        </div>
+        <div className="informacion-ver">
+          <NavLink className="informacion-producto" to={`/item/${producto.id}`}>
+            Ver más
+          </NavLink>
+        </div>
       </div>
     </div>
   );

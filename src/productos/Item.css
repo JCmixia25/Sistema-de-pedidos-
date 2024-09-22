@@ -3,28 +3,22 @@
     width: 100%;
     height: 100%;
     border-radius: 10px;
-    
 }
 
 .container-imagen{
-    width: 100px;
-    height: 100px;
+    width: auto;
+    height: auto;
 }
 
 .container-datos-productos{
     /* border: solid 1px chartreuse; */
-
     border-radius: 5px;
     padding: 10px;
-
     background-color: rgba(190, 216, 232, 0.5); /* 50% de opacidad */
     margin: 10px;
-    
     width: 200px;
     height: 400px;
     display: inline-block;
-
-    
 }
 
 .container-datos-productos:hover{
@@ -34,10 +28,35 @@
 }
 
 .informacion-producto{
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .info-container{
     width: 100%;
     height: 200px;
+    /* background-color: aquamarine; */
+    float: left;
+}
+.contenedor-titulo{
+    height: 25%;
+}
+.contenedor-precio{
+    height: 10%;
+    /* background-color: blueviolet; */
+}
+
+.contenedor-cat{
+    height: 10%;
+    /* background-color: chartreuse; */
+}
+
+.contenedor-desc{
+    height: 20%;
+    /* background-color: aqua; */
+}
+.informacion-ver{
+    height: 35%;
+
+    align-content: center;
+    /* background-color: blue; */
 }
