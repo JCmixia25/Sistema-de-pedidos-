@@ -214,8 +214,9 @@
 
 .inicio-sesion-button {
   display: inline-block; /* Para que se comporte como un botón */
-  padding: 10px 20px; /* Espaciado interno */
+  padding: 0; /* Espaciado interno */
   color: white; /* Color del texto */
+  
   text-decoration: none; /* Sin subrayado */
   border-radius: 5px; /* Bordes redondeados */
   text-align: center; /* Centrar texto */
@@ -351,7 +352,7 @@
 
   .inicio-sesion {
     padding-top: 5px; /* Mantiene el ajuste de posición */
-    margin-right: 20px; /* Aumenta este valor para separar más de "Mi carrito" */
+     margin-right: 20px; /*Aumenta este valor para separar más de "Mi carrito" */
   }
 
   .carrito-boton .inicio-sesion-text {
@@ -380,7 +381,7 @@
     height: 24px; /* Ajusta el tamaño según sea necesario */
     margin-right: 8px; /* Espacio entre el icono y el texto */
     margin-top: 2px; /* Ajusta este valor para bajar el icono */
-    color: rgb(14, 14, 14); /* Color del icono */
+    color: #174270; /* Color del icono */
   }
 
   .search-iconn {
@@ -451,3 +452,4 @@
 .search-input:focus {
   border-color: #088395; /* Darker green on focus */
 }
+

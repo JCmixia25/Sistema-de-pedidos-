@@ -3,7 +3,7 @@
     max-width: 1200px;   /* Limita el ancho máximo del contenedor */
     margin: 0 auto;      /* Centra horizontalmente */
     padding: 20px;       /* Espaciado interno */
-    background-color: #f9f9f9; /* Fondo claro */
+    background-color: #f9f9f9;  /* Fondo claro */
     border-radius: 10px; /* Bordes redondeados */
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Sombra suave */
     display: flow-root;
@@ -63,4 +63,21 @@
     color: #777;
     font-style: italic;
     margin-bottom: 20px;
+}
+
+.container-productojs{
+    width: auto;
+    /* background-color: #555;
+    border: solid 1px greenyellow; */
+
+    /* display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px; */
+    
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); */
+    grid-template-columns: repeat(auto-fit, 220px); /*Ajusta los items ordenandamente en el contenedor*/
+    gap: 5px; /*espacio vertical entre item*/
+    padding: 5px;
 }

@@ -1,44 +1,16 @@
 import React, { useState } from 'react';
 import './Carrito.css';
-import hercules from '../imagenes/hercules.jpg';
-import plataforma from '../imagenes/plataforma.jpg';
-import agricultura from '../imagenes/agricultura.jpg';
-import cosechadora from '../imagenes/cosechadora.jpg';
+import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
 
 const productosIniciales = [
-  {
-    id: 1,
-    nombre: 'HERCULES',
-    codigo: '045439/053931',
-    imagen: hercules,
-    cantidad: 1,
-  },
-  {
-    id: 2,
-    nombre: 'PLATAFORMA',
-    codigo: '7010-041-245',
-    imagen: plataforma,
-    cantidad: 1,
-  },
-  {
-    id: 3,
-    nombre: 'AGRICULTURA',
-    codigo: '75832-268-853',
-    imagen: agricultura,
-    cantidad: 1,
-  },
-  {
-    id: 4,
-    nombre: 'COSECHADORA',
-    codigo: '356125/362485',
-    imagen: cosechadora,
-    cantidad: 1,
-  },
+ 
 ];
 
-const Carrito = () => {
-  const [productos, setProductos] = useState(productosIniciales);
+const Carrito = ({productos, setProductos}) => {
+  const navigate = useNavigate(); // Inicializar useNavigate
+
+  {/*const [productos, setProductos] = useState(productosIniciales);*/}
 
   const aumentarCantidad = (id) => {
     const nuevosProductos = productos.map(prod => 
@@ -57,6 +29,10 @@ const Carrito = () => {
   const eliminarProducto = (id) => {
     const nuevosProductos = productos.filter(prod => prod.id !== id);
     setProductos(nuevosProductos);
+  };
+
+  const direccionar = () => {
+    navigate("/productos"); // Redirigir a la página de productos
   };
 
   return (
@@ -85,8 +61,8 @@ const Carrito = () => {
       ))}
       <div className="resumen-compra">
         <h3>Resumen de compra</h3>
-        <button className="btn-finalizar">Finalizar compra</button>
-        <button className="btn-continuar">Continuar comprando</button>
+        <button className="btn-finalizar">Finalizar Pedido</button>
+        <button  onClick={direccionar} className="btn-continuar">Continuar comprando</button>
       </div>
     </div>
   );

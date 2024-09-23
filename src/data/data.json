@@ -2,55 +2,55 @@
     {
         "id": 1,
         "titulo": "Arnés eléctrico",
-        "descripcion": "arnés eléctrico central para cosechadora, codigo-23AS12",
-        "categoria": "electrico",
-        "imagenes": [
-            "https://m.media-amazon.com/images/I/6113J9LwGWL.jpg",
-            "https://supermoto.mx/wp-content/uploads/b5885ff8-b003-4c0a-b41e-6891782d0da1.jpg",
-            "https://th.bing.com/th/id/R.734f2cc61c99963dbd8adff2896d8f19?rik=kh2vqUSw2HjUzw&pid=ImgRaw&r=0"
-        ],
-        "precio": 1500
-
+        "descripcion": "arnés eléctrico para fertilizadora",
+        "categoria": "eléctricos",
+        "imagen": "https://m.media-amazon.com/images/I/6113J9LwGWL.jpg",
+        "precio": 1500,
+        "stock":10
     },
     {
         "id": 2,
         "titulo": "Conector circular",
         "descripcion": "conector eléctrico para fertilizadora",
-        "categoria": "electrico",
-        "imagenes": "https://mm.digikey.com/Volume0/opasdata/d220001/medias/images/734/206554-1.jpg",
-        "precio": 500
-
+        "categoria": "eléctricos",
+        "imagen": "https://mm.digikey.com/Volume0/opasdata/d220001/medias/images/734/206554-1.jpg",
+        "precio": 500,
+        "stock":10
     },
     {
         "id": 3,
         "titulo": "Sensor inductivo",
         "descripcion": "sensor para detectar las rpm de la máquina",
-        "categoria": "electrico",
-        "imagenes": "https://tienda.tettsa.gt/wp-content/uploads/2023/02/LJ12A3-4-ZBX-C.jpeg",
-        "precio": 1000
+        "categoria": "eléctricos",
+        "imagen": "https://tienda.tettsa.gt/wp-content/uploads/2023/02/LJ12A3-4-ZBX-C.jpeg",
+        "precio": 1000,
+        "stock":10
     },
     {
         "id": 4,
         "titulo": "Bomba bertolini",
         "descripcion": "bomba de 300 Lm / min ",
-        "categoria": "mecanica",
-        "imagenes": "https://images.kramp.com/images/8b/9a/626100973vs.jpg",
-        "precio": 50000
+        "categoria": "mecánicos",
+        "imagen": "https://images.kramp.com/images/8b/9a/626100973vs.jpg",
+        "precio": 50000,
+        "stock":10
     },
     {
         "id": 5,
         "titulo": "Antena Novatel",
         "descripcion": "Antena GPS novatel de 10 hz",
-        "categoria": "electronica",
-        "imagenes": "https://precisionfarmingiberia.com/wp-content/uploads/2020/08/novatel.jpg",
-        "precio": 50000
+        "categoria": "electrónicos",
+        "imagen": "https://precisionfarmingiberia.com/wp-content/uploads/2020/08/novatel.jpg",
+        "precio": 50000,
+        "stock":10
     },
     {
         "id": 6,
         "titulo": "Antena Novatel",
         "descripcion": "Antena GPS novatel de 10 hz",
-        "categoria": "electronica",
-        "imagenes": "https://precisionfarmingiberia.com/wp-content/uploads/2020/08/novatel.jpg",
-        "precio": 50000
+        "categoria": "electrónicos",
+        "imagen": "https://precisionfarmingiberia.com/wp-content/uploads/2020/08/novatel.jpg",
+        "precio": 50000,
+        "stock":10
     }
 ]
