@@ -27,6 +27,7 @@ const ItemListContainer = ({onAddToCart}) => {
           return { ...doc.data(), id: doc.id}
         })
       )
+
     });
 
     //setProductos(pedirDatos);
@@ -48,6 +49,7 @@ const ItemListContainer = ({onAddToCart}) => {
       </div>
       <div className="container-derecho">
         <ItemList productos={productos} titulo={titulo} onAddToCart={onAddToCart}/>
+       
       </div>
     </div>
   );
