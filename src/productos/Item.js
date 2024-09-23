@@ -1,8 +1,18 @@
 import React from "react";
 import "./Item.css";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
-const Item = ({ producto }) => {
+const Item = ({ producto, onAddToCart}) => {
+  const navigate = useNavigate(); // Inicializar useNavigate
+
+  const detalle = () => {
+    navigate(`/item/${producto.id}`); // Redirigir a la página de productos
+  };
+
+  const agregar = () => {
+    onAddToCart(producto);
+    navigate("/carrito");
+  }
   return (
     <div className="container-datos-productos">
       <div className="container-imagen">
@@ -16,22 +26,31 @@ const Item = ({ producto }) => {
         <div className="contenedor-titulo">
           <h4>{producto.titulo}</h4>
         </div>
-        <div className="contenedor-precio">
+        {/* <div className="contenedor-precio">
           <p className="informacion-producto">Precio: Q. {producto.precio}</p>
-        </div>
-        <div className="contenedor-cat">
+        </div> */}
+        {/* <div className="contenedor-cat">
           <p className="informacion-producto">
             Categoria: {producto.categoria}
           </p>
-        </div>
-        <div className="contenedor-desc">
+        </div> */}
+        {/* <div className="contenedor-desc">
             <p className="informacion-producto">{producto.descripcion}</p>
 
-        </div>
-        <div className="informacion-ver">
-          <NavLink className="informacion-producto" to={`/item/${producto.id}`}>
+        </div> */}
+
+        {/* <NavLink className="informacion-producto" to={`/item/${producto.id}`}>
+              Ver más
+            </NavLink> */}
+                <div>
+          <button onClick={detalle} className="informacion-ver">
             Ver más
-          </NavLink>
+          </button>
+        </div>
+        <div>
+          <button onClick={agregar} className="informacion-ver">
+            Agregar a carrito
+          </button>
         </div>
       </div>
     </div>

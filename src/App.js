@@ -72,7 +72,7 @@ function App() {
               path="/item/:id"
               element={<ItemDetailContainer onAddToCart={agregarAlCarrito} />}
             />
-            <Route path="/productos" element={<ItemListContainer />} />
+            <Route path="/productos" element={<ItemListContainer  onAddToCart={agregarAlCarrito}/>}/>
             <Route path="/detalle" element={<ItemDetail />} />
             <Route
               path="/productos/:categoria"
