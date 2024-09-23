@@ -15,18 +15,18 @@
   /* align-items: center; */
   border-radius: 5px;
   padding: 10px;
-  background-color: rgba(190, 216, 232, 0.5); /* 50% de opacidad */
+
   margin: 10px;
   width: 200px;
   height: 275px;
   display: block;
-  box-shadow: 0px 0px 15px 2px rgb(174, 172, 172);
+  box-shadow: 0px 0px 10px 1px rgb(174, 172, 172);
   /* border: solid 1px blueviolet; */
 }
 
 .container-datos-productos:hover {
   /* border: solid 1px cyan; */
-  background-color: rgba(190, 216, 232, 0.957);
+  background-color: rgba(157, 161, 163, 0.258);
   z-index: 10;
   box-shadow: 0px 0px 15px 2px rgb(174, 172, 172);
 }

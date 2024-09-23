@@ -76,7 +76,7 @@ function App() {
             <Route path="/detalle" element={<ItemDetail />} />
             <Route
               path="/productos/:categoria"
-              element={<ItemListContainer />}
+              element={<ItemListContainer onAddToCart={agregarAlCarrito}/>}
             />
             <Route path="/listBotones" element={<VerticalButtons />} />
             <Route path="/contacto" element={<Contacto />} />

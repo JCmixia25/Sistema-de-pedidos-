@@ -12,7 +12,6 @@ const ItemListContainer = ({onAddToCart}) => {
   const [titulo, setTitulo] = useState("PRODUCTOS");
 
   const categoria = useParams().categoria;
-  console.log("categoria: ", categoria);
 
   useEffect(() => {
     const productosRef = collection(db, "productos");
