@@ -104,6 +104,7 @@ h2 {
     color: white;
     cursor: pointer;
     font-size: 24px; /* Ajustado */
+    margin-right: 8px;
 }
 
 .btn-finalizar {

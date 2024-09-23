@@ -2,15 +2,18 @@ import React, { useState } from 'react';
 import './Carrito.css';
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 import { FaTrash, FaPlus, FaMinus } from 'react-icons/fa';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
-const productosIniciales = [
- 
-];
+
 
 const Carrito = ({productos, setProductos}) => {
   const navigate = useNavigate(); // Inicializar useNavigate
-
-  {/*const [productos, setProductos] = useState(productosIniciales);*/}
+  const notify = () => {
+  toast.error("Necesitas Iniciar Sesion!", {
+    position: "top-center"
+  });
+}
 
   const aumentarCantidad = (id) => {
     const nuevosProductos = productos.map(prod => 
@@ -61,8 +64,9 @@ const Carrito = ({productos, setProductos}) => {
       ))}
       <div className="resumen-compra">
         <h3>Resumen de compra</h3>
-        <button className="btn-finalizar">Finalizar Pedido</button>
+        <button onClick={notify}className= "btn-finalizar">Finalizar Pedido</button>
         <button  onClick={direccionar} className="btn-continuar">Continuar comprando</button>
+        <ToastContainer />
       </div>
     </div>
   );
