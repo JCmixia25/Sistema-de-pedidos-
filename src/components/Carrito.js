@@ -65,7 +65,7 @@ const Carrito = ({productos, setProductos}) => {
       <div className="resumen-compra">
         <h3>Resumen de compra</h3>
         <button onClick={notify}className= "btn-finalizar">Finalizar Pedido</button>
-        <button  onClick={direccionar} className="btn-continuar">Continuar comprando</button>
+        <button  onClick={direccionar} className="btn-continuar">Continuar Pedido</button>
         <ToastContainer />
       </div>
     </div>

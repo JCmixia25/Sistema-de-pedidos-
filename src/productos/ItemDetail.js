@@ -13,28 +13,16 @@ const ItemDetail = ({ item, onAddToCart, imagenes }) => {
 
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === item.imagen.length - 1 ? 0 : prevIndex + 1
+      prevIndex === imagenes.length - 1 ? 0 : prevIndex + 1
     );
+    
   };
-
+  console.log("uno", currentImageIndex);
   const handlePrevImage = () => {
     setCurrentImageIndex((prevIndex) =>
-      prevIndex === 0 ? item.imagen.length - 1 : prevIndex - 1
+      prevIndex === 0 ? imagenes.length - 1 : prevIndex - 1
     );
   };
-
-  // const handleAgregar = () => {
-  //   const itemAgregado = {...item, cantidad};
-  //   if(carrito.find((producto) => producto.id === itemAgregado.id)){
-
-  //     console.log("Está en el carrito")
-  //   } else {
-  //     console.log("No está en el carrito");
-  //   }
-
-  //   setCarrito([...carrito, itemAgregado]);
-  //   console.log(itemAgregado);
-  // }
 
   const handleAddToCart = () => {
     onAddToCart(item); // Agregar al carrito
@@ -43,34 +31,18 @@ const ItemDetail = ({ item, onAddToCart, imagenes }) => {
 
   return (
     <div className="item-detail">
-      <div className="carousel">
-        <button onClick={handlePrevImage} className="prev-btn">
-          &#10094;
-        </button>
-        <img src={item.imagen} alt={item.titulo} className="carousel-image" />
-        <button onClick={handleNextImage} className="next-btn">
-          &#10095;
-        </button>
-      </div>
       <div>
         {imagenes && Array.isArray(imagenes) && imagenes.length > 0 && (
-          <>
-            {imagenes.map(
-              (image, index) =>
-                image.imagen && (
-                  <img
-                    key={index}
-                    src={image.imagen}
-                    alt={`Error${index + 1}`}
-                    style={{
-                      maxWidth: "200px",
-                      height: "auto",
-                      marginBottom: "10px",
-                    }}
-                  />
-                )
-            )}
-          </>
+          <div className="carousel">
+            <button onClick={handlePrevImage} className="prev-btn">
+              &#10094;
+            </button>
+            <img src={imagenes[currentImageIndex].imagen} alt="Error1" />
+            <button onClick={handleNextImage} className="next-btn">
+              &#10095;
+            </button>
+          </div>
+
         )}
         {!imagenes && <p>No se encontraron imágenes</p>}
       </div>
