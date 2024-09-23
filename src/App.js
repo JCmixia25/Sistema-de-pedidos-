@@ -19,18 +19,25 @@ import ListaProductos from "./productos/ListaProductos";
 import ItemDetailContainer from "./productos/ItemDetailContainer.js";
 import ItemListContainer from "./productos/ItemListContainer.js";
 import VerticalButtons from "./components/VerticalButtons.js";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { CartContext, CartProvider } from "./context/CartContext.js";
 import Contacto from "./productos/Contacto.js";
 import ItemDetail from "./productos/ItemDetail.js";
+import Cookies from "js-cookie";
 
 function App() {
   const { estado } = useAuth();
-
-  // const { Carrito, setCarrito } = useAuth();
-  // setCarrito("hola");
-  // Estado para manejar el carrito
   const [cart, setCart] = useState([]);
+
+  useEffect(() => {
+    if (Cookies.get("cart")) {
+      //si existe datos en la cookies y el carrito está vacío
+      const carrito = Cookies.get("cart");
+      setCart(JSON.parse(carrito));
+    }
+
+    // Cookies.remove("cart");
+  }, []);
 
   // Función para agregar productos al carrito
   const agregarAlCarrito = (producto) => {
@@ -44,50 +51,59 @@ function App() {
             : prod
         )
       );
-    } else {
+    } 
+    else {
       setCart([...cart, { ...producto, cantidad: 1 }]);
+      console.log("valor de cart", JSON.stringify(cart));
     }
+
+    Cookies.remove("cart");
+    // console.log(Cookies.get('cart'));
+    Cookies.set("cart", JSON.stringify(cart));
+    // console.log("valor cookies",Cookies.get('cart'));
   };
 
   if (!estado) {
     return (
-        <div className="App">
-          <Botones />
-          <Routes>
-            <Route path="/" element={<Bienvenida />} />
-            <Route path="/bienvenida" element={<Bienvenida />} />
-            <Route path="/inicio" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/agregarpro" element={<Agregarpro />} />
-            {/* Pasar el carrito y la función agregar al carrito a los componentes */}
-            <Route
-              path="/carrito"
-              element={<Carrito productos={cart} setProductos={setCart} />}
-            />
-            <Route path="/register" element={<Register />} />
-            <Route path="/contact" element={<Contacts />} />
-            <Route path="/home/:id" element={<ProductDetail />} />
-            <Route path="/listaProductos" element={<ListaProductos />} />
-            <Route
-              path="/item/:id"
-              element={<ItemDetailContainer onAddToCart={agregarAlCarrito} />}
-            />
-            <Route path="/productos" element={<ItemListContainer  onAddToCart={agregarAlCarrito}/>}/>
-            <Route path="/detalle" element={<ItemDetail />} />
-            <Route
-              path="/productos/:categoria"
-              element={<ItemListContainer />}
-            />
-            <Route path="/listBotones" element={<VerticalButtons />} />
-            <Route path="/contacto" element={<Contacto />} />
-          </Routes>
-          <PieDePagina />
-        </div>
+      <div className="App">
+        <Botones />
+        <Routes>
+          <Route path="/" element={<Bienvenida />} />
+          <Route path="/bienvenida" element={<Bienvenida />} />
+          <Route path="/inicio" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/agregarpro" element={<Agregarpro />} />
+          {/* Pasar el carrito y la función agregar al carrito a los componentes */}
+          <Route
+            path="/carrito"
+            element={<Carrito productos={cart} setProductos={setCart} />}
+          />
+          <Route path="/register" element={<Register />} />
+          <Route path="/contact" element={<Contacts />} />
+          <Route path="/home/:id" element={<ProductDetail />} />
+          <Route path="/listaProductos" element={<ListaProductos />} />
+          <Route
+            path="/item/:id"
+            element={<ItemDetailContainer onAddToCart={agregarAlCarrito} />}
+          />
+          <Route
+            path="/productos"
+            element={<ItemListContainer onAddToCart={agregarAlCarrito} />}
+          />
+          <Route path="/detalle" element={<ItemDetail />} />
+          <Route
+            path="/productos/:categoria"
+            element={<ItemListContainer onAddToCart={agregarAlCarrito} />}
+          />
+          <Route path="/listBotones" element={<VerticalButtons />} />
+          <Route path="/contacto" element={<Contacto />} />
+        </Routes>
+        <PieDePagina />
+      </div>
     );
   } else {
     return (
       <div className="App">
-       
         <Encabezado />
         <Routes>
           <Route path="/" element={<Inicio />} />

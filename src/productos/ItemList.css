@@ -81,3 +81,7 @@
     gap: 5px; /*espacio vertical entre item*/
     padding: 5px;
 }
+
+.text-titulo{
+    color: #174270;
+}

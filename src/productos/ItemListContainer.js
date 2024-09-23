@@ -12,7 +12,6 @@ const ItemListContainer = ({onAddToCart}) => {
   const [titulo, setTitulo] = useState("PRODUCTOS");
 
   const categoria = useParams().categoria;
-  console.log("categoria: ", categoria);
 
   useEffect(() => {
     const productosRef = collection(db, "productos");
@@ -28,6 +27,7 @@ const ItemListContainer = ({onAddToCart}) => {
           return { ...doc.data(), id: doc.id}
         })
       )
+
     });
 
     //setProductos(pedirDatos);
@@ -49,6 +49,7 @@ const ItemListContainer = ({onAddToCart}) => {
       </div>
       <div className="container-derecho">
         <ItemList productos={productos} titulo={titulo} onAddToCart={onAddToCart}/>
+       
       </div>
     </div>
   );

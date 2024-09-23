@@ -105,3 +105,9 @@ body {
 .btn-texto:hover {
   color: #1981a8; /* Color al pasar el mouse */
 }
+
+.mensaje {
+  color: red;
+  margin-top: 20px; /* Añade un margen superior para que no se pegue al formulario */
+  text-align: center; /* Centra el texto en la vista */
+}
