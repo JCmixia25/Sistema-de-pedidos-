@@ -1,0 +1,13 @@
+/* Ajustes para el contenedor de la derecha */
+.container-derecho{
+    width: 80%; /* Ajusta el ancho para que ocupe el 80% restante */
+    float: right;
+    text-align: center;
+
+  }
+
+  
+.container-primario {
+    display: flex;
+    /* background-color: rgb(126, 34, 34); */
+  }

@@ -4,6 +4,7 @@ import { CartContext } from '../context/CartContext';
 import { useNavigate } from 'react-router-dom'; // Importar useNavigate
 import { useAuth } from '../context/authContext';
 
+
 const ItemDetail = ({ item, onAddToCart}) => {
 
 

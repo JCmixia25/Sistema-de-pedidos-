@@ -5,6 +5,7 @@ import { NavLink } from "react-router-dom";
 function VerticalButtons() {
   return (
     <div className="button-container">
+      <h3 className="text-categoria">Categorías</h3>
       <NavLink className="vertical-button" to="/productos/Eléctricos">
         ELECTRICO
       </NavLink>
@@ -14,8 +15,8 @@ function VerticalButtons() {
       <NavLink className="vertical-button" to="/productos/Electrónicos">
         ELECTRONICA
       </NavLink>
-      <NavLink className="vertical-button" to="/productos/Aspiración">
-        ASPERCIÓN
+      <NavLink className="vertical-button" to="/productos/Aspersión">
+        ASPERSIÓN
       </NavLink>
       <NavLink className="vertical-button" to="/productos/Hidráulicos">
         HIDRAULICA

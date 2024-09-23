@@ -66,5 +66,22 @@
 }
 
 .container-productojs{
-    /* background-color: #555; */
+    width: auto;
+    /* background-color: #555;
+    border: solid 1px greenyellow; */
+
+    /* display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    padding: 20px; */
+    
+    display: grid;
+    /* grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); */
+    grid-template-columns: repeat(auto-fit, 220px); /*Ajusta los items ordenandamente en el contenedor*/
+    gap: 5px; /*espacio vertical entre item*/
+    padding: 5px;
+}
+
+.text-titulo{
+    color: #174270;
 }
