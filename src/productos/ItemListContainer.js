@@ -4,6 +4,8 @@ import { pedirDatos } from "../helpers/pedirDatos";
 import { NavLink, useParams } from "react-router-dom";
 import VerticalButtons from "../components/VerticalButtons";
 
+
+
 const ItemListContainer = () => {
   const [productos, setProductos] = useState([]);
   const categoria = useParams().categoria;
@@ -20,6 +22,7 @@ const ItemListContainer = () => {
     });
   }, [categoria]);
 
+
   return (
     <div className="container-primario">
       <div className="container-izquierdo">
@@ -27,6 +30,7 @@ const ItemListContainer = () => {
       </div>
       <div className="home-container">
         <ItemList productos={productos} />
+      
       </div>
     </div>
   );
