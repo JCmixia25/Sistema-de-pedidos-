@@ -3,43 +3,117 @@ import "../components-private/Encabezado.css";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
+import icono from "./icono.png";
+import { FaSearch, FaShoppingCart, FaUser, FaPowerOff } from "react-icons/fa"; // Importa iconos de carrito y usuario
 
 export const Encabezado = () => {
-  const [menuOpen, setMenuOpen] = useState(false);
-  const { setEstado} = useAuth();
+  const { setEstado } = useAuth();
   const navigate = useNavigate();
 
-  function cerrarSesion(){
+  function cerrarSesion() {
     setEstado(false);
     localStorage.removeItem("login");
     navigate("/");
   }
 
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [searchTerm, setSearchTerm] = useState("");
+
+  const handleSearchChange = (e) => {
+    const term = e.target.value;
+    setSearchTerm(term);
+  };
+
+  const handleSearchSubmit = (e) => {
+    if (e.key === "Enter" || e.type === "click") {
+      // Aquí puedes manejar la búsqueda
+    }
+  };
+
   return (
-    <nav>
-      <Link to="/" className="title">
-        {/* Agregar aquí el contenido del título */}
-      </Link>
-      <div className="menu" onClick={() => setMenuOpen(!menuOpen)}>
-        <span></span>
-        <span></span>
-        <span></span>
-      </div>
-      <ul className={menuOpen ? "open" : ""}>
-        <li>
-          <NavLink to="/register">PEDIDOS</NavLink>
-        </li>
-        <li>
-          <NavLink to="/login">USUARIOS</NavLink>
-        </li>
-        <li>
-          <NavLink to="/contact">EMPRESA</NavLink>
-        </li>
-        <li>
-          {/* <NavLink to="/home">CERRAR SESION</NavLink> */}
-           <button id="btnLogout" onClick={cerrarSesion} className="cerrar-sesion">CERRAR SESION</button>
-        </li>
-      </ul>
-    </nav>
+    <div>
+      <nav>
+        <div>
+          <div className="div-contacto">
+            <div className="tel-correo">
+              <p className="datos">(502) 48407205</p>
+            </div>
+            <div className="tel-correo">
+              <p className="datos">cotizaciones@agrodigital.tech</p>
+            </div>
+            <div className="tel-correo">
+              <p className="pedidos">Mis pedidos</p>
+            </div>
+          </div>
+          <div className="div-image-search">
+            <div className="container-icono">
+              <img src={icono} alt="Icono" className="icono" />
+            </div>
+            <div className="search-container">
+              <input
+                type="text"
+                placeholder="Buscar un producto, una marca..."
+                value={searchTerm}
+                onChange={handleSearchChange}
+                onKeyPress={handleSearchSubmit}
+                className="search-input"
+              />
+              <div className="container-icon-search">
+                <FaSearch
+                  className="search-iconn"
+                  onClick={handleSearchSubmit}
+                />
+              </div>
+            </div>
+
+            <div className="carrito-compras">
+              <NavLink to="/carrito" className="carrito-boton">
+                <div className="icono-y-texto">
+                  <FaShoppingCart className="carrito-icono" />
+                  <p className="inicio-sesion-text">Mi Carrito</p>
+                </div>
+              </NavLink>
+            </div>
+          </div>
+          <div className="div-link">
+            <ul className={menuOpen ? "open" : ""}>
+              <li className="li-var">
+                <NavLink className="btn-nav" to="/productos">
+                  PRODUCTOS
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="btn-nav" to="/contact">
+                  SOBRE NOSOTROS
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="btn-nav" to="/">
+                  INICIO
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="btn-nav" to="/contacto">
+                  CONTACTO
+                </NavLink>
+              </li>
+              <li>
+                {/* <NavLink to="/home">CERRAR SESION</NavLink> */}
+                <button
+                  id="btnLogout"
+                  onClick={cerrarSesion}
+                  className="cerrar-sesion"
+                >
+                  <FaPowerOff className="usuario-icono" />
+                </button>
+                <div className="cerrar-sesion">
+               
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
   );
 };

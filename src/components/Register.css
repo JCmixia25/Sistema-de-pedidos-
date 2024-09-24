@@ -87,7 +87,7 @@
   background-image: url('./inicio.jpeg');
   background-size: cover;
   background-position: center;
-  background-attachment: fixed;
+  /* background-attachment: fixed; */
   font-family: Arial, sans-serif;
 }
 
@@ -138,9 +138,9 @@
   font-size: 1rem;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  margin-top: 1rem; /* Ajusta este valor para controlar el espacio */
 }
 
 .register-container button:hover {
   background-color: #1C2533;
-}
-
+  }

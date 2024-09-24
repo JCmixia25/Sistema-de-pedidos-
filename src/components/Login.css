@@ -6,11 +6,11 @@ html, body {
 }
 
 body {
- background-image: url('./inicio.jpeg');
-  background-size: cover; /* Asegura que la imagen cubra toda la pantalla */
-  background-position: center; /* Centra la imagen en la pantalla */
-  background-repeat: no-repeat; /* Evita repetir la imagen */
-  position: fixed; /* Fija la imagen como fondo */
+  background-image: url('./inicio.jpeg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: fixed;
   top: 0;
   left: 0;
   right: 0;
@@ -22,21 +22,8 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 100vh; /* Mantiene la altura completa de la ventana */
-  position: relative; /* Permite que los elementos hijos se posicionen correctamente */
-  overflow: hidden; /* Evita el desbordamiento del contenido */
-}
-
-.icon {
-  position: fixed; /* Cambiado de absolute a fixed */
-  top: 20px;
-  left: 20px;
-  width: 85px; /* Aumenta el ancho */
-  height: 85px; /* Aumenta el alto */
-  z-index: 2;
-  background-image: url('icono.jpeg');
-  background-size: cover;
-  background-position: center;
+  height: 100vh;
+  position: relative;
 }
 
 .login-container::before {
@@ -46,52 +33,81 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5); /* Color de fondo semi-transparente */
-  z-index: -1; /* Asegura que el fondo semi-transparente esté detrás del contenido */
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: -1;
 }
 
 .login-container form {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-color: rgba(255, 255, 255, 0.8); /* Fondo blanco semi-transparente */
-  padding: 2.5rem; /* Aumenta el padding */
-  border-radius: 10px; /* Aumenta el radio de borde */
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  width: 400px; /* Aumenta el ancho */
+  background-color: rgba(255, 255, 255, 0.9); /* Fondo semi-transparente */
+  padding: 2rem; /* Espacio interior */
+  border-radius: 10px; /* Bordes redondeados */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); /* Sombra */
+  width: 400px; /* Ancho del formulario */
 }
 
 .login-container label {
   display: flex;
   flex-direction: column;
-  margin-bottom: 1.2rem; /* Aumenta el margen inferior */
+  margin-bottom: 1rem; /* Espacio entre campos */
   width: 100%;
   font-weight: bold;
-  color: #174270; /* Color azul oscuro para los títulos */
-  font-size: 1.1rem; /* Aumenta el tamaño de fuente */
+  color: #174270;
 }
 
 .login-container input {
-  padding: 0.75rem; /* Aumenta el padding */
+  padding: 0.75rem; /* Espacio interior */
   border: 1px solid #ccc;
-  border-radius: 6px; /* Aumenta el radio de borde */
-  background-color: #f9f9f9; /* Fondo gris claro para los campos de entrada */
-  font-size: 1.1rem; /* Aumenta el tamaño de fuente */
+  border-radius: 5px; /* Bordes redondeados */
+  background-color: #f9f9f9;
+  font-size: 1rem;
+  width: 100%; /* Ancho completo */
 }
 
 .login-container button {
-  margin-top: 1.8rem; /* Aumenta el margen superior */
-  padding: 1rem 2rem; /* Aumenta el padding */
-  background-color: #207223;
-  color: white;
-  border: none;
-  border-radius: 6px; /* Aumenta el radio de borde */
-  cursor: pointer;
-  font-size: 1.1rem; /* Aumenta el tamaño de fuente */
-  width: 100%; /* Ancho completo del botón */
-  font-weight: bold; /* Agrega negrita */
+  width: 100%; /* Ancho completo */
+  padding: 0.75rem; /* Espacio interior */
+  background-color: #273541; /* Color de fondo del botón */
+  color: white; /* Color del texto */
+  border: none; /* Sin borde */
+  border-radius: 5px; /* Bordes redondeados */
+  font-size: 1rem; /* Tamaño de fuente */
+  cursor: pointer; /* Cambia a puntero */
+  transition: background-color 0.3s ease; /* Transición suave */
+  margin-top: 1rem; /* Espacio superior */
 }
 
 .login-container button:hover {
-  background-color: #45a049;
+  background-color: #1C2533; /* Color de fondo al pasar el mouse */
+}
+
+.action-buttons {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 1rem; /* Espacio superior */
+}
+
+.btn-texto {
+  background: none; /* Sin fondo */
+  border: none; /* Sin borde */
+  color: #174270; /* Color azul marino para el texto */
+  font-size: 1rem; /* Tamaño de fuente */
+  cursor: pointer; /* Cambia a puntero */
+  padding: 0; /* Sin padding adicional */
+  margin: 0.2rem 0; /* Reduce el margen entre botones */
+  transition: color 0.3s; /* Suavizar el cambio de color */
+  text-align: center; /* Centra el texto si es necesario */
+}
+
+.btn-texto:hover {
+  color: #1981a8; /* Color al pasar el mouse */
+}
+
+.mensaje {
+  color: red;
+  margin-top: 20px; /* Añade un margen superior para que no se pegue al formulario */
+  text-align: center; /* Centra el texto en la vista */
 }
