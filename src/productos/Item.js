@@ -26,22 +26,7 @@ const Item = ({ producto, onAddToCart}) => {
         <div className="contenedor-titulo">
           <h4>{producto.titulo}</h4>
         </div>
-        {/* <div className="contenedor-precio">
-          <p className="informacion-producto">Precio: Q. {producto.precio}</p>
-        </div> */}
-        {/* <div className="contenedor-cat">
-          <p className="informacion-producto">
-            Categoria: {producto.categoria}
-          </p>
-        </div> */}
-        {/* <div className="contenedor-desc">
-            <p className="informacion-producto">{producto.descripcion}</p>
 
-        </div> */}
-
-        {/* <NavLink className="informacion-producto" to={`/item/${producto.id}`}>
-              Ver más
-            </NavLink> */}
                 <div>
           <button onClick={detalle} className="informacion-ver">
             Ver más
