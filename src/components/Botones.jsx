@@ -20,7 +20,7 @@ export const Botones = () => {
   };
 
   return (
-    <div>
+    <div className="contenedor-encabezados">
       <nav>
         <div>
           <div className="div-contacto">

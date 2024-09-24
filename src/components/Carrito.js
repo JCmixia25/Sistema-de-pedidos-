@@ -8,18 +8,21 @@ import Cookies from "js-cookie";
 
 const Carrito = ({ productos, setProductos }) => {
   const navigate = useNavigate(); // Inicializar useNavigate
+
   const notify = () => {
     toast.error("Necesitas Iniciar Sesion!", {
       position: "top-center",
     });
   };
 
-  // useEffect(() => {
-  //   console.log("nuevo producto: ", JSON.stringify(productos));
-  //   // Cookies.remove("cart");
-  //   Cookies.set("cart", JSON.stringify(productos));
-  //   console.log("cookies: ", Cookies.get("cart"));
-  // }, []);
+  console.log("carrito carrito: ", JSON.stringify(productos));
+
+  Cookies.remove("cart");
+  
+  Cookies.set("cart", JSON.stringify(productos));
+  console.log("cookies: ", Cookies.get("cart"));
+
+  // useEffect(() => {}, []);
 
   const aumentarCantidad = (id) => {
     const nuevosProductos = productos.map((prod) =>

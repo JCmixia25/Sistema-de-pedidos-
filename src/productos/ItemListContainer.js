@@ -21,13 +21,11 @@ const ItemListContainer = ({onAddToCart}) => {
 
     getDocs(q).then((resp) => {
       // console.log(resp.docs[0].data());
-
       setProductos(
         resp.docs.map((doc) => {
           return { ...doc.data(), id: doc.id}
         })
       )
-
     });
 
     //setProductos(pedirDatos);

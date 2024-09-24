@@ -60,6 +60,7 @@ function App() {
     Cookies.remove("cart");
     // console.log(Cookies.get('cart'));
     Cookies.set("cart", JSON.stringify(cart));
+    console.log("valor carrito", JSON.stringify(cart));
     // console.log("valor cookies",Cookies.get('cart'));
   };
 
