@@ -172,11 +172,11 @@
   
   
   .usuario-icono {
-    width: 24px; /* Ajusta el tamaño según sea necesario */
-    height: 24px; /* Ajusta el tamaño según sea necesario */
+    width: 34px; /* Ajusta el tamaño según sea necesario */
+    height: 34px; /* Ajusta el tamaño según sea necesario */
     margin-right: 1px; /* Espacio entre el icono y el texto */
     vertical-align: middle; /* Alinear verticalmente con el texto */
-    color: #174270; /* Color del icono, ajusta según sea necesario */
+    color: #293f6e; /* Color del icono, ajusta según sea necesario */
   }
   
   @media screen and (min-width: 601px) {
@@ -283,29 +283,34 @@
   
     .cerrar-sesion {
       position: absolute;
-      right: 80px;
+      right: 100px;
+      display: flex;
       padding: 0;
       margin: 0;
       display: flex; /* Añadir flex para alinear items en el centro */
       align-items: center; /* Centrar verticalmente */
       color: rgba(255, 255, 255, 0.807);
-
+      background-color: white;
     }
   
-    .cerrar-sesion-text {
+    .iniciar-sesion-text {
       font-size: 1.8vh; /* Tamaño del texto */
       line-height: 1; /* Asegura que el texto esté bien alineado */
       text-align: center; /* Alinear el texto al centro */
       margin: 0; /* Elimina cualquier margen */
-      padding: 2px 0; /* Ajusta este valor para bajar el texto */
+      padding:10px; /* Ajusta este valor para bajar el texto */
+      color: black;
+      background-color: white;
     }
   
     .cerrar-sesion {
-      padding-top: 5px; /* Mantiene el ajuste de posición */
-      margin-right: 20px; /* Aumenta este valor para separar más de "Mi carrito" */
+      padding-top: 0; /* Mantiene el ajuste de posición */
+      margin-right: 0; /* Aumenta este valor para separar más de "Mi carrito" */
+     
+
     }
   
-    .carrito-boton .inicio-sesion-text {
+    .carrito-boton .iniciar-sesion-text {
       padding-top: 5px; /* Ajusta este valor para bajar el texto "Mi carrito" */
     }
   

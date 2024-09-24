@@ -73,6 +73,15 @@ export const Encabezado = () => {
                   <p className="inicio-sesion-text">Mi Carrito</p>
                 </div>
               </NavLink>
+              <button
+                  id="btnLogout"
+                  onClick={cerrarSesion}
+                  className="cerrar-sesion"
+                >
+                  <FaPowerOff className="usuario-icono" />
+                  <p className="iniciar-sesion-text">Cerrar Sesión</p>
+                </button>
+                
             </div>
           </div>
           <div className="div-link">
@@ -83,7 +92,7 @@ export const Encabezado = () => {
                 </NavLink>
               </li>
               <li>
-                <NavLink className="btn-nav" to="/contact">
+                <NavLink className="btn-nav" to="/informacion">
                   SOBRE NOSOTROS
                 </NavLink>
               </li>
@@ -92,24 +101,7 @@ export const Encabezado = () => {
                   INICIO
                 </NavLink>
               </li>
-              <li>
-                <NavLink className="btn-nav" to="/contacto">
-                  CONTACTO
-                </NavLink>
-              </li>
-              <li>
-                {/* <NavLink to="/home">CERRAR SESION</NavLink> */}
-                <button
-                  id="btnLogout"
-                  onClick={cerrarSesion}
-                  className="cerrar-sesion"
-                >
-                  <FaPowerOff className="usuario-icono" />
-                </button>
-                <div className="cerrar-sesion">
-               
-                </div>
-              </li>
+              
             </ul>
           </div>
         </div>

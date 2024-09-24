@@ -40,6 +40,7 @@ const ItemListContainer = ({onAddToCart}) => {
     // });
   }, [categoria]);
 
+
   return (
     <div className="container-primario">
       <div className="container-izquierdo">
