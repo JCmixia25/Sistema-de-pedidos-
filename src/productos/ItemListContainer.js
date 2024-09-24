@@ -7,13 +7,7 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../conexion/firebase";
 import "./ItemListContainer.css";
 
-<<<<<<< HEAD
-
-
-const ItemListContainer = () => {
-=======
 const ItemListContainer = ({onAddToCart}) => {
->>>>>>> cd97c3f603ae9ae7f1105e2cdb3070443ac0bcc2
   const [productos, setProductos] = useState([]);
   const [titulo, setTitulo] = useState("PRODUCTOS");
 
@@ -54,15 +48,9 @@ const ItemListContainer = ({onAddToCart}) => {
       <div className="container-izquierdo">
         <VerticalButtons />
       </div>
-<<<<<<< HEAD
-      <div className="home-container">
-        <ItemList productos={productos} />
-      
-=======
       <div className="container-derecho">
         <ItemList productos={productos} titulo={titulo} onAddToCart={onAddToCart}/>
        
->>>>>>> cd97c3f603ae9ae7f1105e2cdb3070443ac0bcc2
       </div>
     </div>
   );
