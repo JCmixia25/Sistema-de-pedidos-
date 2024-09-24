@@ -7,10 +7,6 @@ import cosechadora from "../imagenes/cosechadora.jpg";
 import carreta from "../imagenes/carreta.jpg";
 import hercules from "../imagenes/hercules.jpg";
 import plataforma from "../imagenes/plataforma.jpg";
-{/*import VerticalButtons from "./VerticalButtons";
-import ItemDetailContainer from "../productos/ItemDetailContainer";
-import ItemListContainer from "../productos/ItemListContainer";
-import { Route, Routes } from "react-router-dom";*/}
 
 const categories = [
   {
@@ -129,13 +125,7 @@ const Home = () => {
     return results; // Retorna todos los productos coincidentes
   };
 
-  return (
-    <div >
-      <div >
-        HOLA HOME
-      </div>
-    </div>
-  );
+  
 };
 
 export default Home;
