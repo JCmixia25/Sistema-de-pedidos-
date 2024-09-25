@@ -1,28 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import "./Carrito.css";
-import { useNavigate } from "react-router-dom"; // Importar useNavigate
+import { useNavigate } from "react-router-dom";
 import { FaTrash, FaPlus, FaMinus } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cookies from "js-cookie";
 
-const Carrito = ({ productos, setProductos }) => {
-  const navigate = useNavigate(); // Inicializar useNavigate
+const Carrito = ({ productos, setProductos, setBlinking }) => {
+  const navigate = useNavigate();
 
   const notify = () => {
-    toast.error("Necesitas Iniciar Sesion!", {
+    toast.error("Necesitas Iniciar Sesión!", {
       position: "top-center",
     });
   };
 
   console.log("carrito carrito: ", JSON.stringify(productos));
-
   Cookies.remove("cart");
-  
   Cookies.set("cart", JSON.stringify(productos));
   console.log("cookies: ", Cookies.get("cart"));
-
-  // useEffect(() => {}, []);
 
   const aumentarCantidad = (id) => {
     const nuevosProductos = productos.map((prod) =>
@@ -48,7 +44,13 @@ const Carrito = ({ productos, setProductos }) => {
   };
 
   const direccionar = () => {
-    navigate("/productos"); // Redirigir a la página de productos
+    navigate("/productos");
+  };
+
+  const handleFinalizarPedido = () => {
+    notify();
+    setBlinking(true); // Activa el parpadeo
+    setTimeout(() => setBlinking(false), 2000); // Desactiva después de 2 segundos
   };
 
   return (
@@ -56,41 +58,28 @@ const Carrito = ({ productos, setProductos }) => {
       <h2>Mi Carrito</h2>
       {productos.map((producto) => (
         <div key={producto.id} className="producto">
-          <img
-            src={producto.imagen}
-            alt={producto.nombre}
-            className="producto-imagen"
-          />
+          <img src={producto.imagen} alt={producto.nombre} className="producto-imagen" />
           <div className="producto-info">
             <h3>{producto.nombre}</h3>
             <p>Código: {producto.codigo}</p>
             <div className="cantidad-container">
-              <button
-                onClick={() => disminuirCantidad(producto.id)}
-                className="btn-cantidad"
-              >
+              <button onClick={() => disminuirCantidad(producto.id)} className="btn-cantidad">
                 <FaMinus size={16} color="red" />
               </button>
               <span className="cantidad">{producto.cantidad}</span>
-              <button
-                onClick={() => aumentarCantidad(producto.id)}
-                className="btn-cantidad"
-              >
+              <button onClick={() => aumentarCantidad(producto.id)} className="btn-cantidad">
                 <FaPlus size={16} color="green" />
               </button>
             </div>
           </div>
-          <button
-            onClick={() => eliminarProducto(producto.id)}
-            className="btn-eliminar"
-          >
+          <button onClick={() => eliminarProducto(producto.id)} className="btn-eliminar">
             <FaTrash size={20} color="red" />
           </button>
         </div>
       ))}
       <div className="resumen-compra">
         <h3>Resumen de compra</h3>
-        <button onClick={notify} className="btn-finalizar">
+        <button onClick={handleFinalizarPedido} className="btn-finalizar">
           Finalizar Pedido
         </button>
         <button onClick={direccionar} className="btn-continuar">

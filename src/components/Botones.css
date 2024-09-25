@@ -231,6 +231,34 @@
   color: #174270; /* Color del icono, ajusta según sea necesario */
 }
 
+.blinking {
+  animation: blink-animation 1s infinite;
+}
+
+@keyframes blink-animation {
+  0% {
+    opacity: 1;
+    background-color: rgb(77, 146, 229); /* Color inicial */
+  }
+  25% {
+    opacity: 0.5;
+    background-color: yellow; /* Segundo color */
+  }
+  50% {
+    opacity: 1;
+    background-color: green; /* Tercer color */
+  }
+  75% {
+    opacity: 0.5;
+    background-color: blue; /* Cuarto color */
+  }
+  100% {
+    opacity: 1;
+    background-color: red; /* Regresar al color inicial */
+  }
+}
+
+
 @media screen and (min-width: 601px) {
   nav {
     justify-content: space-between;
