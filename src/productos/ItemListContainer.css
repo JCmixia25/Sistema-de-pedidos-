@@ -5,9 +5,8 @@
     text-align: center;
 
   }
-
   
 .container-primario {
-    display: flex;
+    display: flex;    
     /* background-color: rgb(126, 34, 34); */
   }

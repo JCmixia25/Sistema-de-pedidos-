@@ -11,8 +11,9 @@ import Bienvenida from "./components/Bienvenida.jsx";
 import ProductDetail from "./components/ProductDetail";
 import icono from "./icono.jpeg";
 import { useAuth } from "./context/authContext.js";
-import Inicio from "./components-private/Inicio.js";
 import { Encabezado } from "./components-private/Encabezado.js";
+import  Informacion  from "./components-private/informacion.js";
+
 import Show from "./components/Show.js";
 import PieDePagina from "./components/PieDePagina.js";
 import ListaProductos from "./productos/ListaProductos";
@@ -60,6 +61,7 @@ function App() {
     Cookies.remove("cart");
     // console.log(Cookies.get('cart'));
     Cookies.set("cart", JSON.stringify(cart));
+    console.log("valor carrito", JSON.stringify(cart));
     // console.log("valor cookies",Cookies.get('cart'));
   };
 
@@ -106,9 +108,27 @@ function App() {
       <div className="App">
         <Encabezado />
         <Routes>
-          <Route path="/" element={<Inicio />} />
-          <Route path="/Inicio" element={<Inicio />} />
+        <Route path="/" element={<Bienvenida />} />
+        <Route path="/inicio" element={<Bienvenida />} />
+          <Route path="/informacion" element={<Informacion/>} />
+          <Route
+            path="/productos"
+            element={<ItemListContainer onAddToCart={agregarAlCarrito} />}
+          />
+          <Route
+            path="/item/:id"
+            element={<ItemDetailContainer onAddToCart={agregarAlCarrito} />}
+          />
+            <Route
+            path="/productos/:categoria"
+            element={<ItemListContainer onAddToCart={agregarAlCarrito} />}
+          />
+           <Route
+            path="/carrito"
+            element={<Carrito productos={cart} setProductos={setCart} />}
+          />
         </Routes>
+        <PieDePagina />
       </div>
     );
   }

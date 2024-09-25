@@ -453,3 +453,11 @@
   border-color: #088395; /* Darker green on focus */
 }
 
+/* .contenedor-encabezados{
+  background-color: #d5ed9f;
+  border: solid 1px firebrick;
+  position: fixed;
+  z-index: 10000;
+  width: 100%;
+  height: 100px;
+} */
