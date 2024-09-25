@@ -27,7 +27,7 @@ export const Botones = ({ setSearchTerm, isBlinking }) => {
             <p className="datos">(502) 48407205</p>
           </div>
           <div className="tel-correo">
-            <p className="datos">cotizaciones@agrodigital.tech</p>
+            <p id="seccion1" className="datos">cotizaciones@agrodigital.tech</p>
           </div>
           <div className="tel-correo">
             <p className="pedidos">Mis pedidos</p>

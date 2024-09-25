@@ -48,6 +48,14 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
   };
 
   const handleFinalizarPedido = () => {
+    const seccion = 'seccion1';
+    const elemento = document.getElementById(seccion);
+    if (elemento) {
+      elemento.scrollIntoView({ behavior: "smooth" });
+    } else {
+      console.error(`No se encontró la sección ${seccion}`);
+    }
+
     notify();
     setBlinking(true); // Activa el parpadeo
     setTimeout(() => setBlinking(false), 2000); // Desactiva después de 2 segundos
@@ -58,21 +66,34 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
       <h2>Mi Carrito</h2>
       {productos.map((producto) => (
         <div key={producto.id} className="producto">
-          <img src={producto.imagen} alt={producto.nombre} className="producto-imagen" />
+          <img
+            src={producto.imagen}
+            alt={producto.nombre}
+            className="producto-imagen"
+          />
           <div className="producto-info">
             <h3>{producto.nombre}</h3>
             <p>Código: {producto.codigo}</p>
             <div className="cantidad-container">
-              <button onClick={() => disminuirCantidad(producto.id)} className="btn-cantidad">
+              <button
+                onClick={() => disminuirCantidad(producto.id)}
+                className="btn-cantidad"
+              >
                 <FaMinus size={16} color="red" />
               </button>
               <span className="cantidad">{producto.cantidad}</span>
-              <button onClick={() => aumentarCantidad(producto.id)} className="btn-cantidad">
+              <button
+                onClick={() => aumentarCantidad(producto.id)}
+                className="btn-cantidad"
+              >
                 <FaPlus size={16} color="green" />
               </button>
             </div>
           </div>
-          <button onClick={() => eliminarProducto(producto.id)} className="btn-eliminar">
+          <button
+            onClick={() => eliminarProducto(producto.id)}
+            className="btn-eliminar"
+          >
             <FaTrash size={20} color="red" />
           </button>
         </div>
