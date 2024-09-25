@@ -1,44 +1,45 @@
 import { useEffect, useState } from "react";
 import ItemList from "./ItemList";
+import { pedirDatos } from "../helpers/pedirDatos";
+import { NavLink, useParams } from "react-router-dom";
+import VerticalButtons from "../components/VerticalButtons";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../conexion/firebase";
-import VerticalButtons from "../components/VerticalButtons";
-import { useParams } from "react-router-dom";
 import "./ItemListContainer.css";
 
-// Función para normalizar texto (eliminar tildes y convertir a minúsculas)
-const normalizeText = (text) => {
-  return text
-    .normalize("NFD") // Descomponer caracteres acentuados
-    .replace(/[\u0300-\u036f]/g, "") // Eliminar tildes
-    .toLowerCase(); // Convertir a minúsculas
-};
-
-const ItemListContainer = ({ onAddToCart, searchTerm }) => {
+const ItemListContainer = ({onAddToCart}) => {
   const [productos, setProductos] = useState([]);
   const [titulo, setTitulo] = useState("PRODUCTOS");
+
   const categoria = useParams().categoria;
 
   useEffect(() => {
-    const fetchProducts = async () => {
-      const productosRef = collection(db, "productos");
-      const q = categoria ? query(productosRef, where("categoria", "==", categoria)) : productosRef;
+    const productosRef = collection(db, "productos");
+    //Realiza filtración de productos
+    
+    const q = categoria ? query(productosRef, where("categoria", "==", categoria)) : productosRef;
 
-      const resp = await getDocs(q);
-      const allProducts = resp.docs.map((doc) => ({ ...doc.data(), id: doc.id }));
+    getDocs(q).then((resp) => {
+      // console.log(resp.docs[0].data());
+      setProductos(
+        resp.docs.map((doc) => {
+          return { ...doc.data(), id: doc.id}
+        })
+      )
+    });
 
-      // Filtrar productos por término de búsqueda en toda la descripción
-      const filteredProducts = searchTerm
-        ? allProducts.filter((prod) =>
-            normalizeText(prod.titulo).includes(normalizeText(searchTerm)) // Busca en toda la descripción normalizada
-          )
-        : allProducts;
+    //setProductos(pedirDatos);
+    // pedirDatos().then((res) => {
+    //   if (categoria) {
+    //     setProductos(res.filter((prod) => prod.categoria === categoria));
+    //     setTitulo(categoria.toUpperCase());
+    //   } else {
+    //     setProductos(res);
+    //     setTitulo("PRODUCTOS");
+    //   }
+    // });
+  }, [categoria]);
 
-      setProductos(filteredProducts);
-    };
-
-    fetchProducts();
-  }, [categoria, searchTerm]); // Dependencias del useEffect
 
   return (
     <div className="container-primario">
@@ -46,7 +47,8 @@ const ItemListContainer = ({ onAddToCart, searchTerm }) => {
         <VerticalButtons />
       </div>
       <div className="container-derecho">
-        <ItemList productos={productos} titulo={titulo} onAddToCart={onAddToCart} />
+        <ItemList productos={productos} titulo={titulo} onAddToCart={onAddToCart}/>
+       
       </div>
     </div>
   );
