@@ -17,6 +17,7 @@ export const useAuth = () => {
 export function AuthProvider({ children }) {
   
   const [estado, setEstado] = useState(false);
+  const [datosUsuario, setDatosUsuario] = useState([]);
   // const [carrito, setCarrito] = useState([]);
 
   const signup = async (email, password) => {
@@ -51,7 +52,7 @@ export function AuthProvider({ children }) {
 
 
   return (
-    <authContext.Provider value={{ signup, login, estado, setEstado }}>
+    <authContext.Provider value={{ signup, login, estado, setEstado, datosUsuario, setDatosUsuario}}>
       {children}
     </authContext.Provider>
   );

@@ -18,10 +18,10 @@ export function Login() {
     password: "",
   });
 
-  const { setEstado, login } = useAuth();
+  const { setEstado, login, datosUsuario, setDatosUsuario } = useAuth();
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState("");
-  const [rol, setRol] = useState("");
+  
 
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
@@ -40,6 +40,7 @@ export function Login() {
         console.log("usuario: ", userLogin.user.uid);
 
         //Consultar rol de usuario
+        
         const refCuenta = collection(db, "cuenta");
         const q = query(
           refCuenta,
@@ -47,13 +48,18 @@ export function Login() {
         );
         const snapshot = await getDocs(q);
         const doc = snapshot.docs[0];
+         
         const datos = { ...doc.data(), id: doc.id };
-        //Consultar rol de usuario
 
+         setDatosUsuario(datos);
+        
+        console.log("datos usuario: ", datosUsuario);
+
+        //valida el rol
         if (datos.rol === "Administrador") {
           console.log("Bienvenido administrador");
           navigate("/productos");
-        } else {
+        } else if(datos.rol === "Cliente"){
           console.log("Bienvenido cliente");
           navigate("/inicio");
         }

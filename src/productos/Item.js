@@ -13,6 +13,7 @@ const Item = ({ producto, onAddToCart}) => {
     onAddToCart(producto);
     navigate("/carrito");
   }
+  
   return (
     <div className="container-datos-productos">
       <div className="container-imagen">
