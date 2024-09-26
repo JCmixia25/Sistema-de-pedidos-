@@ -3,6 +3,7 @@ import "./App.css";
 import { Botones } from "./components/Botones";
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
+import RestablecerPassword from "./components/RestablecerPassword.js";
 import Home from "./components/Home.js";
 import Contacts from "./components/Contacts.js";
 import Agregarpro from "./components/agregarpro.js";
@@ -67,6 +68,7 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/agregarpro" element={<Agregarpro />} />
         <Route path="/register" element={<Register />} />
+        <Route path="/RestablecerPassword" element={<RestablecerPassword />} />
         <Route path="/contact" element={<Contacts />} />
         <Route path="/home/:id" element={<ProductDetail />} />
         <Route path="/listaProductos" element={<ListaProductos />} />
