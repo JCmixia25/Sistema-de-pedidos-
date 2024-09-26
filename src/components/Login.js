@@ -20,7 +20,7 @@ export function Login() {
   // Estado para controlar si la contraseña se muestra o no
   const [passwordVisible, setPasswordVisible] = useState(false);
 
-  const { setEstado, login, datosUsuario, setDatosUsuario } = useAuth();
+  const { setEstado, login, setDatosUsuario } = useAuth();
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState("");
 
@@ -32,28 +32,43 @@ export function Login() {
     e.preventDefault();
 
     try {
+      // Intento de iniciar sesión con Firebase Authentication
       const userLogin = await login(user.email, user.password);
+
       if (userLogin) {
         setEstado(true);
         localStorage.setItem("login", "true");
         setMensaje("");
 
+        // Verificar el rol del usuario desde la colección "cuenta"
         const refCuenta = collection(db, "cuenta");
         const q = query(refCuenta, where("usuario_uid", "==", userLogin.user.uid));
         const snapshot = await getDocs(q);
-        const doc = snapshot.docs[0];
-        
-        const datos = { ...doc.data(), id: doc.id };
-        setDatosUsuario(datos);
 
-        if (datos.rol === "Administrador") {
-          navigate("/productos");
-        } else if (datos.rol === "Cliente") {
-          navigate("/inicio");
+        if (!snapshot.empty) {
+          const doc = snapshot.docs[0];
+          const datos = { ...doc.data(), id: doc.id };
+          setDatosUsuario(datos);
+
+          // Navegar a la ruta adecuada según el rol del usuario
+          if (datos.rol === "Administrador") {
+            navigate("/productos");
+          } else if (datos.rol === "Cliente") {
+            navigate("/inicio");
+          }
+        } else {
+          setMensaje("Error: No se pudo encontrar la cuenta asociada al usuario.");
         }
       }
     } catch (error) {
-      setMensaje(error.message);
+      // Manejo de errores de Firebase
+      if (error.code === "auth/user-not-found") {
+        setMensaje("Usuario no encontrado.");
+      } else if (error.code === "auth/wrong-password") {
+        setMensaje("Contraseña incorrecta.");
+      } else {
+        setMensaje("Error al iniciar sesión: " + error.message);
+      }
     }
   };
 
@@ -87,24 +102,24 @@ export function Login() {
               placeholder="******"
               required
             />
-       <button
-      type="button"
-      className="toggle-password"
-      onClick={togglePasswordVisibility}
-    >
-      <i className={passwordVisible ? "fas fa-eye-slash" : "fas fa-eye"}></i>
-    </button>
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={togglePasswordVisibility}
+            >
+              <i className={passwordVisible ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+            </button>
           </div>
         </label>
 
         <button type="submit" className="btn-ingresar">
           INGRESAR
         </button>
-        
+
         {mensaje && <p className="mensaje">{mensaje}</p>}
 
         <div className="action-buttons">
-          <NavLink className="btn-texto" to="/">
+          <NavLink className="btn-texto" to="/RestablecerPassword">
             ¿Olvidaste tu Contraseña?
           </NavLink>
           <NavLink className="btn-texto" to="/register">

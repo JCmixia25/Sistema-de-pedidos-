@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import "./Register.css";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
@@ -20,6 +20,9 @@ export function Register() {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [password2Visible, setPassword2Visible] = useState(false);
   const [recaptchaValue, setRecaptchaValue] = useState(null);
+  
+  // Crear una referencia para el reCAPTCHA
+  const recaptchaRef = useRef();
 
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
@@ -48,6 +51,10 @@ export function Register() {
       }
     } catch (error) {
       setMensaje(error.message);
+    } finally {
+      // Reiniciar el reCAPTCHA después de enviar el formulario
+      recaptchaRef.current.reset();
+      setRecaptchaValue(null); // Reiniciar el valor del reCAPTCHA
     }
   };
 
@@ -114,6 +121,7 @@ export function Register() {
           <div className="password-error">Las contraseñas no coinciden.</div>
         )}
         <ReCAPTCHA
+          ref={recaptchaRef} // Asignar la referencia aquí
           sitekey="6Lcl404qAAAAAKQaBFljoNfOIIjA-kOXVPTaIVBJ" // Reemplaza con tu Site Key
           onChange={(value) => setRecaptchaValue(value)}
         />
