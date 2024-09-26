@@ -61,9 +61,11 @@ function App() {
         //Busqueda en LOGIN
         <Encabezado setSearchTerm={setSearchTerm} />
       ) : (
-        // Busqueda en productos sin iniciar sesion
+        // Busqueda en productos sin iniciar sesion dfdsfdsf
+        //sdfd
         <Botones setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
       )}
+      
       <Routes>
         <Route path="/" element={<Bienvenida />} />
         <Route path="/inicio" element={<Home />} />
