@@ -1,11 +1,10 @@
 import React, { useState } from "react";
-import "./Login.css"; // Asegúrate de que este archivo contenga los estilos correctos
+import "./Login.css";
+import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useAuth } from "../context/authContext";
 import { NavLink, useNavigate } from "react-router-dom";
 import {
   collection,
-  doc,
-  getDoc,
   getDocs,
   query,
   where,
@@ -18,10 +17,12 @@ export function Login() {
     password: "",
   });
 
+  // Estado para controlar si la contraseña se muestra o no
+  const [passwordVisible, setPasswordVisible] = useState(false);
+
   const { setEstado, login, datosUsuario, setDatosUsuario } = useAuth();
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState("");
-  
 
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
@@ -30,50 +31,39 @@ export function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    //Codigo para iniciar sesion
     try {
       const userLogin = await login(user.email, user.password);
       if (userLogin) {
         setEstado(true);
         localStorage.setItem("login", "true");
         setMensaje("");
-        console.log("usuario: ", userLogin.user.uid);
 
-        //Consultar rol de usuario
-        
         const refCuenta = collection(db, "cuenta");
-        const q = query(
-          refCuenta,
-          where("usuario_uid", "==", userLogin.user.uid)
-        );
+        const q = query(refCuenta, where("usuario_uid", "==", userLogin.user.uid));
         const snapshot = await getDocs(q);
         const doc = snapshot.docs[0];
-         
-        const datos = { ...doc.data(), id: doc.id };
-
-         setDatosUsuario(datos);
         
-        console.log("datos usuario: ", datosUsuario);
+        const datos = { ...doc.data(), id: doc.id };
+        setDatosUsuario(datos);
 
-        //valida el rol
         if (datos.rol === "Administrador") {
-          console.log("Bienvenido administrador");
           navigate("/productos");
-        } else if(datos.rol === "Cliente"){
-          console.log("Bienvenido cliente");
+        } else if (datos.rol === "Cliente") {
           navigate("/inicio");
         }
-
       }
     } catch (error) {
       setMensaje(error.message);
     }
   };
 
+  // Función para alternar la visibilidad de la contraseña
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
+  };
+
   return (
     <div className="login-container">
-      {" "}
-      {/* Cambié el nombre a 'login-form-container' */}
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">
           Correo electrónico
@@ -88,21 +78,32 @@ export function Login() {
         </label>
         <label htmlFor="password">
           Contraseña
-          <input
-            type="password"
-            name="password"
-            id="password"
-            onChange={handleChange}
-            placeholder="******"
-            required
-          />
+          <div className="password-container">
+            <input
+              type={passwordVisible ? "text" : "password"} // Alterna entre 'text' y 'password'
+              name="password"
+              id="password"
+              onChange={handleChange}
+              placeholder="******"
+              required
+            />
+       <button
+      type="button"
+      className="toggle-password"
+      onClick={togglePasswordVisibility}
+    >
+      <i className={passwordVisible ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+    </button>
+          </div>
         </label>
+
         <button type="submit" className="btn-ingresar">
           INGRESAR
         </button>
+        
         {mensaje && <p className="mensaje">{mensaje}</p>}
 
-        <div class="action-buttons">
+        <div className="action-buttons">
           <NavLink className="btn-texto" to="/">
             ¿Olvidaste tu Contraseña?
           </NavLink>

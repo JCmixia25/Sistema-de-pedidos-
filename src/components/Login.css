@@ -111,3 +111,50 @@ body {
   margin-top: 20px; /* Añade un margen superior para que no se pegue al formulario */
   text-align: center; /* Centra el texto en la vista */
 }
+
+
+/* Contenedor para la contraseña */
+.password-container {
+  position: relative; /* Posiciona los elementos relativos uno al otro */
+  display: flex;
+  align-items: center; /* Alinea verticalmente el botón con el input */
+}
+
+/* Estilo del campo de entrada de la contraseña */
+.password-container input {
+  width: 100%; /* Asegura que el input ocupe todo el ancho posible */
+  padding-right: 50px; /* Deja suficiente espacio para el botón a la derecha */
+  box-sizing: border-box; /* Mantiene el padding dentro del input */
+}
+
+/* Estilo para el botón Mostrar/Ocultar */
+/* Estilo para el botón Mostrar/Ocultar */
+.password-container .toggle-password {
+  position: absolute;
+  right: 10px;
+  background: none; /* Sin fondo */
+  border: none; /* Sin bordes */
+  cursor: pointer;
+  color: #007bff; /* Color del ícono */
+  font-size: 18px; /* Tamaño del ícono */
+  padding: 0; /* Elimina el relleno adicional */
+  width: auto; /* Ancho automático */
+  height: 100%; /* Altura igual al input */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Quitar el borde azul al hacer clic o seleccionar */
+.password-container .toggle-password:focus {
+  outline: none; /* Quita el contorno de enfoque */
+}
+
+/* Quitar el borde al botón en todos los estados */
+.password-container .toggle-password:active,
+.password-container .toggle-password:focus,
+.password-container .toggle-password:hover {
+  outline: none; /* Asegúrate de que no haya contorno */
+  background: none; /* Asegúrate de que no haya fondo */
+  border: none; /* Sin bordes */
+}
