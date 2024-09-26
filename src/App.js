@@ -57,7 +57,7 @@ function App() {
   return (
     <div className="App">
       {estado ? (
-        <Encabezado />
+        <Encabezado/>
       ) : (
         <Botones setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
       )}
