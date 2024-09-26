@@ -57,8 +57,10 @@ function App() {
   return (
     <div className="App">
       {estado ? (
-        <Encabezado />
+        //Busqueda en LOGIN
+        <Encabezado setSearchTerm={setSearchTerm} />
       ) : (
+        // Busqueda en productos sin iniciar sesion
         <Botones setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
       )}
       <Routes>

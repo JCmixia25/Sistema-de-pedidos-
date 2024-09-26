@@ -4,9 +4,9 @@ import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import icono from "./icono.png";
-import { FaSearch, FaShoppingCart, FaUser, FaPowerOff } from "react-icons/fa"; // Importa iconos de carrito y usuario
+import { FaSearch, FaShoppingCart, FaUser, FaPowerOff } from "react-icons/fa";
 
-export const Encabezado = () => {
+export const Encabezado = ({ setSearchTerm }) => {
   const { setEstado } = useAuth();
   const navigate = useNavigate();
 
@@ -16,17 +16,17 @@ export const Encabezado = () => {
     navigate("/");
   }
 
-  const [menuOpen, setMenuOpen] = useState(false);
-  const [searchTerm, setSearchTerm] = useState("");
+  const [searchInput, setSearchInput] = useState("");
 
   const handleSearchChange = (e) => {
     const term = e.target.value;
-    setSearchTerm(term);
+    setSearchInput(term);
+    setSearchTerm(term); // Update the search term in the parent
   };
 
   const handleSearchSubmit = (e) => {
     if (e.key === "Enter" || e.type === "click") {
-      // Aquí puedes manejar la búsqueda
+      setSearchTerm(searchInput); // Submit the search term
     }
   };
 
@@ -53,7 +53,7 @@ export const Encabezado = () => {
               <input
                 type="text"
                 placeholder="Buscar un producto, una marca..."
-                value={searchTerm}
+                value={searchInput}
                 onChange={handleSearchChange}
                 onKeyPress={handleSearchSubmit}
                 className="search-input"
@@ -74,18 +74,17 @@ export const Encabezado = () => {
                 </div>
               </NavLink>
               <button
-                  id="btnLogout"
-                  onClick={cerrarSesion}
-                  className="cerrar-sesion"
-                >
-                  <FaPowerOff className="usuario-icono" />
-                  <p className="iniciar-sesion-text">Cerrar Sesión</p>
-                </button>
-                
+                id="btnLogout"
+                onClick={cerrarSesion}
+                className="cerrar-sesion"
+              >
+                <FaPowerOff className="usuario-icono" />
+                <p className="iniciar-sesion-text">Cerrar Sesión</p>
+              </button>
             </div>
           </div>
           <div className="div-link">
-            <ul className={menuOpen ? "open" : ""}>
+            <ul>
               <li className="li-var">
                 <NavLink className="btn-nav" to="/productos">
                   PRODUCTOS
@@ -101,7 +100,6 @@ export const Encabezado = () => {
                   INICIO
                 </NavLink>
               </li>
-              
             </ul>
           </div>
         </div>
