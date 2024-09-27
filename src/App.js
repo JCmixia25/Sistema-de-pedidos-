@@ -191,6 +191,9 @@ function App() {
               />
             }
           />
+          <Route path="/finalizarpedido" element={<FinalizarPedido />} />
+
+          
         </Routes>
         <PieDePagina />
       </div>
