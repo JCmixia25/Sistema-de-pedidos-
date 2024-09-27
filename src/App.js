@@ -111,6 +111,7 @@ function App() {
           <Route path="/inicio" element={<Home />} />
           <Route path="/login" element={<Login />} />
           <Route path="/agregarpro" element={<Agregarpro />} />
+s          <Route path="/RestablecerPassword" element={<RestablecerPassword />} />
           {/* Pasar el carrito y la función agregar al carrito a los componentes */}
           <Route
             path="/carrito"
