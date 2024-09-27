@@ -7,7 +7,7 @@ import icono from "./icono.png";
 import { FaSearch, FaShoppingCart, FaUser, FaPowerOff } from "react-icons/fa";
 import { getAuth } from "firebase/auth";
 
-export const Encabezado = ({ setSearchTerm }) => {
+export const Encabezado = ({ setSearchTerm, isBlinking}) => {
   const { setEstado } = useAuth();
   const navigate = useNavigate();
 

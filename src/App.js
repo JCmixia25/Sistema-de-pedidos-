@@ -8,7 +8,6 @@ import Home from "./components/Home.js";
 import Contacts from "./components/Contacts.js";
 import Agregarpro from "./components/agregarpro.js";
 import FinalizarPedido from "./components/FinalizarPedido.jsx";
-
 import Carrito from "./components/Carrito.js";
 import Bienvenida from "./components/Bienvenida.jsx";
 import ProductDetail from "./components/ProductDetail";
@@ -25,7 +24,6 @@ import { CartContext, CartProvider } from "./context/CartContext.js";
 import Contacto from "./productos/Contacto.js";
 import ItemDetail from "./productos/ItemDetail.js";
 import Cookies from "js-cookie";
-// import { ValidarRol } from "./context/ProtectedRoute.js";
 import ProtectedRoute from "./context/ProtectedRoute.js";
 import Mensaje from "./components/mensaje.js"
 
@@ -104,7 +102,7 @@ function App() {
   if (!estado) {
     return (
       <div className="App">
-        <Botones setSearchTerm={setSearchTerm} isBlinking={isBlinking} s />
+        <Botones setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
         <Routes>
           <Route path="/" element={<Bienvenida />} />
           <Route path="/bienvenida" element={<Bienvenida />} />
@@ -154,7 +152,7 @@ s          <Route path="/RestablecerPassword" element={<RestablecerPassword />} 
   } else {
     return (
       <div className="App">
-        <Encabezado />
+        <Encabezado setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
         <Routes>
           <Route path="/" element={<Bienvenida />} />
           <Route path="/inicio" element={<Bienvenida />} />
@@ -172,7 +170,7 @@ s          <Route path="/RestablecerPassword" element={<RestablecerPassword />} 
           />
           <Route
             path="/productos"
-            element={<ItemListContainer onAddToCart={agregarAlCarrito} />}
+            element={<ItemListContainer onAddToCart={agregarAlCarrito} searchTerm={searchTerm}/>}
           />
           <Route
             path="/item/:id"
@@ -193,8 +191,6 @@ s          <Route path="/RestablecerPassword" element={<RestablecerPassword />} 
             }
           />
           <Route path="/finalizarpedido" element={<FinalizarPedido />} />
-
-          
         </Routes>
         <PieDePagina />
       </div>
