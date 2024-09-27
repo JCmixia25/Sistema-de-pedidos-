@@ -103,7 +103,7 @@ function App() {
   if (!estado) {
     return (
       <div className="App">
-        <Botones />
+        <Botones setSearchTerm={setSearchTerm} isBlinking={isBlinking}s/>
         <Routes>
           <Route path="/" element={<Bienvenida />} />
           <Route path="/bienvenida" element={<Bienvenida />} />
@@ -113,7 +113,7 @@ function App() {
           {/* Pasar el carrito y la función agregar al carrito a los componentes */}
           <Route
             path="/carrito"
-            element={<Carrito productos={cart} setProductos={setCart} />}
+            element={<Carrito productos={cart} setProductos={setCart} setBlinking={setIsBlinking}/>}
           />
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contacts />} />
@@ -161,7 +161,7 @@ function App() {
           />
           <Route
             path="/carrito"
-            element={<Carrito productos={cart} setProductos={setCart} />}
+            element={<Carrito productos={cart} setProductos={setCart} setBlinking={setIsBlinking}/>}
           />
         </Routes>
         <PieDePagina />
