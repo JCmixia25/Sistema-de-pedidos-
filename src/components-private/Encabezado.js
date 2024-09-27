@@ -5,14 +5,17 @@ import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import icono from "./icono.png";
 import { FaSearch, FaShoppingCart, FaUser, FaPowerOff } from "react-icons/fa";
+import { getAuth } from "firebase/auth";
 
 export const Encabezado = ({ setSearchTerm }) => {
   const { setEstado } = useAuth();
   const navigate = useNavigate();
 
+
   function cerrarSesion() {
     setEstado(false);
     localStorage.removeItem("login");
+    localStorage.removeItem("rol");
     navigate("/");
   }
 

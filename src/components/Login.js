@@ -30,7 +30,6 @@ export function Login() {
     try {
       // Intento de iniciar sesión con Firebase Authentication
       const userLogin = await login(user.email, user.password);
-      console.log("estado de usuario: ", userLogin);
 
       if (userLogin) {
         //Indica que la sesion está activa
@@ -57,6 +56,9 @@ export function Login() {
         datosUsuario.push(datos);
 
         console.log("datos del usuario: ", datosUsuario[0].rol);
+   
+        localStorage.setItem("rol", datosUsuario[0].rol);
+        
 
         if (datosUsuario[0].rol === "Administrador") {
           navigate("/productos");

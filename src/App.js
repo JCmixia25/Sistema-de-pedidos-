@@ -25,14 +25,15 @@ import { CartContext, CartProvider } from "./context/CartContext.js";
 import Contacto from "./productos/Contacto.js";
 import ItemDetail from "./productos/ItemDetail.js";
 import Cookies from "js-cookie";
-import { ValidarRol } from "./context/ValidarRol.js";
+// import { ValidarRol } from "./context/ProtectedRoute.js";
+import ProtectedRoute from "./context/ProtectedRoute.js";
+import Mensaje from "./components/mensaje.js"
 
 function App() {
-  const { estado, datosUsuario  } = useAuth();
+  const { estado, datosUsuario } = useAuth();
   const [cart, setCart] = useState([]);
   const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda
   const [isBlinking, setIsBlinking] = useState(false); // Estado para el parpadeo
-
 
   useEffect(() => {
     if (Cookies.get("cart")) {
@@ -103,7 +104,7 @@ function App() {
   if (!estado) {
     return (
       <div className="App">
-        <Botones setSearchTerm={setSearchTerm} isBlinking={isBlinking}s/>
+        <Botones setSearchTerm={setSearchTerm} isBlinking={isBlinking} s />
         <Routes>
           <Route path="/" element={<Bienvenida />} />
           <Route path="/bienvenida" element={<Bienvenida />} />
@@ -113,7 +114,13 @@ function App() {
           {/* Pasar el carrito y la función agregar al carrito a los componentes */}
           <Route
             path="/carrito"
-            element={<Carrito productos={cart} setProductos={setCart} setBlinking={setIsBlinking}/>}
+            element={
+              <Carrito
+                productos={cart}
+                setProductos={setCart}
+                setBlinking={setIsBlinking}
+              />
+            }
           />
           <Route path="/register" element={<Register />} />
           <Route path="/contact" element={<Contacts />} />
@@ -125,7 +132,12 @@ function App() {
           />
           <Route
             path="/productos"
-            element={<ItemListContainer onAddToCart={agregarAlCarrito} />}
+            element={
+              <ItemListContainer
+                onAddToCart={agregarAlCarrito}
+                searchTerm={searchTerm}
+              />
+            }
           />
           <Route path="/detalle" element={<ItemDetail />} />
           <Route
@@ -144,9 +156,19 @@ function App() {
         <Encabezado />
         <Routes>
           <Route path="/" element={<Bienvenida />} />
-          {/* <Route path="/inicio" element={ <Bienvenida />} />
-          <Route path="/informacion" element={<Informacion />} /> */}
-            {/* <ValidarRol rol={ datosUsuario[0].rol}/> */}
+          <Route path="/inicio" element={<Bienvenida />} />
+          <Route
+            path="/informacion"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <Informacion/>
+              </ProtectedRoute>
+            }
+          />
+          <Route
+            path="/mensaje"
+            element={<Mensaje/>}
+          />
           <Route
             path="/productos"
             element={<ItemListContainer onAddToCart={agregarAlCarrito} />}
@@ -161,7 +183,13 @@ function App() {
           />
           <Route
             path="/carrito"
-            element={<Carrito productos={cart} setProductos={setCart} setBlinking={setIsBlinking}/>}
+            element={
+              <Carrito
+                productos={cart}
+                setProductos={setCart}
+                setBlinking={setIsBlinking}
+              />
+            }
           />
         </Routes>
         <PieDePagina />
