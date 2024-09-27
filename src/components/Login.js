@@ -28,6 +28,7 @@ export function Login() {
     e.preventDefault();
 
     try {
+      // Intento de iniciar sesión con Firebase Authentication
       const userLogin = await login(user.email, user.password);
       console.log("estado de usuario: ", userLogin);
 
@@ -64,7 +65,14 @@ export function Login() {
         }
       }
     } catch (error) {
-      setMensaje(error.message);
+      // Manejo de errores de Firebase
+      if (error.code === "auth/user-not-found") {
+        setMensaje("Usuario no encontrado.");
+      } else if (error.code === "auth/wrong-password") {
+        setMensaje("Contraseña incorrecta.");
+      } else {
+        setMensaje("Error al iniciar sesión: " + error.message);
+      }
     }
   };
 
@@ -114,10 +122,11 @@ export function Login() {
           INGRESAR
         </button>
 
+
         {mensaje && <p className="mensaje">{mensaje}</p>}
 
         <div className="action-buttons">
-          <NavLink className="btn-texto" to="/">
+          <NavLink className="btn-texto" to="/RestablecerPassword">
             ¿Olvidaste tu Contraseña?
           </NavLink>
           <NavLink className="btn-texto" to="/register">

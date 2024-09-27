@@ -3,9 +3,12 @@ import "./App.css";
 import { Botones } from "./components/Botones";
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
+import RestablecerPassword from "./components/RestablecerPassword.js";
 import Home from "./components/Home.js";
 import Contacts from "./components/Contacts.js";
 import Agregarpro from "./components/agregarpro.js";
+import FinalizarPedido from "./components/FinalizarPedido.jsx";
+
 import Carrito from "./components/Carrito.js";
 import Bienvenida from "./components/Bienvenida.jsx";
 import ProductDetail from "./components/ProductDetail";
