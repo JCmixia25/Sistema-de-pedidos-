@@ -5,9 +5,11 @@ import { FaTrash, FaPlus, FaMinus } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cookies from "js-cookie";
+import { useAuth } from "../context/authContext"; // Asegúrate de importar tu contexto de autenticación
 
 const Carrito = ({ productos, setProductos, setBlinking }) => {
   const navigate = useNavigate();
+  const { estado } = useAuth(); // Usamos el hook de autenticación para verificar el estado del usuario
 
   const notify = () => {
     toast.error("Necesitas Iniciar Sesión!", {
@@ -48,17 +50,15 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
   };
 
   const handleFinalizarPedido = () => {
-    const seccion = 'seccion1';
-    const elemento = document.getElementById(seccion);
-    if (elemento) {
-      elemento.scrollIntoView({ behavior: "smooth" });
+    if (estado) {
+      // Si el usuario ha iniciado sesión, lo redirigimos a la página de finalizar pedido
+      navigate("/finalizarpedido"); 
     } else {
-      console.error(`No se encontró la sección ${seccion}`);
+      // Si no ha iniciado sesión, mostramos la notificación y activamos el parpadeo
+      notify();
+      setBlinking(true); // Activa el parpadeo
+      setTimeout(() => setBlinking(false), 2000); // Desactiva después de 2 segundos
     }
-
-    notify();
-    setBlinking(true); // Activa el parpadeo
-    setTimeout(() => setBlinking(false), 2000); // Desactiva después de 2 segundos
   };
 
   return (

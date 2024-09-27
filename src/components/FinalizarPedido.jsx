@@ -1,153 +1,146 @@
 import React, { useState } from "react";
-import "./agregarpro.css"; // Archivo CSS para los estilos
+import "./FinalizarPedido.css"; // Archivo CSS para los estilos
 import { useNavigate } from "react-router-dom";
 
-export function AddProduct() {
+// Objeto con departamentos y sus respectivas ciudades
+const departamentosCiudades = {
+  Guatemala: ["Ciudad de Guatemala", "Mixco", "Villa Nueva"],
+  Escuintla: ["Escuintla", "Santa Lucía Cotzumalguapa", "La Gomera"],
+  Zacapa: ["Zacapa", "Teculután", "Gualán"],
+  Chiquimula: ["Chiquimula", "Esquipulas", "San José La Arada"],
+  Chimaltenango: ["Chimaltenango", "Comalapa", "El Tejar"],
+  Suchitepéques: ["Mazatenango", "San Antonio Suchitepéquez", "Patulul"],
+  AltaVerapaz: ["Cobán", "San Pedro Carchá", "Tactic"],
+  BajaVerapaz: ["Salamá", "Cubulco", "Purulhá"],
+  "El Progreso": ["Guastatoya", "Sanarate", "Sansare"],
+  Huehuetenango: ["Huehuetenango", "Chiantla", "La Democracia"],
+  Izabal: ["Puerto Barrios", "Morales", "Livingston"],
+  Jalapa: ["Jalapa", "San Pedro Pinula", "Monjas"],
+  Jutiapa: ["Jutiapa", "El Progreso", "Jalpatagua"],
+  Petén: ["Flores", "San Benito", "Santa Elena"],
+  Quetzaltenango: ["Quetzaltenango", "Coatepeque", "Olintepeque"],
+  Quiché: ["Santa Cruz del Quiché", "Chichicastenango", "Joyabaj"],
+  Sololá: ["Sololá", "Panajachel", "San Lucas Tolimán"],
+  Retalhuleu: ["Retalhuleu", "Champerico", "San Sebastián"],
+};
+
+const FinalizarPedido = ({ productos = [] }) => {
   const [product, setProduct] = useState({
-    codigo: "",
-    name: "",
-    category: "",
-    warehouse: "",
-    description: "",
-    price: "",
-    stock: "",
+    nombres: "",
+    apellidos: "",
+    departamento: "",
+    ciudad: "",
+    direccion: "",
+    telefono: "",
+    email: "",
+    nit: "",
   });
-  const [images, setImages] = useState({ image1: null, image2: null, image3: null });
-  const [message, setMessage] = useState("");
+
+  const [ciudades, setCiudades] = useState([]); // Estado para las ciudades dinámicas
   const navigate = useNavigate();
+  const [message, setMessage] = useState("");
 
   const handleProductChange = ({ target: { name, value } }) => {
     setProduct({ ...product, [name]: value });
-  };
 
-  const handleImageChange = (e) => {
-    setImages({ ...images, [e.target.name]: e.target.files[0] });
+    // Si el campo cambiado es el departamento, actualizamos las ciudades
+    if (name === "departamento") {
+      setCiudades(departamentosCiudades[value] || []); // Set ciudades según el departamento seleccionado
+      setProduct((prevProduct) => ({
+        ...prevProduct,
+        ciudad: "", // Limpiar la ciudad seleccionada cuando cambie el departamento
+      }));
+    }
   };
 
   const handleProductSubmit = (e) => {
     e.preventDefault();
-    console.log("Producto agregado:", product);
-    setMessage("Producto agregado exitosamente");
-    navigate("/productos");
+    setMessage("Pedido finalizado exitosamente");
+    navigate("/confirmacion");
   };
 
-  const handleImageSubmit = (e) => {
-    e.preventDefault();
-    if (images.image1 && images.image2 && images.image3) {
-      console.log("Imagen 1 subida:", images.image1);
-      console.log("Imagen 2 subida:", images.image2);
-      console.log("Imagen 3 subida:", images.image3);
-      setMessage("Imágenes subidas exitosamente");
-    } else {
-      setMessage("Por favor, selecciona tres imágenes.");
-    }
-  };
+  const total = productos.reduce((acc, prod) => acc + prod.cantidad * prod.precio, 0);
 
   return (
-    <div className="add-product-container">
-      <h2>FINALIZAR PEDIDO</h2>
+    <div className="finalizar-pedido-container">
+      <div className="form-container">
+        <h2>Detalles de Envío</h2>
+        <form onSubmit={handleProductSubmit} className="product-form">
+          <label>
+            Nombres
+            <input type="text" name="nombres" onChange={handleProductChange} required />
+          </label>
+          <label>
+            Apellidos
+            <input type="text" name="apellidos" onChange={handleProductChange} required />
+          </label>
+          <label>
+            Departamento
+            <select name="departamento" onChange={handleProductChange} required>
+              <option value="">Seleccione un departamento</option>
+              {Object.keys(departamentosCiudades).map((departamento) => (
+                <option key={departamento} value={departamento}>
+                  {departamento}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Ciudad
+            <select name="ciudad" onChange={handleProductChange} value={product.ciudad} required>
+              <option value="">Seleccione una ciudad</option>
+              {ciudades.map((ciudad) => (
+                <option key={ciudad} value={ciudad}>
+                  {ciudad}
+                </option>
+              ))}
+            </select>
+          </label>
+          <label>
+            Dirección de envío
+            <input type="text" name="direccion" onChange={handleProductChange} required />
+          </label>
+          <label>
+            Teléfono
+            <input type="number" name="telefono" onChange={handleProductChange} required />
+          </label>
+          <label>
+            Correo Electrónico
+            <input type="email" name="email" onChange={handleProductChange} required />
+          </label>
+          <label>
+            NIT (Opcional)
+            <input type="text" name="nit" onChange={handleProductChange} />
+          </label>
+          <button type="submit" className="btn-finalizar">
+            Finalizar Pedido
+          </button>
+        </form>
+      </div>
 
-      {/* Formulario para agregar producto */}
-      <form onSubmit={handleProductSubmit} className="product-form">
-        <label>
-          Nombres
-          <input
-            type="text"
-            name="codigo"
-            onChange={handleProductChange}
-            placeholder="Código del producto"
-            required
-          />
-        </label>
-        <label>
-          Nombre del Producto
-          <input
-            type="text"
-            name="name"
-            onChange={handleProductChange}
-            placeholder="Nombre del producto"
-            required
-          />
-        </label>
-
-        {/* Campo de selección para categoría */}
-        <label>
-          Categoría
-          <select name="category" onChange={handleProductChange} required>
-            <option value="">Selecciona una categoría</option>
-            <option value="Electrónica">Electrónica</option>
-            <option value="Abono">Abono</option>
-            <option value="Herbicidas">Herbicidas</option>
-            <option value="Sensores">Sensores</option>
-            <option value="Pantallas">Pantallas</option>
-          </select>
-        </label>
-
-        <label>
-          Bodega
-          <input
-            type="text"
-            name="warehouse"
-            onChange={handleProductChange}
-            placeholder="Bodega"
-            required
-          />
-        </label>
-        <label>
-          Descripción
-          <input
-            type="text"
-            name="description"
-            onChange={handleProductChange}
-            placeholder="Descripción del producto"
-            required
-          />
-        </label>
-        <label>
-          Precio
-          <input
-            type="number"
-            name="price"
-            onChange={handleProductChange}
-            placeholder="Precio"
-            required
-          />
-        </label>
-        <label>
-          Stock
-          <input
-            type="number"
-            name="stock"
-            onChange={handleProductChange}
-            placeholder="Cantidad en stock"
-            required
-          />
-        </label>
-        <button type="submit">Agregar Producto</button>
-      </form>
-
-      {/* Formulario para subir imágenes */}
-      <h2>Agregar Imágenes del Productos</h2>
-      <form onSubmit={handleImageSubmit} className="image-form">
-        <label>
-          Imagen 1
-          <input type="file" name="image1" accept="image/*" onChange={handleImageChange} />
-        </label>
-        <label>
-          Imagen 2
-          <input type="file" name="image2" accept="image/*" onChange={handleImageChange} />
-        </label>
-        <label>
-          Imagen 3
-          <input type="file" name="image3" accept="image/*" onChange={handleImageChange} />
-        </label>
-        <button type="submit">Subir Imágenes</button>
-      </form>
-
-      {/* Mostrar mensaje de estado */}
-      {message && <p className="message">{message}</p>}
+      <div className="resumen-container">
+        <h2>Resumen del Carrito</h2>
+        {productos.length > 0 ? (
+          productos.map((producto) => (
+            <div key={producto.id} className="resumen-producto">
+              <img src={producto.imagen} alt={producto.nombre} className="resumen-producto-imagen" />
+              <div className="resumen-producto-info">
+                <p>{producto.nombre}</p>
+                <p>Cantidad: {producto.cantidad}</p>
+                <p>Precio: Q{producto.precio * producto.cantidad}</p>
+              </div>
+            </div>
+          ))
+        ) : (
+          <p>No hay productos en el carrito</p>
+        )}
+        <div className="resumen-total">
+          <h3>Total: Q{total}</h3>
+        </div>
+        <button className="btn-finalizar">Confirmar</button>
+      </div>
     </div>
   );
-}
+};
 
-export default AddProduct;
+export default FinalizarPedido;

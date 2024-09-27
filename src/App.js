@@ -163,6 +163,9 @@ function App() {
             path="/carrito"
             element={<Carrito productos={cart} setProductos={setCart} setBlinking={setIsBlinking}/>}
           />
+          <Route path="/finalizarpedido" element={<FinalizarPedido />} />
+
+          
         </Routes>
         <PieDePagina />
       </div>
