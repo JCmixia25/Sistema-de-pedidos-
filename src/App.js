@@ -7,6 +7,8 @@ import RestablecerPassword from "./components/RestablecerPassword.js";
 import Home from "./components/Home.js";
 import Contacts from "./components/Contacts.js";
 import Agregarpro from "./components/agregarpro.js";
+import FinalizarPedido from "./components/FinalizarPedido.jsx";
+
 import Carrito from "./components/Carrito.js";
 import Bienvenida from "./components/Bienvenida.jsx";
 import ProductDetail from "./components/ProductDetail";
@@ -71,6 +73,8 @@ function App() {
         <Route path="/inicio" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/agregarpro" element={<Agregarpro />} />
+        <Route path="/finalizarpedido" element={<FinalizarPedido/>} />
+
         <Route path="/register" element={<Register />} />
         <Route path="/RestablecerPassword" element={<RestablecerPassword />} />
         <Route path="/contact" element={<Contacts />} />
