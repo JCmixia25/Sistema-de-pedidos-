@@ -1,14 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./Login.css";
-import '@fortawesome/fontawesome-free/css/all.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 import { useAuth } from "../context/authContext";
 import { NavLink, useNavigate } from "react-router-dom";
-import {
-  collection,
-  getDocs,
-  query,
-  where,
-} from "firebase/firestore";
+import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../conexion/firebase";
 
 export function Login() {
@@ -23,6 +18,7 @@ export function Login() {
   const { setEstado, login, datosUsuario, setDatosUsuario } = useAuth();
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState("");
+  const usuario2 = new Object();
 
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
@@ -33,22 +29,37 @@ export function Login() {
 
     try {
       const userLogin = await login(user.email, user.password);
+      console.log("estado de usuario: ", userLogin);
+
       if (userLogin) {
+        //Indica que la sesion está activa
         setEstado(true);
+        //Almacena la sesion en una varible el navegador
         localStorage.setItem("login", "true");
         setMensaje("");
 
+        //crea una referencia al documento cuenta
         const refCuenta = collection(db, "cuenta");
-        const q = query(refCuenta, where("usuario_uid", "==", userLogin.user.uid));
+
+        //crear una consulta para obtener los datos de la cuenta del usuario
+        const q = query(
+          refCuenta,
+          where("usuario_uid", "==", userLogin.user.uid)
+        );
+
         const snapshot = await getDocs(q);
         const doc = snapshot.docs[0];
-        
+        //obtiene los datos del usuario
         const datos = { ...doc.data(), id: doc.id };
-        setDatosUsuario(datos);
 
-        if (datos.rol === "Administrador") {
+        //agrega los datos del usuario
+        datosUsuario.push(datos);
+
+        console.log("datos del usuario: ", datosUsuario[0].rol);
+
+        if (datosUsuario[0].rol === "Administrador") {
           navigate("/productos");
-        } else if (datos.rol === "Cliente") {
+        } else if (datosUsuario[0].rol === "Cliente") {
           navigate("/inicio");
         }
       }
@@ -87,20 +98,22 @@ export function Login() {
               placeholder="******"
               required
             />
-       <button
-      type="button"
-      className="toggle-password"
-      onClick={togglePasswordVisibility}
-    >
-      <i className={passwordVisible ? "fas fa-eye-slash" : "fas fa-eye"}></i>
-    </button>
+            <button
+              type="button"
+              className="toggle-password"
+              onClick={togglePasswordVisibility}
+            >
+              <i
+                className={passwordVisible ? "fas fa-eye-slash" : "fas fa-eye"}
+              ></i>
+            </button>
           </div>
         </label>
 
         <button type="submit" className="btn-ingresar">
           INGRESAR
         </button>
-        
+
         {mensaje && <p className="mensaje">{mensaje}</p>}
 
         <div className="action-buttons">
