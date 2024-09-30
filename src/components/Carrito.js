@@ -52,7 +52,8 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
   const handleFinalizarPedido = () => {
     if (estado) {
       // Si el usuario ha iniciado sesión, lo redirigimos a la página de finalizar pedido
-      navigate("/finalizarpedido"); 
+      //navigate("/finalizarpedido"); 
+      navigate("/finalizarpedido", { state: { productos } });
     } else {
       // Si no ha iniciado sesión, mostramos la notificación y activamos el parpadeo
       notify();

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import "./FinalizarPedido.css"; // Archivo CSS para los estilos
 import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 // Objeto con departamentos y sus respectivas ciudades
 const departamentosCiudades = {
@@ -12,7 +13,7 @@ const departamentosCiudades = {
   Suchitepéques: ["Mazatenango", "San Antonio Suchitepéquez", "Patulul"],
   AltaVerapaz: ["Cobán", "San Pedro Carchá", "Tactic"],
   BajaVerapaz: ["Salamá", "Cubulco", "Purulhá"],
-  "El Progreso": ["Guastatoya", "Sanarate", "Sansare"],
+  ElProgreso: ["Guastatoya", "Sanarate", "Sansare"],
   Huehuetenango: ["Huehuetenango", "Chiantla", "La Democracia"],
   Izabal: ["Puerto Barrios", "Morales", "Livingston"],
   Jalapa: ["Jalapa", "San Pedro Pinula", "Monjas"],
@@ -24,7 +25,11 @@ const departamentosCiudades = {
   Retalhuleu: ["Retalhuleu", "Champerico", "San Sebastián"],
 };
 
-const FinalizarPedido = ({ productos = [] }) => {
+const FinalizarPedido = () => {
+  const location = useLocation();
+  const productos = location.state?.productos || [];
+
+  // Estado para manejar los detalles del producto/cliente
   const [product, setProduct] = useState({
     nombres: "",
     apellidos: "",
@@ -127,7 +132,8 @@ const FinalizarPedido = ({ productos = [] }) => {
               <div className="resumen-producto-info">
                 <p>{producto.nombre}</p>
                 <p>Cantidad: {producto.cantidad}</p>
-                <p>Precio: Q{producto.precio * producto.cantidad}</p>
+                <p>Precio: Q{producto.precio}</p>
+                <p>Total: Q{producto.cantidad * producto.precio}</p>
               </div>
             </div>
           ))
