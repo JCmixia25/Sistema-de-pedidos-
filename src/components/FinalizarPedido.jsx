@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import "./FinalizarPedido.css"; // Archivo CSS para los estilos
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
+import { ToastContainer, toast } from "react-toastify";
 
 // Objeto con departamentos y sus respectivas ciudades
 const departamentosCiudades = {
@@ -29,7 +31,6 @@ const FinalizarPedido = () => {
   const location = useLocation();
   const productos = location.state?.productos || [];
 
-  // Estado para manejar los detalles del producto/cliente
   const [product, setProduct] = useState({
     nombres: "",
     apellidos: "",
@@ -41,27 +42,46 @@ const FinalizarPedido = () => {
     nit: "",
   });
 
-  const [ciudades, setCiudades] = useState([]); // Estado para las ciudades dinámicas
+  const [ciudades, setCiudades] = useState([]); 
   const navigate = useNavigate();
-  const [message, setMessage] = useState("");
 
   const handleProductChange = ({ target: { name, value } }) => {
     setProduct({ ...product, [name]: value });
 
-    // Si el campo cambiado es el departamento, actualizamos las ciudades
     if (name === "departamento") {
-      setCiudades(departamentosCiudades[value] || []); // Set ciudades según el departamento seleccionado
+      setCiudades(departamentosCiudades[value] || []);
       setProduct((prevProduct) => ({
         ...prevProduct,
-        ciudad: "", // Limpiar la ciudad seleccionada cuando cambie el departamento
+        ciudad: "", 
       }));
     }
   };
 
+  const isFormValid = () => {
+    return (
+      product.nombres.trim() !== "" &&
+      product.apellidos.trim() !== "" &&
+      product.departamento.trim() !== "" &&
+      product.ciudad.trim() !== "" &&
+      product.direccion.trim() !== "" &&
+      product.telefono.trim() !== "" &&
+      product.email.trim() !== ""
+    );
+  };
+
   const handleProductSubmit = (e) => {
     e.preventDefault();
-    setMessage("Pedido finalizado exitosamente");
-    navigate("/confirmacion");
+    if (isFormValid()) {
+      navigate("/confirmacion");
+    } else {
+      notify(); 
+    }
+  };
+
+   const notify = () => {
+    toast.error("Necesitas Completar la Informacion de envío", {
+      position: "top-center",
+    });
   };
 
   const total = productos.reduce((acc, prod) => acc + prod.cantidad * prod.precio, 0);
@@ -73,15 +93,15 @@ const FinalizarPedido = () => {
         <form onSubmit={handleProductSubmit} className="product-form">
           <label>
             Nombres
-            <input type="text" name="nombres" onChange={handleProductChange} required />
+            <input type="text" name="nombres" onChange={handleProductChange} value={product.nombres}  />
           </label>
           <label>
             Apellidos
-            <input type="text" name="apellidos" onChange={handleProductChange} required />
+            <input type="text" name="apellidos" onChange={handleProductChange} value={product.apellidos} />
           </label>
           <label>
             Departamento
-            <select name="departamento" onChange={handleProductChange} required>
+            <select name="departamento" onChange={handleProductChange} value={product.departamento} >
               <option value="">Seleccione un departamento</option>
               {Object.keys(departamentosCiudades).map((departamento) => (
                 <option key={departamento} value={departamento}>
@@ -92,7 +112,7 @@ const FinalizarPedido = () => {
           </label>
           <label>
             Ciudad
-            <select name="ciudad" onChange={handleProductChange} value={product.ciudad} required>
+            <select name="ciudad" onChange={handleProductChange} value={product.ciudad} >
               <option value="">Seleccione una ciudad</option>
               {ciudades.map((ciudad) => (
                 <option key={ciudad} value={ciudad}>
@@ -103,24 +123,24 @@ const FinalizarPedido = () => {
           </label>
           <label>
             Dirección de envío
-            <input type="text" name="direccion" onChange={handleProductChange} required />
+            <input type="text" name="direccion" onChange={handleProductChange} value={product.direccion} />
           </label>
           <label>
             Teléfono
-            <input type="number" name="telefono" onChange={handleProductChange} required />
+            <input type="number" name="telefono" onChange={handleProductChange} value={product.telefono} />
           </label>
           <label>
             Correo Electrónico
-            <input type="email" name="email" onChange={handleProductChange} required />
+            <input type="email" name="email" onChange={handleProductChange} value={product.email} />
           </label>
           <label>
             NIT (Opcional)
-            <input type="text" name="nit" onChange={handleProductChange} />
+            <input type="text" name="nit" onChange={handleProductChange} value={product.nit} />
           </label>
-          <button type="submit" className="btn-finalizar">
-            Finalizar Pedido
-          </button>
+          <button type="submit" className="btn-finalizar">FINALIZAR PEDIDO</button>
         </form>
+        <ToastContainer />
+
       </div>
 
       <div className="resumen-container">
@@ -143,8 +163,10 @@ const FinalizarPedido = () => {
         <div className="resumen-total">
           <h3>Total: Q{total}</h3>
         </div>
-        <button className="btn-finalizar">Confirmar</button>
       </div>
+
+      {/* Toast container to display notifications */}
+     
     </div>
   );
 };
