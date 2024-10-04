@@ -329,6 +329,7 @@
       text-decoration: none; /* Eliminar subrayado */
       color: white; /* Color del texto */
       padding: 5px; /* Ajusta el espaciado interno si es necesario */
+      /* background-color: #d5ed9f; */
     }
   
     .carrito-icono {

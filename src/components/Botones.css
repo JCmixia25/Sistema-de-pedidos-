@@ -378,6 +378,14 @@
     padding: 2px 0; /* Ajusta este valor para bajar el texto */
   }
 
+  .carrito-text {
+    font-size: 1.8vh; /* Tamaño del texto */
+    line-height: 1; /* Asegura que el texto esté bien alineado */
+    text-align: center; /* Alinear el texto al centro */
+    margin: 0; /* Elimina cualquier margen */
+    padding: 0; /* Ajusta este valor para bajar el texto */
+  }
+
   .inicio-sesion {
     padding-top: 5px; /* Mantiene el ajuste de posición */
      margin-right: 20px; /*Aumenta este valor para separar más de "Mi carrito" */

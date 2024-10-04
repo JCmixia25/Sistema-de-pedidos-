@@ -65,9 +65,10 @@ export const Botones = ({ setSearchTerm, isBlinking }) => {
           </div>        
           <div className="carrito-compras">
             <NavLink to="/carrito" className="carrito-boton">
-              <div className="icono-y-texto">
+              {/* <div className="icono-y-texto"> */}
+              <div>
                 <FaShoppingCart className="carrito-icono" />
-                <p className="inicio-sesion-text">Mi Carrito</p>
+                <p className="carrito-text">Mi <br/> Carrito</p>
               </div>
             </NavLink>
           </div>
