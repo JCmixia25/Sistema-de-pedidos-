@@ -141,7 +141,7 @@ s          <Route path="/RestablecerPassword" element={<RestablecerPassword />} 
           <Route path="/detalle" element={<ItemDetail />} />
           <Route
             path="/productos/:categoria"
-            element={<ItemListContainer onAddToCart={agregarAlCarrito} />}
+            element={<ItemListContainer onAddToCart={agregarAlCarrito} searchTerm={searchTerm}/>}
           />
           <Route path="/listBotones" element={<VerticalButtons />} />
           <Route path="/contacto" element={<Contacto />} />
@@ -178,7 +178,7 @@ s          <Route path="/RestablecerPassword" element={<RestablecerPassword />} 
           />
           <Route
             path="/productos/:categoria"
-            element={<ItemListContainer onAddToCart={agregarAlCarrito} />}
+            element={<ItemListContainer onAddToCart={agregarAlCarrito} searchTerm={searchTerm}/>}
           />
           <Route
             path="/carrito"
