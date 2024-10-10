@@ -5,11 +5,11 @@ import { FaTrash, FaPlus, FaMinus } from "react-icons/fa";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import Cookies from "js-cookie";
-import { useAuth } from "../context/authContext"; // Asegúrate de importar tu contexto de autenticación
+import { useAuth } from "../context/authContext";
 
 const Carrito = ({ productos, setProductos, setBlinking }) => {
   const navigate = useNavigate();
-  const { estado } = useAuth(); // Usamos el hook de autenticación para verificar el estado del usuario
+  const { estado } = useAuth();
 
   const notify = () => {
     toast.error("Necesitas Iniciar Sesión!", {
@@ -17,6 +17,7 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
     });
   };
 
+<<<<<<< HEAD
   const notificacion2 = () => {
     toast.error("Necesitas agregar productos!", {
       position: "top-center",
@@ -26,6 +27,23 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
   useEffect(() => {
     // Almacenar los productos en las cookies cada vez que se actualiza el estado
     Cookies.set("cart", JSON.stringify(productos));
+=======
+  // Cargar productos desde las cookies al iniciar el componente
+  useEffect(() => {
+    const storedProducts = Cookies.get("cart");
+    if (storedProducts) {
+      setProductos(JSON.parse(storedProducts));
+    }
+  }, [setProductos]);
+
+  // Guardar productos en cookies cada vez que cambien
+  useEffect(() => {
+    if (productos.length > 0) {
+      Cookies.set("cart", JSON.stringify(productos));
+    } else {
+      Cookies.remove("cart"); // Eliminar la cookie si no hay productos
+    }
+>>>>>>> 34695b611ba957e2eaa717dc834fd6edcecfae98
   }, [productos]);
 
   const aumentarCantidad = (id) => {
@@ -55,12 +73,16 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
 
   const handleFinalizarPedido = () => {
     if (estado) {
+<<<<<<< HEAD
       if (productos.length === 0) {
         notificacion2();
       } else {
         // Aquí se quita setProductos del estado que se pasa a través de navigate
         navigate("/finalizarpedido", { state: { productos } });
       }
+=======
+      navigate("/finalizarpedido", { state: { productos } });
+>>>>>>> 34695b611ba957e2eaa717dc834fd6edcecfae98
     } else {
       notify();
       setBlinking(true);
@@ -73,6 +95,7 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
   return (
     <div className="carrito-container">
       <h2>Mi Carrito</h2>
+<<<<<<< HEAD
       {productos.length > 0 ? (
         productos.map((producto) => (
           <div key={producto.id} className="producto">
@@ -81,6 +104,14 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
               alt={producto.nombre}
               className="producto-imagen"
             />
+=======
+      {productos.length === 0 ? (
+        <p>NO HAY PRODUCTOS AÑADIDOS EN EL CARRITO</p>
+      ) : (
+        productos.map((producto) => (
+          <div key={producto.id} className="producto">
+            <img src={producto.imagen} alt={producto.nombre} className="producto-imagen" />
+>>>>>>> 34695b611ba957e2eaa717dc834fd6edcecfae98
             <div className="producto-info">
               <h3>{producto.nombre}</h3>
               <p>Código: {producto.codigo}</p>
@@ -108,8 +139,11 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
             </button>
           </div>
         ))
+<<<<<<< HEAD
       ) : (
         <p>No hay productos en el carrito</p>
+=======
+>>>>>>> 34695b611ba957e2eaa717dc834fd6edcecfae98
       )}
       <div className="resumen-compra">
         <h3>Resumen de compra</h3>
@@ -125,4 +159,8 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
   );
 };
 
+<<<<<<< HEAD
 export default Carrito;
+=======
+export default Carrito;
+>>>>>>> 34695b611ba957e2eaa717dc834fd6edcecfae98
