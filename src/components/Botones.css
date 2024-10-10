@@ -380,7 +380,7 @@
 
   .inicio-sesion {
     padding-top: 5px; /* Mantiene el ajuste de posición */
-     margin-right: 20px; /*Aumenta este valor para separar más de "Mi carrito" */
+     margin-right: 40px; /*Aumenta este valor para separar más de "Mi carrito" */
   }
 
   .carrito-boton .inicio-sesion-text {

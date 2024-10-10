@@ -1,36 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "./FinalizarPedido.css"; // Archivo CSS para los estilos
 import { useNavigate } from "react-router-dom";
 import { useLocation } from "react-router-dom";
-import "react-toastify/dist/ReactToastify.css";
 import { ToastContainer, toast } from "react-toastify";
-
-// Objeto con departamentos y sus respectivas ciudades
-const departamentosCiudades = {
-  Guatemala: ["Ciudad de Guatemala", "Mixco", "Villa Nueva"],
-  Escuintla: ["Escuintla", "Santa Lucía Cotzumalguapa", "La Gomera"],
-  Zacapa: ["Zacapa", "Teculután", "Gualán"],
-  Chiquimula: ["Chiquimula", "Esquipulas", "San José La Arada"],
-  Chimaltenango: ["Chimaltenango", "Comalapa", "El Tejar"],
-  Suchitepéques: ["Mazatenango", "San Antonio Suchitepéquez", "Patulul"],
-  AltaVerapaz: ["Cobán", "San Pedro Carchá", "Tactic"],
-  BajaVerapaz: ["Salamá", "Cubulco", "Purulhá"],
-  ElProgreso: ["Guastatoya", "Sanarate", "Sansare"],
-  Huehuetenango: ["Huehuetenango", "Chiantla", "La Democracia"],
-  Izabal: ["Puerto Barrios", "Morales", "Livingston"],
-  Jalapa: ["Jalapa", "San Pedro Pinula", "Monjas"],
-  Jutiapa: ["Jutiapa", "El Progreso", "Jalpatagua"],
-  Petén: ["Flores", "San Benito", "Santa Elena"],
-  Quetzaltenango: ["Quetzaltenango", "Coatepeque", "Olintepeque"],
-  Quiché: ["Santa Cruz del Quiché", "Chichicastenango", "Joyabaj"],
-  Sololá: ["Sololá", "Panajachel", "San Lucas Tolimán"],
-  Retalhuleu: ["Retalhuleu", "Champerico", "San Sebastián"],
-};
+import { PDFDownloadLink, pdf } from "@react-pdf/renderer";
+import PdfDocument from "./pdf.jsx"; // Documento PDF
 
 const FinalizarPedido = () => {
   const location = useLocation();
-  const productos = location.state?.productos || [];
-
+  const [productos, setProductos] = useState(location.state?.productos || []); // Estado local para los productos
+  
   const [product, setProduct] = useState({
     nombres: "",
     apellidos: "",
@@ -42,8 +21,15 @@ const FinalizarPedido = () => {
     nit: "",
   });
 
-  const [ciudades, setCiudades] = useState([]); 
-  const navigate = useNavigate();
+  const [ciudades, setCiudades] = useState([]);
+  const [pedidoFinalizado, setPedidoFinalizado] = useState(false); // Controlar cuándo se finaliza el pedido
+  const [urlDescarga, setUrlDescarga] = useState(null); // URL para descargar el PDF
+
+  const departamentosCiudades = {
+    Guatemala: ["Ciudad de Guatemala", "Mixco", "Villa Nueva"],
+    Escuintla: ["Escuintla", "Santa Lucía Cotzumalguapa", "La Gomera"],
+    // ... (otros departamentos)
+  };
 
   const handleProductChange = ({ target: { name, value } }) => {
     setProduct({ ...product, [name]: value });
@@ -71,20 +57,65 @@ const FinalizarPedido = () => {
 
   const handleProductSubmit = (e) => {
     e.preventDefault();
+    
+    // Si ya se finalizó el pedido, no permitir volver a procesar
+    if (pedidoFinalizado) return;
+
     if (isFormValid()) {
-      navigate("/confirmacion");
+      notifylisto();
+      setPedidoFinalizado(true);
+      generatePdf();
     } else {
-      notify(); 
+      notify();
     }
   };
 
-   const notify = () => {
+  const notifylisto = () => {
+    toast.success("Pedido enviado", {
+      position: "top-center",
+    });
+  };
+
+  const notify = () => {
     toast.error("Necesitas Completar la Informacion de envío", {
       position: "top-center",
     });
   };
 
   const total = productos.reduce((acc, prod) => acc + prod.cantidad * prod.precio, 0);
+
+  const generatePdf = () => {
+    const blob = pdf(<PdfDocument product={product} productos={productos} total={total} />).toBlob();
+    blob.then((pdfBlob) => {
+      const url = URL.createObjectURL(pdfBlob);
+      setUrlDescarga(url);
+    });
+  };
+
+  useEffect(() => {
+    if (pedidoFinalizado && urlDescarga) {
+      const link = document.createElement("a");
+      link.href = urlDescarga;
+      link.download = "comprobante.pdf";
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(urlDescarga);
+
+      // Limpiar productos y la información del cliente después de descargar el PDF
+      setProductos([]); // Limpiar productos localmente en este componente
+      setProduct({
+        nombres: "",
+        apellidos: "",
+        departamento: "",
+        ciudad: "",
+        direccion: "",
+        telefono: "",
+        email: "",
+        nit: "",
+      }); // Limpiar los datos del cliente
+    }
+  }, [pedidoFinalizado, urlDescarga]);
 
   return (
     <div className="finalizar-pedido-container">
@@ -93,7 +124,7 @@ const FinalizarPedido = () => {
         <form onSubmit={handleProductSubmit} className="product-form">
           <label>
             Nombres
-            <input type="text" name="nombres" onChange={handleProductChange} value={product.nombres}  />
+            <input type="text" name="nombres" onChange={handleProductChange} value={product.nombres} />
           </label>
           <label>
             Apellidos
@@ -101,7 +132,7 @@ const FinalizarPedido = () => {
           </label>
           <label>
             Departamento
-            <select name="departamento" onChange={handleProductChange} value={product.departamento} >
+            <select name="departamento" onChange={handleProductChange} value={product.departamento}>
               <option value="">Seleccione un departamento</option>
               {Object.keys(departamentosCiudades).map((departamento) => (
                 <option key={departamento} value={departamento}>
@@ -112,7 +143,7 @@ const FinalizarPedido = () => {
           </label>
           <label>
             Ciudad
-            <select name="ciudad" onChange={handleProductChange} value={product.ciudad} >
+            <select name="ciudad" onChange={handleProductChange} value={product.ciudad}>
               <option value="">Seleccione una ciudad</option>
               {ciudades.map((ciudad) => (
                 <option key={ciudad} value={ciudad}>
@@ -137,10 +168,11 @@ const FinalizarPedido = () => {
             NIT (Opcional)
             <input type="text" name="nit" onChange={handleProductChange} value={product.nit} />
           </label>
-          <button type="submit" className="btn-finalizar">FINALIZAR PEDIDO</button>
+          <button type="submit" className="btn-finalizar" disabled={pedidoFinalizado}>
+            {pedidoFinalizado ? "Pedido Finalizado" : "FINALIZAR PEDIDO"}
+          </button>
         </form>
         <ToastContainer />
-
       </div>
 
       <div className="resumen-container">
@@ -164,9 +196,6 @@ const FinalizarPedido = () => {
           <h3>Total: Q{total}</h3>
         </div>
       </div>
-
-      {/* Toast container to display notifications */}
-     
     </div>
   );
 };
