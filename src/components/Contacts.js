@@ -7,7 +7,7 @@ const Contacts = () => {
     <div className="contacts-container">
       <div className="contact-info">
         <h2>Información de Contacto</h2>
-        <p><strong>Teléfono:</strong> +502 59620587</p>
+        <p><strong>Teléfono:</strong> +502 54649096</p>
         <p>
           <strong>Correo Electrónico:</strong>
           <i className="fas fa-envelope" style={{ marginLeft: '5px', marginRight: '5px' }}></i>

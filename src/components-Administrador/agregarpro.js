@@ -1,6 +1,10 @@
 import React, { useState } from "react";
-import "./agregarpro.css"; // Archivo CSS para los estilos
+import "../components-Administrador/agregarpro.css";
+import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
+import { FaSearch, FaShoppingCart, FaUser, FaPowerOff } from "react-icons/fa";
+import { getAuth } from "firebase/auth";
 
 export function AddProduct() {
   const [product, setProduct] = useState({
@@ -49,29 +53,9 @@ export function AddProduct() {
 
       {/* Formulario para agregar producto */}
       <form onSubmit={handleProductSubmit} className="product-form">
-        <label>
-          Código del Producto
-          <input
-            type="text"
-            name="codigo"
-            onChange={handleProductChange}
-            placeholder="Código del producto"
-            required
-          />
-        </label>
-        <label>
-          Nombre del Producto
-          <input
-            type="text"
-            name="name"
-            onChange={handleProductChange}
-            placeholder="Nombre del producto"
-            required
-          />
-        </label>
 
-        {/* Campo de selección para categoría */}
-        <label>
+          {/* Campo de selección para categoría */}
+          <label>
           Categoría
           <select name="category" onChange={handleProductChange} required>
             <option value="">Selecciona una categoría</option>
@@ -82,17 +66,6 @@ export function AddProduct() {
             <option value="Pantallas">Pantallas</option>
           </select>
         </label>
-
-        <label>
-          Bodega
-          <input
-            type="text"
-            name="warehouse"
-            onChange={handleProductChange}
-            placeholder="Bodega"
-            required
-          />
-        </label>
         <label>
           Descripción
           <input
@@ -100,6 +73,16 @@ export function AddProduct() {
             name="description"
             onChange={handleProductChange}
             placeholder="Descripción del producto"
+            required
+          />
+        </label>
+        <label>
+          Nombre del Producto
+          <input
+            type="text"
+            name="name"
+            onChange={handleProductChange}
+            placeholder="Nombre del producto"
             required
           />
         </label>
