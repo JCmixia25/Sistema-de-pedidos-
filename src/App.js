@@ -63,44 +63,6 @@ function App() {
     );
   };
 
-  // return (
-  //   <div className="App">
-  //     {estado ? (
-  //       <Encabezado/>
-  //     ) : (
-  //       <Botones setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
-  //     )}
-  //     <Routes>
-  //       <Route path="/" element={<Bienvenida />} />
-  //       <Route path="/inicio" element={<Home />} />
-  //       <Route path="/login" element={<Login />} />
-  //       <Route path="/agregarpro" element={<Agregarpro />} />
-  //       <Route path="/register" element={<Register />} />
-  //       <Route path="/contact" element={<Contacts />} />
-  //       <Route path="/home/:id" element={<ProductDetail />} />
-  //       <Route path="/listaProductos" element={<ListaProductos />} />
-  //       <Route
-  //         path="/item/:id"
-  //         element={<ItemDetailContainer onAddToCart={agregarAlCarrito} />}
-  //       />
-  //       <Route
-  //         path="/productos"
-  //         element={<ItemListContainer onAddToCart={agregarAlCarrito} searchTerm={searchTerm} />}
-  //       />
-  //       <Route path="/detalle" element={<ItemDetail />} />
-  //       <Route
-  //         path="/productos/:categoria"
-  //         element={<ItemListContainer onAddToCart={agregarAlCarrito} searchTerm={searchTerm} />}
-  //       />
-  //       <Route path="/carrito" element={<Carrito productos={cart} setProductos={setCart} setBlinking={setIsBlinking} />} />
-  //       <Route path="/contacto" element={<Contacto />} />
-  //       <Route path="/informacion" element={<Informacion />} />
-  //       <Route path="/listBotones" element={<VerticalButtons />} />
-  //     </Routes>
-  //     <PieDePagina />
-  //   </div>
-  // );
-
   if (!estado) {
     return (
       <div className="App">
