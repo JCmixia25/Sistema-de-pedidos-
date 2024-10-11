@@ -61,7 +61,7 @@ const PdfDocument = ({ product, productos, total }) => {
           <Text style={styles.boldText}>Resumen del Pedido:</Text>
           {productos.map((producto) => (
             <View key={producto.id} style={styles.productRow}>
-              <Text>{producto.nombre} (x{producto.cantidad})</Text>
+              <Text>{producto.titulo} (x{producto.cantidad})</Text>
               <Text>Q{producto.precio * producto.cantidad}</Text>
             </View>
           ))}

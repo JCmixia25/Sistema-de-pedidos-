@@ -82,7 +82,7 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
             />
             <div className="producto-info">
               <h3>{producto.nombre}</h3>
-              <p>Código: {producto.codigo}</p>
+              <p>Nombre: {producto.titulo}</p>
               <div className="cantidad-container">
                 <button
                   onClick={() => disminuirCantidad(producto.id)}

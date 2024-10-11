@@ -5,11 +5,31 @@ import { useLocation } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { PDFDownloadLink, pdf } from "@react-pdf/renderer";
 import PdfDocument from "./pdf.jsx"; // Documento PDF
+import { collection, addDoc } from "firebase/firestore";
+import { db } from "../conexion/firebase.js";
 
 const FinalizarPedido = () => {
   const location = useLocation();
   const [productos, setProductos] = useState(location.state?.productos || []); // Estado local para los productos
+
+  const comprar = () => {
+    const pedido = {
+      cliente: product,  // Aquí pasamos el objeto con la información del cliente
+      productos: productos,  // Asegúrate de que esté bien escrito, antes tenía "productor"
+      total: total,
+    };
   
+    const pedidosRef = collection(db, "pedidos");
+    
+    addDoc(pedidosRef, pedido)
+      .then(() => {
+        console.log("Pedido guardado exitosamente");
+      })
+      .catch((error) => {
+        console.error("Error al guardar el pedido: ", error);
+      });
+  };
+ 
   const [product, setProduct] = useState({
     nombres: "",
     apellidos: "",
@@ -57,13 +77,13 @@ const FinalizarPedido = () => {
 
   const handleProductSubmit = (e) => {
     e.preventDefault();
-    
-    // Si ya se finalizó el pedido, no permitir volver a procesar
+  
     if (pedidoFinalizado) return;
-
+  
     if (isFormValid()) {
       notifylisto();
       setPedidoFinalizado(true);
+      comprar();  // Llamamos a la función comprar después de la validación
       generatePdf();
     } else {
       notify();
@@ -182,7 +202,7 @@ const FinalizarPedido = () => {
             <div key={producto.id} className="resumen-producto">
               <img src={producto.imagen} alt={producto.nombre} className="resumen-producto-imagen" />
               <div className="resumen-producto-info">
-                <p>{producto.nombre}</p>
+                <p>nombre: {producto.titulo}</p>
                 <p>Cantidad: {producto.cantidad}</p>
                 <p>Precio: Q{producto.precio}</p>
                 <p>Total: Q{producto.cantidad * producto.precio}</p>
@@ -198,6 +218,6 @@ const FinalizarPedido = () => {
       </div>
     </div>
   );
-};
+};  
 
 export default FinalizarPedido;

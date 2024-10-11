@@ -120,7 +120,7 @@ export function Login() {
           </div>
         </label>
 
-        <button type="submit" className="btn-ingresar">
+        <button type="submit" className="btn-ingresar" >
           INGRESAR
         </button>
 
