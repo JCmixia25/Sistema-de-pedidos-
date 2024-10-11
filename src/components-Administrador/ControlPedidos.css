@@ -1,0 +1,75 @@
+.control-pedidos {
+    max-width: 800px; /* Ancho máximo del contenedor */
+    margin: auto; /* Centrar el contenedor */
+    padding: 20px; /* Relleno interno */
+    background-color: #ffffff; /* Fondo blanco */
+    border-radius: 8px; /* Bordes redondeados */
+    box-shadow: 0 4px 8px rgba(227, 221, 221, 0.1); /* Sombra sutil */
+}
+
+h1 {
+    text-align: center; /* Centrar el título */
+    color: hsl(185, 59%, 57%); /* Color del texto */
+}
+
+.order-form {
+    display: flex; /* Usar flexbox para el formulario */
+    justify-content: space-between; /* Espaciado entre los elementos */
+    margin-bottom: 20px; /* Espacio inferior */
+}
+
+.order-form input {
+    flex: 1; /* Hacer que los inputs ocupen el mismo ancho */
+    margin-right: 10px; /* Espacio entre los inputs */
+    padding: 10px; /* Relleno interno */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 4px; /* Bordes redondeados */
+}
+
+.order-form button {
+    padding: 10px 15px; /* Relleno interno del botón */
+    background-color: #007bff; /* Color de fondo del botón */
+    color: white; /* Color del texto */
+    border: none; /* Sin borde */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar el ratón */
+    transition: background-color 0.3s; /* Transición suave */
+}
+
+.order-form button:hover {
+    background-color: #0056b3; /* Color del botón al pasar el ratón */
+}
+
+.order-list {
+    margin-top: 20px; /* Margen superior */
+}
+
+table {
+    width: 100%; /* Ancho completo */
+    border-collapse: collapse; /* Colapsar bordes de la tabla */
+}
+
+th, td {
+    padding: 10px; /* Relleno interno */
+    text-align: left; /* Alinear texto a la izquierda */
+    border-bottom: 1px solid #ddd; /* Línea inferior de las celdas */
+}
+
+th {
+    background-color: #f4f4f4; /* Fondo gris claro para el encabezado */
+}
+
+tr:hover {
+    background-color: #f1f1f1; /* Color de fila al pasar el ratón */
+}
+
+@media (max-width: 600px) {
+    .order-form {
+        flex-direction: column; /* Cambiar a columna en pantallas pequeñas */
+    }
+
+    .order-form input {
+        margin-right: 0; /* Eliminar margen derecho */
+        margin-bottom: 10px; /* Espacio inferior entre inputs */
+    }
+}

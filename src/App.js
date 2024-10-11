@@ -6,14 +6,16 @@ import Register from "./components/Register.js";
 import RestablecerPassword from "./components/RestablecerPassword.js";
 import Home from "./components/Home.js";
 import Contacts from "./components/Contacts.js";
-import Agregarpro from "./components/agregarpro.js";
+import { AddProduct } from "./components-Administrador/agregarpro.js";
+import { EncabezadoAdmin } from "./components-Administrador/EncabezadoAdmin.js";
+import ControlPedidos from "./components-Administrador/ControlPedidos.js";
 import FinalizarPedido from "./components/FinalizarPedido.jsx";
 import Carrito from "./components/Carrito.js";
 import Bienvenida from "./components/Bienvenida.jsx";
 import ProductDetail from "./components/ProductDetail";
 import { useAuth } from "./context/authContext.js";
-import { Encabezado } from "./components-private/Encabezado.js";
-import Informacion from "./components-private/informacion.js";
+import { Encabezado } from "./components-Cliente/Encabezado.js";
+import Informacion from "./components-Cliente/informacion.js";
 import PieDePagina from "./components/PieDePagina.js";
 import ListaProductos from "./productos/ListaProductos";
 import ItemDetailContainer from "./productos/ItemDetailContainer.js";
@@ -108,8 +110,7 @@ function App() {
           <Route path="/bienvenida" element={<Bienvenida />} />
           <Route path="/inicio" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/agregarpro" element={<Agregarpro />} />
-s          <Route path="/RestablecerPassword" element={<RestablecerPassword />} />
+          <Route path="/RestablecerPassword" element={<RestablecerPassword />} />
           {/* Pasar el carrito y la función agregar al carrito a los componentes */}
           <Route
             path="/carrito"
@@ -152,7 +153,18 @@ s          <Route path="/RestablecerPassword" element={<RestablecerPassword />} 
   } else {
     return (
       <div className="App">
-        <Encabezado setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
+        {estado ? (
+          // Verificar el rol del usuario
+          datosUsuario[0]?.rol === "Administrador" ? (
+            <EncabezadoAdmin setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
+          ) : (
+            <Encabezado setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
+          )
+        ) : (
+          // Renderizar botones para usuarios no autenticados
+          <Botones setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
+        )}
+        
         <Routes>
           <Route path="/" element={<Bienvenida />} />
           <Route path="/inicio" element={<Bienvenida />} />
@@ -160,17 +172,30 @@ s          <Route path="/RestablecerPassword" element={<RestablecerPassword />} 
             path="/informacion"
             element={
               <ProtectedRoute allowedRoles={['Administrador']}>
-                <Informacion/>
+                <Informacion />
               </ProtectedRoute>
             }
           />
           <Route
-            path="/mensaje"
-            element={<Mensaje/>}
+            path="/agregarpro"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <AddProduct />
+              </ProtectedRoute>
+            }
           />
           <Route
+            path="/ControlPedidos"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <ControlPedidos />
+              </ProtectedRoute>
+            }
+          />
+          <Route path="/mensaje" element={<Mensaje />} />
+          <Route
             path="/productos"
-            element={<ItemListContainer onAddToCart={agregarAlCarrito} searchTerm={searchTerm}/>}
+            element={<ItemListContainer onAddToCart={agregarAlCarrito} searchTerm={searchTerm} />}
           />
           <Route
             path="/item/:id"
@@ -178,7 +203,7 @@ s          <Route path="/RestablecerPassword" element={<RestablecerPassword />} 
           />
           <Route
             path="/productos/:categoria"
-            element={<ItemListContainer onAddToCart={agregarAlCarrito} searchTerm={searchTerm}/>}
+            element={<ItemListContainer onAddToCart={agregarAlCarrito} searchTerm={searchTerm} />}
           />
           <Route
             path="/carrito"

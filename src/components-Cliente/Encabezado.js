@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../components-private/Encabezado.css";
+import "../components-Cliente/Encabezado.css";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
@@ -24,12 +24,12 @@ export const Encabezado = ({ setSearchTerm, isBlinking}) => {
   const handleSearchChange = (e) => {
     const term = e.target.value;
     setSearchInput(term);
-    setSearchTerm(term); // Update the search term in the parent
+    setSearchTerm(term); 
   };
 
   const handleSearchSubmit = (e) => {
     if (e.key === "Enter" || e.type === "click") {
-      setSearchTerm(searchInput); // Submit the search term
+      setSearchTerm(searchInput); 
     }
   };
 

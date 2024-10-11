@@ -52,7 +52,6 @@ const informacion = () => {
       <div className="location">
         <h2>Ubicación</h2>
         <p><strong>Dirección:</strong> 33 CALLE "C", 10-16, ZONA 7, COLONIA BAMVI II GUATEMALA</p>
-        {/* Aquí añades el mapa con la nueva ubicación */}
         <MyMapComponent />
       </div>
     </div>

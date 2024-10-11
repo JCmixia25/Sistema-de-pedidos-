@@ -1,23 +1,20 @@
 import React, { useContext, useState } from "react";
 import "./ItemDetail.css";
-import { CartContext } from "../context/CartContext";
-import { useNavigate } from "react-router-dom"; // Importar useNavigate
-import { useAuth } from "../context/authContext";
+import { useNavigate } from "react-router-dom"; 
+import { authContext } from "../context/authContext"; 
+import { ToastContainer, toast } from 'react-toastify'; 
 
 const ItemDetail = ({ item, onAddToCart, imagenes }) => {
-  const { carrito, setCarrito } = useAuth();
-  console.log(carrito);
-
+  const { datosUsuario } = useContext(authContext); 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const navigate = useNavigate(); // Inicializar useNavigate
+  const navigate = useNavigate(); 
 
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === imagenes.length - 1 ? 0 : prevIndex + 1
     );
-    
   };
-  console.log("uno", currentImageIndex);
+
   const handlePrevImage = () => {
     setCurrentImageIndex((prevIndex) =>
       prevIndex === 0 ? imagenes.length - 1 : prevIndex - 1
@@ -25,12 +22,21 @@ const ItemDetail = ({ item, onAddToCart, imagenes }) => {
   };
 
   const handleAddToCart = () => {
-    onAddToCart(item); // Agregar al carrito
-    navigate("/carrito"); // Redirigir a la página de productos
+    const esAdministrador = datosUsuario && datosUsuario.length > 0 && datosUsuario[0]?.rol === "Administrador";
+
+    if (esAdministrador) {
+      toast.error("FUNCION NO VALIDA PARA ESTE USUARIO", {
+        position: "top-center",
+      });
+    } else {
+      onAddToCart(item);
+      navigate("/carrito");
+    }
   };
 
   return (
     <div className="item-detail">
+      <ToastContainer /> {/* Añadir el contenedor de Toast */}
       <div>
         {imagenes && Array.isArray(imagenes) && imagenes.length > 0 && (
           <div className="carousel">
@@ -42,7 +48,6 @@ const ItemDetail = ({ item, onAddToCart, imagenes }) => {
               &#10095;
             </button>
           </div>
-
         )}
         {!imagenes && <p>No se encontraron imágenes</p>}
       </div>

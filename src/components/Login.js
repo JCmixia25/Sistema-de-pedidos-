@@ -1,10 +1,17 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./Login.css";
-import "@fortawesome/fontawesome-free/css/all.min.css";
-import { useAuth } from "../context/authContext";
+import { useAuth } from "../context/authContext"; // Asegúrate de que la ruta sea correcta
 import { NavLink, useNavigate } from "react-router-dom";
 import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../conexion/firebase";
+
+// Importar los componentes de Cliente
+import { Encabezado } from '../components-Cliente/Encabezado';
+import Informacion from '../components-Cliente/informacion';
+
+// Importar el componente de Administrador
+import AgregarPro from '../components-Administrador/agregarpro';
+import { EncabezadoAdmin } from '../components-Administrador/EncabezadoAdmin';
 
 export function Login() {
   const [user, setUser] = useState({
@@ -12,13 +19,10 @@ export function Login() {
     password: "",
   });
 
-  // Estado para controlar si la contraseña se muestra o no
-  const [passwordVisible, setPasswordVisible] = useState(false);
-
-  const { setEstado, login, datosUsuario, setDatosUsuario } = useAuth();
+  const { setEstado, login, setDatosUsuario } = useAuth(); // Asegúrate de incluir setDatosUsuario
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState("");
-  const usuario2 = new Object();
+  const [rol, setRol] = useState(localStorage.getItem("rol")); // Manejar el rol en el estado
 
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
@@ -27,47 +31,43 @@ export function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    // Limpiar localStorage antes de iniciar sesión para que no guarde Rol Anterior
+    localStorage.removeItem("rol");
+    localStorage.removeItem("login");
+
     try {
-      // Intento de iniciar sesión con Firebase Authentication
       const userLogin = await login(user.email, user.password);
 
       if (userLogin) {
-        //Indica que la sesion está activa
         setEstado(true);
-        //Almacena la sesion en una varible el navegador
         localStorage.setItem("login", "true");
         setMensaje("");
 
-        //crea una referencia al documento cuenta
         const refCuenta = collection(db, "cuenta");
-
-        //crear una consulta para obtener los datos de la cuenta del usuario
-        const q = query(
-          refCuenta,
-          where("usuario_uid", "==", userLogin.user.uid)
-        );
-
+        const q = query(refCuenta, where("usuario_uid", "==", userLogin.user.uid));
         const snapshot = await getDocs(q);
-        const doc = snapshot.docs[0];
-        //obtiene los datos del usuario
-        const datos = { ...doc.data(), id: doc.id };
 
-        //agrega los datos del usuario
-        datosUsuario.push(datos);
+        if (!snapshot.empty) {
+          const doc = snapshot.docs[0];
+          const datos = { ...doc.data(), id: doc.id };
 
-        console.log("datos del usuario: ", datosUsuario[0].rol);
-   
-        localStorage.setItem("rol", datosUsuario[0].rol);
-        
+          console.log("Datos del usuario:", datos);
+          setDatosUsuario([datos]); // Usar setDatosUsuario para actualizar el estado
+          localStorage.setItem("rol", datos.rol);
+          setRol(datos.rol);
 
-        if (datosUsuario[0].rol === "Administrador") {
-          navigate("/productos");
-        } else if (datosUsuario[0].rol === "Cliente") {
-          navigate("/inicio");
+          if (datos.rol === "Administrador") {
+            console.log("Redirigiendo a inicio");
+            navigate("/inicio");
+          } else if (datos.rol === "Cliente") {
+            console.log("Redirigiendo a productos");
+            navigate("/productos");
+          }
+        } else {
+          console.log("No se encontraron datos para el usuario.");
         }
       }
     } catch (error) {
-      // Manejo de errores de Firebase
       if (error.code === "auth/user-not-found") {
         setMensaje("Usuario no encontrado.");
       } else if (error.code === "auth/wrong-password") {
@@ -76,11 +76,6 @@ export function Login() {
         setMensaje("Error al iniciar sesión: " + error.message);
       }
     }
-  };
-
-  // Función para alternar la visibilidad de la contraseña
-  const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
   };
 
   return (
@@ -99,31 +94,19 @@ export function Login() {
         </label>
         <label htmlFor="password">
           Contraseña
-          <div className="password-container">
-            <input
-              type={passwordVisible ? "text" : "password"} // Alterna entre 'text' y 'password'
-              name="password"
-              id="password"
-              onChange={handleChange}
-              placeholder="******"
-              required
-            />
-            <button
-              type="button"
-              className="toggle-password"
-              onClick={togglePasswordVisibility}
-            >
-              <i
-                className={passwordVisible ? "fas fa-eye-slash" : "fas fa-eye"}
-              ></i>
-            </button>
-          </div>
+          <input
+            type="password"
+            name="password"
+            id="password"
+            onChange={handleChange}
+            placeholder="******"
+            required
+          />
         </label>
 
         <button type="submit" className="btn-ingresar" >
           INGRESAR
         </button>
-
 
         {mensaje && <p className="mensaje">{mensaje}</p>}
 
@@ -136,6 +119,21 @@ export function Login() {
           </NavLink>
         </div>
       </form>
+
+      {/* Renderizar encabezados según el rol */}
+      {rol === "Cliente" && (
+        <>
+          <Encabezado />
+          <Informacion />
+        </>
+      )}
+
+      {rol === "Administrador" && (
+        <>
+          <EncabezadoAdmin />
+          <AgregarPro />
+        </>
+      )}
     </div>
   );
 }
