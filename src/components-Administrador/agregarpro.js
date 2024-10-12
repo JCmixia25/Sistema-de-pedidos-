@@ -1,22 +1,18 @@
 import React, { useState } from "react";
-import "../components-Administrador/agregarpro.css";
-import { Link, NavLink } from "react-router-dom";
-import { useAuth } from "../context/authContext";
+import { db } from "../conexion/firebase"; 
+import { collection, addDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"; 
 import { useNavigate } from "react-router-dom";
-import { FaSearch, FaShoppingCart, FaUser, FaPowerOff } from "react-icons/fa";
-import { getAuth } from "firebase/auth";
 
 export function AddProduct() {
   const [product, setProduct] = useState({
-    codigo: "",
-    name: "",
-    category: "",
-    warehouse: "",
-    description: "",
-    price: "",
+    categoria: "",
+    descripcion: "",
+    imagen: null,
+    precio: "",
     stock: "",
+    titulo: "",
   });
-  const [images, setImages] = useState({ image1: null, image2: null, image3: null });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
 
@@ -25,39 +21,36 @@ export function AddProduct() {
   };
 
   const handleImageChange = (e) => {
-    setImages({ ...images, [e.target.name]: e.target.files[0] });
+    const file = e.target.files[0]; // Tomar el primer archivo
+    setProduct({ ...product, imagen: file });
   };
 
-  const handleProductSubmit = (e) => {
+  const handleProductSubmit = async (e) => {
     e.preventDefault();
-    console.log("Producto agregado:", product);
-    setMessage("Producto agregado exitosamente");
-    navigate("/productos");
-  };
+    try {
+      const storage = getStorage(); // Obténer la instancia de storage
+      const storageRef = ref(storage, `imagenes/${product.imagen.name}`); // Crea una referencia al archivo
+      await uploadBytes(storageRef, product.imagen); // Sube el archivo
+      const imageUrl = await getDownloadURL(storageRef); // Obténer la URL de descarga
 
-  const handleImageSubmit = (e) => {
-    e.preventDefault();
-    if (images.image1 && images.image2 && images.image3) {
-      console.log("Imagen 1 subida:", images.image1);
-      console.log("Imagen 2 subida:", images.image2);
-      console.log("Imagen 3 subida:", images.image3);
-      setMessage("Imágenes subidas exitosamente");
-    } else {
-      setMessage("Por favor, selecciona tres imágenes.");
+      // Guardar datos del producto en Firestore
+      await addDoc(collection(db, "productos"), { ...product, imagen: imageUrl });
+
+      setMessage("Producto agregado exitosamente");
+      navigate("/productos");
+    } catch (error) {
+      console.error("Error al agregar el producto: ", error);
+      setMessage("Error al agregar el producto");
     }
   };
 
   return (
     <div className="add-product-container">
       <h2>Agregar Producto</h2>
-
-      {/* Formulario para agregar producto */}
       <form onSubmit={handleProductSubmit} className="product-form">
-
-          {/* Campo de selección para categoría */}
-          <label>
+        <label>
           Categoría
-          <select name="category" onChange={handleProductChange} required>
+          <select name="categoria" onChange={handleProductChange} required>
             <option value="">Selecciona una categoría</option>
             <option value="Electrónica">Electrónica</option>
             <option value="Abono">Abono</option>
@@ -70,19 +63,19 @@ export function AddProduct() {
           Descripción
           <input
             type="text"
-            name="description"
+            name="descripcion"
             onChange={handleProductChange}
             placeholder="Descripción del producto"
             required
           />
         </label>
         <label>
-          Nombre del Producto
+          Título del Producto
           <input
             type="text"
-            name="name"
+            name="titulo"
             onChange={handleProductChange}
-            placeholder="Nombre del producto"
+            placeholder="Título del producto"
             required
           />
         </label>
@@ -90,7 +83,7 @@ export function AddProduct() {
           Precio
           <input
             type="number"
-            name="price"
+            name="precio"
             onChange={handleProductChange}
             placeholder="Precio"
             required
@@ -106,25 +99,16 @@ export function AddProduct() {
             required
           />
         </label>
+        <label>
+          Imagen del Producto
+          <input
+            type="file"
+            accept="image/*"
+            onChange={handleImageChange}
+            required
+          />
+        </label>
         <button type="submit">Agregar Producto</button>
-      </form>
-
-      {/* Formulario para subir imágenes */}
-      <h2>Agregar Imágenes del Productos</h2>
-      <form onSubmit={handleImageSubmit} className="image-form">
-        <label>
-          Imagen 1
-          <input type="file" name="image1" accept="image/*" onChange={handleImageChange} />
-        </label>
-        <label>
-          Imagen 2
-          <input type="file" name="image2" accept="image/*" onChange={handleImageChange} />
-        </label>
-        <label>
-          Imagen 3
-          <input type="file" name="image3" accept="image/*" onChange={handleImageChange} />
-        </label>
-        <button type="submit">Subir Imágenes</button>
       </form>
 
       {/* Mostrar mensaje de estado */}
