@@ -1,0 +1,69 @@
+/* src/components/Carrusel.css */
+
+.carrusel {
+    position: static; /* Permite posicionar el texto dentro del carrusel */
+    width: 100%; /* Ajusta según el tamaño deseado */
+    height: 100%; /* Ajusta para que el carrusel cubra toda la altura de la pantalla */
+    overflow: auto; /* Oculta el contenido que se desborda */
+    display: flex;
+    align-items: center; /* Centra verticalmente los elementos dentro del carrusel */
+    justify-content: center; /* Centra horizontalmente los elementos dentro del carrusel */
+  }
+  
+  .texto {
+    position: absolute; /* Posiciona el texto sobre la imagen del carrusel */
+    top: 50%; /* Mueve el texto hacia el centro vertical */
+    left: 50%; /* Mueve el texto hacia el centro horizontal */
+    transform: translate(-50%, -50%); /* Ajusta el texto al centro exacto */
+    color: white; /* Cambia el color del texto según sea necesario */
+    font-size: 2rem; /* Tamaño de fuente, ajusta según sea necesario */
+    text-align: center; /* Centra el texto */
+    z-index: 10; /* Asegura que el texto esté encima de las imágenes del carrusel */
+    background-color: rgba(0, 0, 0, 0.356); /* Fondo semi-transparente para el texto */
+    padding: 100px 100px; /* Espacio alrededor del texto */
+    border-radius: 8px; /* Bordes redondeados */
+  }
+  
+  .carrusel-image-container {
+    width: 100%;
+    height: 100%;
+    overflow: hidden; /* Esconde cualquier parte de la imagen que sobresalga del contenedor */
+    z-index: 0;
+  }
+  
+  .carrusel-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Hace que la imagen cubra todo el contenedor */
+    display: block;
+  }
+  
+  .carrusel-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    font-size: 18px;
+    z-index: 2;
+  }
+  
+  .carrusel-button.left {
+    left: 10px;
+  }
+  
+  .carrusel-button.right {
+    right: 10px;
+  }
+  
+  .carrusel-button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+  }
+  
+  
+  
+  
+  

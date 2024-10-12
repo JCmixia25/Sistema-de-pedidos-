@@ -1,0 +1,112 @@
+nav {
+    display:flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #FFFBE6; /* Color de fondo más oscuro */
+    position: sticky;
+    padding: 5px 5px; /* Agrega un padding para separar el contenido del borde */
+    font-weight: bold; /* Hace que el texto se vea más grueso */
+    /*box-shadow: 0 2px 4px rgba(232, 196, 196, 0.1); /* Agrega una sombra suave al fondo */
+    border-bottom: 2px solid gray;
+    box-shadow: 0 4px 2px -2px gray; 
+}
+
+nav .title {
+    font-size: 1.5rem;
+    margin: 1rem;
+    font-weight: bold;
+    text-decoration: none;
+  
+}
+
+nav ul {
+    display: flex;
+}
+
+nav ul li {
+   list-style: none; 
+}
+
+nav ul li a {
+    display: block;
+    text-decoration: none;
+    color: rgb(0, 0, 0); /* Color del texto */
+    padding: 0.5rem;
+    margin: 0 0.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.3s ease; /* Transición suave para el cambio de color */
+}
+nav ul li a:hover {
+    background-color: #00712D; /* Color de fondo al pasar el mouse */
+    color: #D5ED9F; /* Cambia el color del texto si lo deseas */
+}
+
+nav .menu {
+    display: none;
+    position: absolute;
+    top: 0.75rem;
+    right: 0.5rem;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 2.25rem;
+    height: 2rem;
+}
+
+nav .menu span {
+    height: 0.4rem;
+    width: 100%;
+    border-radius: 0.2rem;
+}
+
+@media (max-width: 480px) {
+    nav .menu {
+        display: flex;
+    }
+
+    nav {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    nav ul {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        margin-bottom: 0.25rem;
+    }
+
+    nav ul.open {
+        display: flex;
+    }
+
+    nav ul li {
+        width: 100%;
+        text-align: center;
+    }
+
+    nav ul li a {
+        margin: 0.2rem 0.5rem;
+    }
+
+
+}
+
+.cerrar-sesion{
+    border: none;
+    color:rgb(0, 0, 0);
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-decoration: none;
+    background-color: #FFFBE6;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 10px;
+}
+
+#btnLogout:hover{
+    background-color: #00712D;
+    color: #D5ED9F;
+}
+
+
+ 

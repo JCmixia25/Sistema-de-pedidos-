@@ -1,5 +1,7 @@
 /* Estilos para dispositivos con una pantalla máximo de 600px */
 @media screen and (max-width: 600px) {
+ 
+  
   nav {
     justify-content: space-between;
     align-items: center;

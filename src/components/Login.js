@@ -12,13 +12,10 @@ export function Login() {
     password: "",
   });
 
-  // Estado para controlar si la contraseña se muestra o no
   const [passwordVisible, setPasswordVisible] = useState(false);
-
-  const { setEstado, login, datosUsuario, setDatosUsuario } = useAuth();
+  const { setEstado, login, setDatosUsuario } = useAuth();
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState("");
-  const usuario2 = new Object();
 
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
@@ -28,46 +25,38 @@ export function Login() {
     e.preventDefault();
 
     try {
-      // Intento de iniciar sesión con Firebase Authentication
       const userLogin = await login(user.email, user.password);
 
       if (userLogin) {
-        //Indica que la sesion está activa
+        const user = userLogin.user;
+
+        // Verifica si el correo electrónico está verificado
+        if (!user.emailVerified) {
+          throw new Error("Por favor verifica tu correo electrónico antes de iniciar sesión.");
+        }
+
         setEstado(true);
-        //Almacena la sesion en una varible el navegador
         localStorage.setItem("login", "true");
         setMensaje("");
 
-        //crea una referencia al documento cuenta
         const refCuenta = collection(db, "cuenta");
-
-        //crear una consulta para obtener los datos de la cuenta del usuario
-        const q = query(
-          refCuenta,
-          where("usuario_uid", "==", userLogin.user.uid)
-        );
+        const q = query(refCuenta, where("usuario_uid", "==", user.uid));
 
         const snapshot = await getDocs(q);
         const doc = snapshot.docs[0];
-        //obtiene los datos del usuario
         const datos = { ...doc.data(), id: doc.id };
 
-        //agrega los datos del usuario
-        datosUsuario.push(datos);
+        setDatosUsuario([datos]);
+        console.log("datos del usuario: ", datos.rol);
+        localStorage.setItem("rol", datos.rol);
 
-        console.log("datos del usuario: ", datosUsuario[0].rol);
-   
-        localStorage.setItem("rol", datosUsuario[0].rol);
-        
-
-        if (datosUsuario[0].rol === "Administrador") {
+        if (datos.rol === "Administrador") {
           navigate("/productos");
-        } else if (datosUsuario[0].rol === "Cliente") {
+        } else if (datos.rol === "Cliente") {
           navigate("/inicio");
         }
       }
     } catch (error) {
-      // Manejo de errores de Firebase
       if (error.code === "auth/user-not-found") {
         setMensaje("Usuario no encontrado.");
       } else if (error.code === "auth/wrong-password") {
@@ -78,7 +67,6 @@ export function Login() {
     }
   };
 
-  // Función para alternar la visibilidad de la contraseña
   const togglePasswordVisibility = () => {
     setPasswordVisible(!passwordVisible);
   };
@@ -101,7 +89,7 @@ export function Login() {
           Contraseña
           <div className="password-container">
             <input
-              type={passwordVisible ? "text" : "password"} // Alterna entre 'text' y 'password'
+              type={passwordVisible ? "text" : "password"}
               name="password"
               id="password"
               onChange={handleChange}
@@ -123,7 +111,6 @@ export function Login() {
         <button type="submit" className="btn-ingresar">
           INGRESAR
         </button>
-
 
         {mensaje && <p className="mensaje">{mensaje}</p>}
 
