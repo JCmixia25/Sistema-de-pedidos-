@@ -1,0 +1,194 @@
+/* Asegura que el contenedor izquierdo esté fijo en la pantalla */
+.container-izquierdo {
+
+    float: left;
+    top: 5;
+    left: 0;
+    width: 25%; /* Mantiene el ancho del contenedor */
+    z-index: 1000; /* Asegura que esté por encima de otros elementos si es necesario */
+    /* margin-top: 10px; */
+    padding-top: 20px;
+    box-shadow: 0px 0px 15px 2px rgb(174, 172, 172);
+    
+    /* background-color: rgb(76, 98, 236); */
+    /* border: solid 1px chartreuse; */
+    /* Fija el contenedor en su posición */
+    /* display: inline-block; */
+    /* height: 69vh;  Hace que ocupe toda la altura de la pantalla */
+   
+  }
+  
+  /* Ajustes para el contenedor de la derecha */
+  .home-container {
+    width: 90%; /* Ajusta el ancho para que ocupe el 80% restante */
+    float: right;
+    text-align: center;
+    /* background-color: #2e7d32; */
+  
+    /* display: inline-block; */
+   /* Mueve el contenido a la derecha para no solaparse con el contenedor izquierdo */
+    /*height: 69vh;  Hace que cubra toda la pantalla */
+    /* background-repeat: no-repeat; */
+    /* background-size: cover; */
+    /* background-position: center; */
+    /*overflow-y: auto; Hace que el contenido sea desplazable */
+  }
+  
+  .container-primario {
+    display: flex;
+    background-color: white;
+  
+  
+    /* height: 80vh; */
+  }
+  
+  
+  
+  .search-icon {
+    font-size: 20px;
+    color: white;
+    background-color: #088395;
+    /* padding: 1.5vh; */
+    width: 3vh;
+    border-radius: 0 4px 4px 0;
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth background transition */
+  }
+  
+  .search-icon:hover {
+    background-color: #388e3c; /* Darker green on hover */
+  }
+  
+  .suggestions-list {
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid #ccc;
+    width: 100%;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    border-radius: 4px; /* Rounded corners for suggestions */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for suggestions */
+  }
+  
+  .suggestion-item {
+    display: flex;
+    align-items: center;
+    padding: 12px;
+    cursor: pointer;
+    transition: background-color 0.2s; /* Smooth hover effect */
+  }
+  
+  .suggestion-item:hover {
+    background-color: #f0f0f0; /* Light grey on hover */
+  }
+  
+  .suggestion-item img {
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+  }
+  
+  .categories {
+    margin-top: 20px;
+  }
+  
+  .category-title {
+    cursor: pointer;
+    color: #174270;
+    margin: 15px 0;
+    font-size: 1.8rem; /* Slightly larger font size */
+    text-align: left;
+    transition: color 0.3s; /* Smooth color transition */
+  }
+  
+  .category-title:hover {
+    color: #0e4c92; /* Darker blue on hover */
+  }
+  
+  .subcategory-title {
+    margin: 10px 0;
+    font-size: 1.5rem; /* Slightly larger font size */
+    color: #555; /* Darker color for subcategories */
+  }
+  
+  .products-list {
+    margin-left: 20px;
+  }
+  
+  .product-card {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    cursor: pointer;
+    justify-content: flex-start;
+    padding: 10px;
+    border: 1px solid #ccc; /* Border for product cards */
+    border-radius: 8px; /* Rounded corners */
+    transition: box-shadow 0.3s; /* Smooth shadow transition */
+  }
+  
+  .product-card:hover {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+  }
+  
+  .product-card img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+  }
+  
+  .product-card h4 {
+    margin: 0;
+    text-align: left;
+    flex-grow: 1;
+    color: #090909;
+    font-weight: bold;
+  }
+  
+  .product-detail {
+    text-align: center;
+    margin-top: 20px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .product-detail h1 {
+    font-size: 2.5rem;
+    color: #174270;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+  }
+  
+  .product-detail p {
+    margin: 15px 0;
+    font-size: 1.2rem;
+    color: #333;
+    line-height: 1.6;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.8);
+    border: 1px solid #a3c4d4;
+    border-radius: 8px;
+    padding: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  .product-detail img {
+    width: 300px;
+    height: auto;
+    margin-top: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  }
+  
+  h1 {
+    background-color: #00712d;
+    padding: 10px;
+    margin: 0;
+    border-radius: 5px;
+  }
+  

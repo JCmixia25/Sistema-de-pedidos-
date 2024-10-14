@@ -3,26 +3,21 @@ import "./Register.css";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import ReCAPTCHA from "react-google-recaptcha";
+import { sendEmailVerification } from "firebase/auth"; 
 
 export function Register() {
-  const [passwordError, setPasswordError] = useState(false);
   const [user, setUser] = useState({
     email: "",
     password: "",
     password2: "",
   });
-
+  const [passwordError, setPasswordError] = useState(false);
+  const [mensaje, setMensaje] = useState("");
+  const recaptchaRef = useRef();
+  const [recaptchaValue, setRecaptchaValue] = useState(null);
+  const [passwordVisible, setPasswordVisible] = useState(false); // Control de visibilidad de contraseña
   const { signup } = useAuth();
   const navigate = useNavigate();
-  const [mensaje, setMensaje] = useState("");
-  
-  // Estados para controlar la visibilidad de las contraseñas
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [password2Visible, setPassword2Visible] = useState(false);
-  const [recaptchaValue, setRecaptchaValue] = useState(null);
-  
-  // Crear una referencia para el reCAPTCHA
-  const recaptchaRef = useRef();
 
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
@@ -45,46 +40,47 @@ export function Register() {
     try {
       const userCredential = await signup(user.email, user.password);
       if (userCredential) {
-        setMensaje("");
+        const user = userCredential.user;
+        await sendEmailVerification(user); 
+
+        setMensaje("Registro exitoso. Por favor, verifica tu correo electrónico.");
         console.log("Usuario registrado con éxito");
         navigate("/Login");
       }
     } catch (error) {
       setMensaje(error.message);
     } finally {
-      // Reiniciar el reCAPTCHA después de enviar el formulario
       recaptchaRef.current.reset();
-      setRecaptchaValue(null); // Reiniciar el valor del reCAPTCHA
+      setRecaptchaValue(null);
     }
   };
 
   const togglePasswordVisibility = () => {
-    setPasswordVisible(!passwordVisible);
-  };
-
-  const togglePassword2Visibility = () => {
-    setPassword2Visible(!password2Visible);
+    setPasswordVisible(!passwordVisible); // Alterna la visibilidad de la contraseña
   };
 
   return (
     <div className="register-container">
       <form onSubmit={handleSubmit}>
-        <label>
+        <label htmlFor="email">
           Correo electrónico
           <input
             type="email"
             name="email"
+            id="email"
             onChange={handleChange}
             placeholder="ejemplo@gmail.com"
             required
           />
         </label>
-        <label>
+
+        <label htmlFor="password">
           Contraseña
           <div className="password-container">
             <input
               type={passwordVisible ? "text" : "password"}
               name="password"
+              id="password"
               onChange={handleChange}
               placeholder="******"
               required
@@ -94,16 +90,20 @@ export function Register() {
               className="toggle-password"
               onClick={togglePasswordVisibility}
             >
-              <i className={passwordVisible ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+              <i
+                className={passwordVisible ? "fas fa-eye-slash" : "fas fa-eye"}
+              ></i>
             </button>
           </div>
         </label>
-        <label>
-          Confirmar Contraseña
+
+        <label htmlFor="password2">
+          Repetir Contraseña
           <div className="password-container">
             <input
-              type={password2Visible ? "text" : "password"}
+              type={passwordVisible ? "text" : "password"}
               name="password2"
+              id="password2"
               onChange={handleChange}
               placeholder="******"
               required
@@ -111,26 +111,30 @@ export function Register() {
             <button
               type="button"
               className="toggle-password"
-              onClick={togglePassword2Visibility}
+              onClick={togglePasswordVisibility}
             >
-              <i className={password2Visible ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+              <i
+                className={passwordVisible ? "fas fa-eye-slash" : "fas fa-eye"}
+              ></i>
             </button>
           </div>
         </label>
-        {passwordError && (
-          <div className="password-error">Las contraseñas no coinciden.</div>
-        )}
-        <ReCAPTCHA
-          ref={recaptchaRef} // Asignar la referencia aquí
-          sitekey="6Lcl404qAAAAAKQaBFljoNfOIIjA-kOXVPTaIVBJ" // Reemplaza con tu Site Key
-          onChange={(value) => setRecaptchaValue(value)}
-        />
-        <button type="submit">REGISTRARSE</button>
+
+        {passwordError && <p className="error">Las contraseñas no coinciden.</p>}
         {mensaje && <p className="mensaje">{mensaje}</p>}
+
+        <ReCAPTCHA
+          ref={recaptchaRef}
+          sitekey="6Lcl404qAAAAAKQaBFljoNfOIIjA-kOXVPTaIVBJ"
+          onChange={setRecaptchaValue}
+        />
+
+        <button type="submit" className="btn-registrar">
+          REGISTRAR
+        </button>
       </form>
     </div>
   );
 }
 
-//hola mundo
 export default Register;

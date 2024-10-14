@@ -1,0 +1,189 @@
+.home-container {
+    padding: 100px;
+    text-align: center;
+    background-color: #f9f9f9;
+    background-repeat: no-repeat; /* Evita que la imagen se repita */
+    background-size: cover; /* Asegura que la imagen cubra toda el área del contenedor */
+    background-position: center; /* Centra la imagen dentro del contenedor */
+  }
+
+  /* Resto del CSS... */
+  
+
+.search-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+  position: sticky; /* Fija el contenedor cuando se desplaza fuera del viewport */
+  top: 0; /* Se quedará pegado en la parte superior al hacer scroll */
+  z-index: 1000; /* Asegura que esté por encima de otros elementos */
+  background-color: white; /* Fondo blanco para que sea visible si hay transparencia */
+  padding: 10px; /* Espaciado interno para el contenedor */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1); /* Sombra para resaltar */
+  border-radius: 8px; /* Bordes redondeados */
+  width: 100%; /* Ajusta el ancho para que ocupe toda la pantalla */
+
+}
+
+.search-input {
+  width: 300px;
+  padding: 12px;
+  border: 2px solid #4caf50; /* Green border */
+  border-radius: 4px 0 0 4px;
+  outline: none;
+  background-color: #fff; 
+  transition: border-color 0.3s; /* Smooth border transition */
+}
+
+.search-input:focus {
+  border-color: #2e7d32; /* Darker green on focus */
+}
+
+.search-icon {
+  font-size: 20px;
+  color: white;
+  background-color: #4caf50;
+  padding: 12px;
+  border-radius: 0 4px 4px 0;
+  cursor: pointer;
+  transition: background-color 0.3s; /* Smooth background transition */
+}
+
+.search-icon:hover {
+  background-color: #388e3c; /* Darker green on hover */
+}
+
+.suggestions-list {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  width: 100%;
+  z-index: 1000;
+  max-height: 200px;
+  overflow-y: auto;
+  border-radius: 4px; /* Rounded corners for suggestions */
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2); /* Shadow for suggestions */
+}
+
+.suggestion-item {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  cursor: pointer;
+  transition: background-color 0.2s; /* Smooth hover effect */
+}
+
+.suggestion-item:hover {
+  background-color: #f0f0f0; /* Light grey on hover */
+}
+
+.suggestion-item img {
+  width: 30px;
+  height: 30px;
+  margin-right: 10px;
+}
+
+.categories {
+  margin-top: 20px;
+}
+
+.category-title {
+  cursor: pointer;
+  color: #174270;
+  margin: 15px 0;
+  font-size: 1.8rem; /* Slightly larger font size */
+  text-align: left;
+  transition: color 0.3s; /* Smooth color transition */
+}
+
+.category-title:hover {
+  color: #0e4c92; /* Darker blue on hover */
+}
+
+.subcategory-title {
+  margin: 10px 0;
+  font-size: 1.5rem; /* Slightly larger font size */
+  color: #555; /* Darker color for subcategories */
+}
+
+.products-list {
+  margin-left: 20px;
+}
+
+.product-card {
+  display: flex;
+  align-items: center;
+  margin: 10px 0;
+  cursor: pointer;
+  justify-content: flex-start;
+  padding: 10px;
+  border: 1px solid #ccc; /* Border for product cards */
+  border-radius: 8px; /* Rounded corners */
+  transition: box-shadow 0.3s; /* Smooth shadow transition */
+}
+
+.product-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Shadow on hover */
+}
+
+.product-card img {
+  width: 50px;
+  height: 50px;
+  margin-right: 10px;
+}
+
+.product-card h4 {
+  margin: 0;
+  text-align: left;
+  flex-grow: 1;
+  color: #090909;
+  font-weight: bold;
+}
+
+.product-detail {
+  text-align: center;
+  margin-top: 20px;
+  background-color: rgba(255, 255, 255, 0.9);
+  padding: 20px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.product-detail h1 {
+  font-size: 2.5rem;
+  color: #174270;
+  margin-bottom: 15px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.product-detail p {
+  margin: 15px 0;
+  font-size: 1.2rem;
+  color: #333;
+  line-height: 1.6;
+  text-align: center;
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #a3c4d4;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+.product-detail img {
+  width: 300px;
+  height: auto;
+  margin-top: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+}
+
+h1 { 
+    
+  background-color: #00712D;
+  padding: 10px;
+  margin: 0;
+  border-radius: 5px;}
+
