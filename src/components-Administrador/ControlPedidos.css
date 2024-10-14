@@ -86,3 +86,25 @@ tr:hover {
 .btn-pdf:hover {
     background-color: #0056b3;
 }
+
+.btn-estado {
+    padding: 8px 16px;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+    color: white;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.pendiente {
+    background-color: red; /* Color rojo para pendientes */
+}
+
+.enviado {
+    background-color: green; /* Color verde para enviados */
+}
+
+.btn-estado:hover {
+    opacity: 0.9;
+}
