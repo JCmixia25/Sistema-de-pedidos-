@@ -1,13 +1,13 @@
 import React, { useContext, useState } from "react";
 import "./ItemDetail.css";
-import { useNavigate } from "react-router-dom"; 
-import { authContext } from "../context/authContext"; 
-import { ToastContainer, toast } from 'react-toastify'; 
+import { useNavigate } from "react-router-dom";
+import { authContext } from "../context/authContext";
+import { ToastContainer, toast } from 'react-toastify';
 
 const ItemDetail = ({ item, onAddToCart, imagenes }) => {
-  const { datosUsuario } = useContext(authContext); 
+  const { datosUsuario } = useContext(authContext);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   const handleNextImage = () => {
     setCurrentImageIndex((prevIndex) =>
@@ -21,13 +21,15 @@ const ItemDetail = ({ item, onAddToCart, imagenes }) => {
     );
   };
 
+  const handleEditProduct = () => {
+    navigate(`/agregarpro/${item.id}`, { state: { item } }); // Navegar a la vista de Agregar Producto y pasar el item como estado
+  };
+
   const handleAddToCart = () => {
     const esAdministrador = datosUsuario && datosUsuario.length > 0 && datosUsuario[0]?.rol === "Administrador";
 
     if (esAdministrador) {
-      toast.error("FUNCION NO VALIDA PARA ESTE USUARIO", {
-        position: "top-center",
-      });
+      handleEditProduct(); // Llamar a la función para editar el producto
     } else {
       onAddToCart(item);
       navigate("/carrito");
@@ -57,7 +59,9 @@ const ItemDetail = ({ item, onAddToCart, imagenes }) => {
         <p className="item-category">Categoría: {item.categoria}</p>
         <p className="item-price">Q{item.precio}</p>
         <button onClick={handleAddToCart} className="add-to-cart-btn">
-          Agregar al carrito
+          {datosUsuario && datosUsuario.length > 0 && datosUsuario[0]?.rol === "Administrador"
+            ? "Editar Producto"
+            : "Agregar al Carrito"}
         </button>
       </div>
     </div>

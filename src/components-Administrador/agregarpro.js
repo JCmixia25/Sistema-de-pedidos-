@@ -1,11 +1,12 @@
-import React, { useState } from "react";
-import { db } from "../conexion/firebase"; 
-import { collection, addDoc } from "firebase/firestore";
-import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage"; 
-import { useNavigate } from "react-router-dom";
+import React, { useState, useEffect } from "react";
+import { db } from "../conexion/firebase";
+import { collection, addDoc, doc, updateDoc, getDoc } from "firebase/firestore";
+import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { useNavigate, useLocation } from "react-router-dom";
 
 export function AddProduct() {
   const [product, setProduct] = useState({
+    id: null,
     categoria: "",
     descripcion: "",
     imagen: null,
@@ -15,6 +16,14 @@ export function AddProduct() {
   });
   const [message, setMessage] = useState("");
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Obtener el producto a editar desde el estado de la navegación
+  useEffect(() => {
+    if (location.state && location.state.item) {
+      setProduct(location.state.item);
+    }
+  }, [location.state]);
 
   const handleProductChange = ({ target: { name, value } }) => {
     setProduct({ ...product, [name]: value });
@@ -28,35 +37,51 @@ export function AddProduct() {
   const handleProductSubmit = async (e) => {
     e.preventDefault();
     try {
-      const storage = getStorage(); // Obténer la instancia de storage
-      const storageRef = ref(storage, `imagenes/${product.imagen.name}`); // Crea una referencia al archivo
-      await uploadBytes(storageRef, product.imagen); // Sube el archivo
-      const imageUrl = await getDownloadURL(storageRef); // Obténer la URL de descarga
+      let imageUrl = product.imagen;
 
-      // Guardar datos del producto en Firestore
-      await addDoc(collection(db, "productos"), { ...product, imagen: imageUrl });
+      // Solo sube la imagen si hay un archivo nuevo
+      if (typeof product.imagen === "object") {
+        const storage = getStorage(); // Obtener la instancia de storage
+        const storageRef = ref(storage, `imagenes/${product.imagen.name}`); // Crea una referencia al archivo
+        await uploadBytes(storageRef, product.imagen); // Sube el archivo
+        imageUrl = await getDownloadURL(storageRef); // Obtener la URL de descarga
+      } else {
+        // Si no hay una nueva imagen, usa la URL existente
+        imageUrl = product.imagen;
+      }
 
-      setMessage("Producto agregado exitosamente");
+      // Actualizar o crear un nuevo producto en Firestore
+      if (product.id) {
+        // Actualizar un producto existente
+        await updateDoc(doc(db, "productos", product.id), { ...product, imagen: imageUrl });
+        setMessage("Producto actualizado exitosamente");
+      } else {
+        // Crear un nuevo producto
+        const newProduct = await addDoc(collection(db, "productos"), { ...product, imagen: imageUrl });
+        setProduct({ ...product, id: newProduct.id });
+        setMessage("Producto agregado exitosamente");
+      }
+
       navigate("/productos");
     } catch (error) {
-      console.error("Error al agregar el producto: ", error);
-      setMessage("Error al agregar el producto");
+      console.error("Error al guardar el producto: ", error);
+      setMessage("Error al guardar el producto");
     }
   };
 
   return (
     <div className="add-product-container">
-      <h2>Agregar Producto</h2>
+      <h2>{product.id ? "Editar Producto" : "Agregar Producto"}</h2>
       <form onSubmit={handleProductSubmit} className="product-form">
         <label>
           Categoría
-          <select name="categoria" onChange={handleProductChange} required>
+          <select name="categoria" onChange={handleProductChange} value={product.categoria} required>
             <option value="">Selecciona una categoría</option>
-            <option value="Electrónica">Electrónica</option>
-            <option value="Abono">Abono</option>
-            <option value="Herbicidas">Herbicidas</option>
-            <option value="Sensores">Sensores</option>
-            <option value="Pantallas">Pantallas</option>
+            <option value="Eléctricos">ELECTRICO</option>
+            <option value="Mecánicos">MECANICA</option>
+            <option value="Electrónicos">ELECTRONICA</option>
+            <option value="Aspersión">ASPERSIÓN</option>
+            <option value="Hidráulicos">HIDRAULICA</option>
           </select>
         </label>
         <label>
@@ -65,6 +90,7 @@ export function AddProduct() {
             type="text"
             name="descripcion"
             onChange={handleProductChange}
+            value={product.descripcion}
             placeholder="Descripción del producto"
             required
           />
@@ -75,6 +101,7 @@ export function AddProduct() {
             type="text"
             name="titulo"
             onChange={handleProductChange}
+            value={product.titulo}
             placeholder="Título del producto"
             required
           />
@@ -85,6 +112,7 @@ export function AddProduct() {
             type="number"
             name="precio"
             onChange={handleProductChange}
+            value={product.precio}
             placeholder="Precio"
             required
           />
@@ -95,6 +123,7 @@ export function AddProduct() {
             type="number"
             name="stock"
             onChange={handleProductChange}
+            value={product.stock}
             placeholder="Cantidad en stock"
             required
           />
@@ -105,10 +134,9 @@ export function AddProduct() {
             type="file"
             accept="image/*"
             onChange={handleImageChange}
-            required
           />
         </label>
-        <button type="submit">Agregar Producto</button>
+        <button type="submit">{product.id ? "Actualizar Producto" : "Agregar Producto"}</button>
       </form>
 
       {/* Mostrar mensaje de estado */}

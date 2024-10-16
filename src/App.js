@@ -146,6 +146,15 @@ function App() {
               </ProtectedRoute>
             }
           />
+          {/* Ruta para editar un producto */}
+          <Route
+            path="/agregarpro/:id"
+            element={
+              <ProtectedRoute allowedRoles={['Administrador']}>
+                <AddProduct />
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/ControlPedidos"
             element={

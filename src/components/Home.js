@@ -2,29 +2,24 @@ import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import "./Home.css"; // Asegúrate de tener este archivo CSS
 import { FaSearch } from "react-icons/fa";
-import agricultura from "../imagenes/agricultura.jpg";
-import cosechadora from "../imagenes/cosechadora.jpg";
-import carreta from "../imagenes/carreta.jpg";
-import hercules from "../imagenes/hercules.jpg";
-import plataforma from "../imagenes/plataforma.jpg";
-import VerticalButtons from "./VerticalButtons";
-import ItemDetailContainer from "../productos/ItemDetailContainer";
-import ItemListContainer from "../productos/ItemListContainer";
+import VerticalButtons from "./VerticalButtons"; // Si no lo usas, puedes eliminar esta línea
+import ItemDetailContainer from "../productos/ItemDetailContainer"; // Si no lo usas, puedes eliminar esta línea
+import ItemListContainer from "../productos/ItemListContainer"; // Si no lo usas, puedes eliminar esta línea
 import { Route, Routes } from "react-router-dom";
 
 const categories = [
   {
     name: "Fertilizantes",
     products: [
-      { id: 1, name: "Liquido", image: agricultura },
-      { id: 2, name: "Granulado", image: cosechadora },
+      { id: 1, name: "Liquido" }, // Eliminadas las imágenes
+      { id: 2, name: "Granulado" },
     ],
   },
   {
     name: "Herbicidas",
     products: [
-      { id: 3, name: "Residuales", image: carreta },
-      { id: 4, name: "Foliares", image: hercules },
+      { id: 3, name: "Residuales" },
+      { id: 4, name: "Foliares" },
     ],
   },
   {
@@ -33,26 +28,26 @@ const categories = [
       {
         name: "Suelo",
         products: [
-          { id: 5, name: "Sensor de Humedad", image: plataforma },
-          { id: 6, name: "Sensor de pH", image: agricultura },
+          { id: 5, name: "Sensor de Humedad" },
+          { id: 6, name: "Sensor de pH" },
         ],
       },
       {
         name: "Clima",
         products: [
-          { id: 7, name: "Termometro", image: cosechadora },
-          { id: 8, name: "Higrómetro", image: hercules },
+          { id: 7, name: "Termometro" },
+          { id: 8, name: "Higrómetro" },
         ],
       },
       {
         name: "Planta",
-        products: [{ id: 9, name: "Sensor de Luz", image: plataforma }],
+        products: [{ id: 9, name: "Sensor de Luz" }],
       },
       {
         name: "Agua",
         products: [
-          { id: 10, name: "Sensor de Nivel", image: agricultura },
-          { id: 11, name: "Pluviometro", image: hercules },
+          { id: 10, name: "Sensor de Nivel" },
+          { id: 11, name: "Pluviometro" },
         ],
       },
     ],
@@ -130,8 +125,8 @@ const Home = () => {
   };
 
   return (
-    <div >
-      <div >
+    <div>
+      <div>
         HOLA HOME
       </div>
     </div>

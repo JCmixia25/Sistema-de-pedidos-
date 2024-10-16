@@ -21,15 +21,15 @@ const ControlPedidos = () => {
                     fecha: data.fecha instanceof Timestamp ? data.fecha.toDate() : data.fecha
                 };
             });
-
-            // Ordenar los pedidos por fecha (del más reciente al más antiguo)
+    
+            // Ordenar los pedidos por fecha y hora (del más reciente al más antiguo)
             const sortedOrders = ordersData.sort((a, b) => {
                 return new Date(b.fecha) - new Date(a.fecha);
             });
-
+    
             setOrders(sortedOrders);
         };
-
+    
         fetchOrders(); // Llamar a la función para cargar los pedidos
     }, []);
 
