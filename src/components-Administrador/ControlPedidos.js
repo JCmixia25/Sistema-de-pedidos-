@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import '../components-Administrador/ControlPedidos.css';
-import { collection, getDocs, doc, updateDoc, Timestamp } from "firebase/firestore";
+import { collection, getDocs, doc, updateDoc, Timestamp, orderBy, query } from "firebase/firestore";
 import { db } from "../conexion/firebase.js"; 
 import { FaEye, FaEyeSlash } from "react-icons/fa"; // Importa los íconos de react-icons
 
@@ -12,7 +12,10 @@ const ControlPedidos = () => {
         // Función para obtener pedidos de Firebase
         const fetchOrders = async () => {
             const pedidosRef = collection(db, "pedidos");
-            const snapshot = await getDocs(pedidosRef);
+    
+            // Ordenar los pedidos por fecha (del más reciente al más antiguo)
+            const snapshot = await getDocs(query(pedidosRef, orderBy("fecha", "desc")));
+            
             const ordersData = snapshot.docs.map((doc) => {
                 const data = doc.data();
                 return {
@@ -22,16 +25,13 @@ const ControlPedidos = () => {
                 };
             });
     
-            // Ordenar los pedidos por fecha y hora (del más reciente al más antiguo)
-            const sortedOrders = ordersData.sort((a, b) => {
-                return new Date(b.fecha) - new Date(a.fecha);
-            });
-    
-            setOrders(sortedOrders);
+            setOrders(ordersData);
         };
     
         fetchOrders(); // Llamar a la función para cargar los pedidos
     }, []);
+    
+   
 
     // Función para cambiar el estado de un pedido
     const cambiarEstadoPedido = async (id, estadoActual) => {
