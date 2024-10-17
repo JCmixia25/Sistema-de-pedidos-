@@ -1,18 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./FinalizarPedido.css";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom"; // Agregamos useNavigate para redirigir
 import { ToastContainer, toast } from "react-toastify";
 import { pdf } from "@react-pdf/renderer";
 import PdfDocument from "./pdf.jsx"; // Documento PDF
 import { collection, addDoc } from "firebase/firestore";
-import { db, storage } from "../conexion/firebase.js"; // Importa storage desde firebase.js
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; // Funciones de Firebase Storage
+import { db, storage } from "../conexion/firebase.js";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; 
 
 const FinalizarPedido = () => {
   const location = useLocation();
+  const navigate = useNavigate(); // Para redirigir a la página de inicio
   const [productos, setProductos] = useState(location.state?.productos || []);
   const [pedidoFinalizado, setPedidoFinalizado] = useState(false);
   const [urlDescarga, setUrlDescarga] = useState(null);
+  const [pdfGenerado, setPdfGenerado] = useState(false); // Nuevo estado para controlar el PDF generado
 
   const [product, setProduct] = useState({
     nombres: "",
@@ -105,6 +107,7 @@ const FinalizarPedido = () => {
       const downloadUrl = await getDownloadURL(snapshot.ref);
 
       setUrlDescarga(downloadUrl); // Guardar URL para usarla luego
+      setPdfGenerado(true); // Activar el estado para mostrar el botón de descarga
     } catch (error) {
       console.error("Error al subir el PDF: ", error);
     }
@@ -124,33 +127,19 @@ const FinalizarPedido = () => {
     }
   };
 
-  useEffect(() => {
-    const downloadPdf = () => {
-      // Descargar el PDF sin abrirlo
-      const link = document.createElement("a");
-      link.href = urlDescarga;
-      link.setAttribute("download", "comprobante.pdf");
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    };
+  const downloadPdf = () => {
+    // Abrir el PDF en una nueva pestaña
+    window.open(urlDescarga, "_blank");
 
+    // Redirigir la pestaña actual a la página de inicio
+    navigate("/");
+};
+
+  
+
+  useEffect(() => {
     if (pedidoFinalizado && urlDescarga) {
       comprar(); // Llamar a la función comprar después de obtener la URL del PDF
-      downloadPdf(); // Descargar el PDF al cliente sin abrirlo
-
-      // Limpiar productos y la información del cliente
-      setProductos([]);
-      setProduct({
-        nombres: "",
-        apellidos: "",
-        departamento: "",
-        ciudad: "",
-        direccion: "",
-        telefono: "",
-        email: "",
-        nit: "",
-      });
     }
   }, [pedidoFinalizado, urlDescarga]);
 
@@ -188,6 +177,8 @@ const FinalizarPedido = () => {
           </button>
         </form>
         <ToastContainer />
+
+        
       </div>
 
       <div className="resumen-container">
@@ -210,6 +201,11 @@ const FinalizarPedido = () => {
         <div className="resumen-total">
           <h3>Total: Q{total}</h3>
         </div>
+        {pdfGenerado && (
+          <button className="btn-descargar" onClick={downloadPdf}>
+            Descargar PDF
+          </button>
+        )}
       </div>
     </div>
   );
