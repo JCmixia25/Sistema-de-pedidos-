@@ -203,7 +203,7 @@ const FinalizarPedido = () => {
         </div>
         {pdfGenerado && (
           <button className="btn-descargar" onClick={downloadPdf}>
-            Descargar PDF
+            Descargar resumen de compra
           </button>
         )}
       </div>
