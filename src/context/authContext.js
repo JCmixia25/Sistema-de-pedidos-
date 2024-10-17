@@ -2,6 +2,7 @@ import { createContext, useContext, useState, useEffect } from "react";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
+  sendEmailVerification, // Importar esta función
 } from "firebase/auth";
 import { auth } from "../conexion/firebase";
 
@@ -18,7 +19,6 @@ export function AuthProvider({ children }) {
   
   const [estado, setEstado] = useState(false);
   const [datosUsuario, setDatosUsuario] = useState([]);
-  // const [carrito, setCarrito] = useState([]);
 
   const signup = async (email, password) => {
     try {
@@ -27,6 +27,10 @@ export function AuthProvider({ children }) {
         email,
         password
       );
+      
+      // Enviar el correo de verificación después del registro
+      await sendEmailVerification(userCredential.user);
+      
       return userCredential;
     } catch (error) {
       throw error;
@@ -52,7 +56,7 @@ export function AuthProvider({ children }) {
 
 
   return (
-    <authContext.Provider value={{ signup, login, estado, setEstado, datosUsuario, setDatosUsuario}}>
+    <authContext.Provider value={{ signup, login, estado, setEstado, datosUsuario, setDatosUsuario }}>
       {children}
     </authContext.Provider>
   );

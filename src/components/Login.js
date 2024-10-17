@@ -39,6 +39,12 @@ export function Login() {
       const userLogin = await login(user.email, user.password);
 
       if (userLogin) {
+        // Verificar si el correo ha sido verificado
+        if (!userLogin.user.emailVerified) {
+          setMensaje("Por favor verifica tu correo antes de iniciar sesión.");
+          return;
+        }
+
         setEstado(true);
         localStorage.setItem("login", "true");
         setMensaje("");
