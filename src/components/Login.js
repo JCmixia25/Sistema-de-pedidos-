@@ -57,9 +57,12 @@ export function Login() {
           const doc = snapshot.docs[0];
           const datos = { ...doc.data(), id: doc.id };
 
-          console.log("Datos del usuario:", datos);
+          console.log("Datos del usuario:", datos.rol,"Nombre: ", datos.nombre);
           setDatosUsuario([datos]); // Usar setDatosUsuario para actualizar el estado
           localStorage.setItem("rol", datos.rol);
+          localStorage.setItem("nombre", datos.nombre);
+          localStorage.setItem("direccion", datos.direccion);
+          localStorage.setItem("telefono", datos.telefono);
           setRol(datos.rol);
 
           if (datos.rol === "Administrador") {

@@ -6,7 +6,8 @@ import icono from "./icono.png";
 import { FaSearch, FaUser, FaPowerOff } from "react-icons/fa";
 
 export const EncabezadoAdmin = ({ setSearchTerm, isBlinking }) => {
-  const { setEstado } = useAuth();
+ 
+  const { setEstado, datosUsuario} = useAuth();
   const navigate = useNavigate();
 
   function cerrarSesion() {
@@ -76,6 +77,7 @@ export const EncabezadoAdmin = ({ setSearchTerm, isBlinking }) => {
                 <p className="iniciar-sesion-text">Cerrar Sesión</p>
               </button>
             </div>
+            
           </div>
           <div className="div-link">
             <ul>

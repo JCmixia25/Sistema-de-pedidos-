@@ -118,7 +118,7 @@ function App() {
         {estado ? (
           // Verificar el rol del usuario
           datosUsuario[0]?.rol === "Administrador" ? (
-            <EncabezadoAdmin setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
+            <EncabezadoAdmin setSearchTerm={setSearchTerm} isBlinking={isBlinking}/>
           ) : (
             <Encabezado setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
           )
@@ -130,14 +130,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Bienvenida />} />
           <Route path="/inicio" element={<Bienvenida />} />
-          <Route
-            path="/informacion"
-            element={
+          <Route path="/informacion" element={<Informacion/>}/>
+
+            {/* </Route>
               <ProtectedRoute allowedRoles={['Administrador']}>
                 <Informacion />
               </ProtectedRoute>
-            }
-          />
+          /> */}
           <Route
             path="/agregarpro"
             element={
