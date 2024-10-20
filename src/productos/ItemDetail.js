@@ -36,6 +36,9 @@ const ItemDetail = ({ item, onAddToCart, imagenes }) => {
     }
   };
 
+  // Verificar si el stock es 0
+  const stockDisponible = item.stock > 0;
+
   return (
     <div className="item-detail">
       <ToastContainer /> {/* Añadir el contenedor de Toast */}
@@ -59,10 +62,14 @@ const ItemDetail = ({ item, onAddToCart, imagenes }) => {
         <p className="item-category">Categoría: {item.categoria}</p>
         <p className="item-Stock">Stock: {item.stock}</p>
         <p className="item-price">Q{item.precio}</p>
-        <button onClick={handleAddToCart} className="add-to-cart-btn">
+        <button
+          onClick={stockDisponible ? handleAddToCart : null}
+          className={`add-to-cart-btn ${!stockDisponible ? 'btn-rojo' : ''}`}
+          disabled={!stockDisponible}
+        >
           {datosUsuario && datosUsuario.length > 0 && datosUsuario[0]?.rol === "Administrador"
             ? "Editar Producto"
-            : "Agregar al Carrito"}
+            : stockDisponible ? "Agregar al Carrito" : "No disponible"}
         </button>
       </div>
     </div>
