@@ -57,6 +57,7 @@ const ItemDetail = ({ item, onAddToCart, imagenes }) => {
         <h3>{item.titulo}</h3>
         <p>{item.descripcion}</p>
         <p className="item-category">Categoría: {item.categoria}</p>
+        <p className="item-Stock">Stock: {item.stock}</p>
         <p className="item-price">Q{item.precio}</p>
         <button onClick={handleAddToCart} className="add-to-cart-btn">
           {datosUsuario && datosUsuario.length > 0 && datosUsuario[0]?.rol === "Administrador"
