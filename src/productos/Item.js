@@ -20,7 +20,10 @@ const Item = ({ producto, onAddToCart }) => {
   const esAdministrador = datosUsuario && datosUsuario.length > 0 && datosUsuario[0]?.rol === "Administrador";
 
   // Mostrar el botón solo si no es administrador
-  const mostrarBotonAgregar = !esAdministrador; // Muestra el botón si no es administrador
+  const mostrarBotonAgregar = !esAdministrador;
+
+  // Verificar si el stock es 0
+  const stockDisponible = producto.stock > 0;
 
   return (
     <div className="container-datos-productos">
@@ -43,8 +46,12 @@ const Item = ({ producto, onAddToCart }) => {
         {/* Mostrar el botón solo si no es administrador */}
         {mostrarBotonAgregar && (
           <div>
-            <button onClick={agregar} className="informacion-ver">
-              Agregar a carrito
+            <button
+              onClick={stockDisponible ? agregar : null}
+              className={`informacion-ver ${!stockDisponible ? 'btn-rojo' : ''}`}
+              disabled={!stockDisponible}
+            >
+              {stockDisponible ? "Agregar a carrito" : "No disponible"}
             </button>
           </div>
         )}

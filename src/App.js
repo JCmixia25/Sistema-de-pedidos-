@@ -28,9 +28,12 @@ import ItemDetail from "./productos/ItemDetail.js";
 import Cookies from "js-cookie";
 import ProtectedRoute from "./context/ProtectedRoute.js";
 import Mensaje from "./components/mensaje.js"
+import InformacionPerfil from "./components/InformacionPefil.js";
+import { EncabezadoInformacion } from "./components/EncabezadoInformacion.js";
+
 
 function App() {
-  const { estado, datosUsuario } = useAuth();
+  const { estado, datosUsuario, estado2} = useAuth();
   const [cart, setCart] = useState([]);
   const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda
   const [isBlinking, setIsBlinking] = useState(false); // Estado para el parpadeo
@@ -72,7 +75,7 @@ function App() {
           <Route path="/bienvenida" element={<Bienvenida />} />
           <Route path="/inicio" element={<Home />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/RestablecerPassword" element={<RestablecerPassword />} />
+
           {/* Pasar el carrito y la función agregar al carrito a los componentes */}
           <Route
             path="/carrito"
@@ -85,7 +88,7 @@ function App() {
             }
           />
           <Route path="/register" element={<Register />} />
-          <Route path="/contact" element={<Contacts />} />
+
           <Route path="/home/:id" element={<ProductDetail />} />
           <Route path="/listaProductos" element={<ListaProductos />} />
           <Route
@@ -107,12 +110,12 @@ function App() {
             element={<ItemListContainer onAddToCart={agregarAlCarrito} searchTerm={searchTerm}/>}
           />
           <Route path="/listBotones" element={<VerticalButtons />} />
-          <Route path="/contacto" element={<Contacto />} />
+ 
         </Routes>
         <PieDePagina />
       </div>
     );
-  } else {
+  }else if (estado==true && estado2==true) {
     return (
       <div className="App">
         {estado ? (
@@ -190,7 +193,18 @@ function App() {
         <PieDePagina />
       </div>
     );
+  } else if(estado == true && !estado2){
+    return (
+      <div className="App">
+    <EncabezadoInformacion setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
+    <Routes>
+    <Route path="/InformacionPerfil" element={<InformacionPerfil />} />
+
+    </Routes>
+    </div>
+    );
   }
+  console.log(estado, estado2);
 }
 
 export default App;

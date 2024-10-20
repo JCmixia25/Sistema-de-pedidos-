@@ -89,11 +89,7 @@ export const Botones = ({ setSearchTerm, isBlinking }) => {
                 INICIO
               </NavLink>
             </li>
-            <li>
-              <NavLink className="btn-nav" to="/contacto">
-                CONTACTO
-              </NavLink>
-            </li>
+      
           </ul>
         </div>
       </nav>

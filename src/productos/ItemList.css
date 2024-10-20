@@ -64,6 +64,13 @@
     font-style: italic;
     margin-bottom: 20px;
 }
+/* Estilo para la categoría del producto */
+.item-detail-text .item-Stock {
+    font-size: 1.1rem;
+    color: #777;
+    font-style: italic;
+    margin-bottom: 20px;
+}
 
 .container-productojs{
     width: auto;
