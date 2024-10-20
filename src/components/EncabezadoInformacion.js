@@ -1,20 +1,17 @@
 import React, { useState } from "react";
-import "../components-Cliente/Encabezado.css";
-import { Link, NavLink } from "react-router-dom";
+import "../components/EncabezadoInformacion.css";
 import { useAuth } from "../context/authContext";
 import { useNavigate } from "react-router-dom";
 import icono from "./icono.png";
 import { FaSearch, FaShoppingCart, FaUser, FaPowerOff } from "react-icons/fa";
 
-
-export const Encabezado = ({ setSearchTerm, isBlinking}) => {
-  const { setEstado,setEstado2 } = useAuth();
+export const EncabezadoInformacion = ({ setSearchTerm, isBlinking}) => {
+  const { setEstado } = useAuth();
   const navigate = useNavigate();
 
 
   function cerrarSesion() {
     setEstado(false);
-    setEstado2(false);
     localStorage.removeItem("login");
     localStorage.removeItem("rol");
     navigate("/");
@@ -46,37 +43,15 @@ export const Encabezado = ({ setSearchTerm, isBlinking}) => {
               <p className="datos">cotizaciones@agrodigital.tech</p>
             </div>
             <div className="tel-correo">
-              <p className="pedidos">Mis pedidos</p>
+            
             </div>
           </div>
           <div className="div-image-search">
             <div className="container-icono">
               <img src={icono} alt="Icono" className="icono" />
             </div>
-            <div className="search-container">
-              <input
-                type="text"
-                placeholder="Buscar un producto, una marca..."
-                value={searchInput}
-                onChange={handleSearchChange}
-                onKeyPress={handleSearchSubmit}
-                className="search-input"
-              />
-              <div className="container-icon-search">
-                <FaSearch
-                  className="search-iconn"
-                  onClick={handleSearchSubmit}
-                />
-              </div>
-            </div>
 
             <div className="carrito-compras">
-              <NavLink to="/carrito" className="carrito-boton">
-                <div className="icono-y-texto">
-                  <FaShoppingCart className="carrito-icono" />
-                  <p className="inicio-sesion-text">Mi Carrito</p>
-                </div>
-              </NavLink>
               <button
                 id="btnLogout"
                 onClick={cerrarSesion}
@@ -87,25 +62,7 @@ export const Encabezado = ({ setSearchTerm, isBlinking}) => {
               </button>
             </div>
           </div>
-          <div className="div-link">
-            <ul>
-              <li className="li-var">
-                <NavLink className="btn-nav" to="/productos">
-                  PRODUCTOS
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="btn-nav" to="/informacion">
-                  SOBRE NOSOTROS
-                </NavLink>
-              </li>
-              <li>
-                <NavLink className="btn-nav" to="/">
-                  INICIO
-                </NavLink>
-              </li>
-            </ul>
-          </div>
+         
         </div>
       </nav>
     </div>

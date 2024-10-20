@@ -1,11 +1,7 @@
 import { useNavigate } from "react-router-dom";
 import React, { useState } from "react";
 import "./Home.css"; // Asegúrate de tener este archivo CSS
-import { FaSearch } from "react-icons/fa";
-import VerticalButtons from "./VerticalButtons"; // Si no lo usas, puedes eliminar esta línea
-import ItemDetailContainer from "../productos/ItemDetailContainer"; // Si no lo usas, puedes eliminar esta línea
-import ItemListContainer from "../productos/ItemListContainer"; // Si no lo usas, puedes eliminar esta línea
-import { Route, Routes } from "react-router-dom";
+
 
 const categories = [
   {

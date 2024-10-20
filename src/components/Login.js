@@ -13,13 +13,14 @@ import Informacion from '../components-Cliente/informacion';
 import AgregarPro from '../components-Administrador/agregarpro';
 import { EncabezadoAdmin } from '../components-Administrador/EncabezadoAdmin';
 
+
 export function Login() {
   const [user, setUser] = useState({
     email: "",
     password: "",
   });
 
-  const { setEstado, login, setDatosUsuario } = useAuth(); // Asegúrate de incluir setDatosUsuario
+  const { setEstado, login, setDatosUsuario,setEstado2 } = useAuth(); // Asegúrate de incluir setDatosUsuario
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState("");
   const [rol, setRol] = useState(localStorage.getItem("rol")); // Manejar el rol en el estado
@@ -60,19 +61,28 @@ export function Login() {
           console.log("Datos del usuario:", datos);
           setDatosUsuario([datos]); // Usar setDatosUsuario para actualizar el estado
           localStorage.setItem("rol", datos.rol);
+          setEstado2(true);
           setRol(datos.rol);
 
           if (datos.rol === "Administrador") {
             console.log("Redirigiendo a inicio");
             navigate("/inicio");
+        
           } else if (datos.rol === "Cliente") {
             console.log("Redirigiendo a productos");
             navigate("/productos");
+ 
           }
         } else {
           console.log("No se encontraron datos para el usuario.");
+         // navigate("/InformacionPerfil");
+         navigate("/InformacionPerfil", { replace: true }); // Redirige a la página de información de perfil
         }
+
+      
       }
+     
+
     } catch (error) {
       if (error.code === "auth/user-not-found") {
         setMensaje("Usuario no encontrado.");
@@ -83,8 +93,8 @@ export function Login() {
       }
     }
   };
-
   return (
+    
     <div className="login-container">
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">
@@ -109,6 +119,7 @@ export function Login() {
             required
           />
         </label>
+        
 
         <button type="submit" className="btn-ingresar" >
           INGRESAR
@@ -141,7 +152,9 @@ export function Login() {
         </>
       )}
     </div>
+    
   );
+
 }
 
 export default Login;
