@@ -26,15 +26,12 @@ const ItemDetail = ({ item, onAddToCart, imagenes }) => {
   };
 
   const handleAddToCart = () => {
-    const esAdministrador = datosUsuario && datosUsuario.length > 0 && datosUsuario[0]?.rol === "Administrador";
-
-    if (esAdministrador) {
-      handleEditProduct(); // Llamar a la función para editar el producto
-    } else {
-      onAddToCart(item);
-      navigate("/carrito");
-    }
+    onAddToCart(item);
+    navigate("/carrito");
   };
+
+  const esAdministrador = datosUsuario && datosUsuario.length > 0 && datosUsuario[0]?.rol === "Administrador";
+  const stockDisponible = item.stock > 0;
 
   return (
     <div className="item-detail">
@@ -57,12 +54,22 @@ const ItemDetail = ({ item, onAddToCart, imagenes }) => {
         <h3>{item.titulo}</h3>
         <p>{item.descripcion}</p>
         <p className="item-category">Categoría: {item.categoria}</p>
+        <p className="item-Stock">Stock: {item.stock}</p>
         <p className="item-price">Q{item.precio}</p>
-        <button onClick={handleAddToCart} className="add-to-cart-btn">
-          {datosUsuario && datosUsuario.length > 0 && datosUsuario[0]?.rol === "Administrador"
-            ? "Editar Producto"
-            : "Agregar al Carrito"}
-        </button>
+
+        {esAdministrador ? (
+          <button onClick={handleEditProduct} className="edit-product-btn">
+            Editar Producto
+          </button>
+        ) : (
+          <button
+            onClick={stockDisponible ? handleAddToCart : null}
+            className={`add-to-cart-btn ${!stockDisponible ? 'btn-rojo' : ''}`}
+            disabled={!stockDisponible}
+          >
+            {stockDisponible ? "Agregar al Carrito" : "No disponible"}
+          </button>
+        )}
       </div>
     </div>
   );

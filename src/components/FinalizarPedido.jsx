@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import "./FinalizarPedido.css";
-import { useLocation, useNavigate } from "react-router-dom"; // Agregamos useNavigate para redirigir
+import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { pdf } from "@react-pdf/renderer";
 import PdfDocument from "./pdf.jsx"; // Documento PDF
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 import { db, storage } from "../conexion/firebase.js";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; 
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const FinalizarPedido = () => {
   const location = useLocation();
-  const navigate = useNavigate(); // Para redirigir a la página de inicio
+  const navigate = useNavigate(); 
   const [productos, setProductos] = useState(location.state?.productos || []);
   const [pedidoFinalizado, setPedidoFinalizado] = useState(false);
   const [urlDescarga, setUrlDescarga] = useState(null);
-  const [pdfGenerado, setPdfGenerado] = useState(false); // Nuevo estado para controlar el PDF generado
+  const [pdfGenerado, setPdfGenerado] = useState(false); 
 
   const [product, setProduct] = useState({
     nombres: "",
@@ -31,8 +31,8 @@ const FinalizarPedido = () => {
 
   const departamentosCiudades = {
     Guatemala: ["Ciudad de Guatemala", "Mixco", "Villa Nueva"],
-    Escuintla: ["Escuintla", "Santa Lucía Cotzumalguapa", "La Gomera"],
-    // ...otros departamentos
+    Escuintla: ["Escuintla", "Santa Lucía Cotzumalguapa", "La Gomera", "Siquinalá"],
+    // Otros departamentos...
   };
 
   const handleProductChange = ({ target: { name, value } }) => {
@@ -73,6 +73,27 @@ const FinalizarPedido = () => {
 
   const total = productos.reduce((acc, prod) => acc + prod.cantidad * prod.precio, 0);
 
+  // Función para actualizar el stock de un producto
+  const actualizarStockProducto = async (productoId, cantidadComprada) => {
+    try {
+      const productoRef = doc(db, "productos", productoId);
+      const productoSnap = await getDoc(productoRef);
+
+      if (productoSnap.exists()) {
+        const productoData = productoSnap.data();
+        const nuevoStock = productoData.stock - cantidadComprada;
+
+        // Actualizar el stock en la base de datos
+        await updateDoc(productoRef, { stock: nuevoStock });
+        console.log(`Stock actualizado para el producto ${productoId}: nuevo stock = ${nuevoStock}`);
+      } else {
+        console.log("El producto no existe.");
+      }
+    } catch (error) {
+      console.error("Error al actualizar el stock: ", error);
+    }
+  };
+
   const comprar = async () => {
     if (!urlDescarga) {
       console.error("URL del PDF no está disponible");
@@ -92,6 +113,11 @@ const FinalizarPedido = () => {
       const pedidosRef = collection(db, "pedidos");
       await addDoc(pedidosRef, pedido);
       console.log("Pedido guardado exitosamente");
+
+      // Después de guardar el pedido, actualizar el stock de los productos
+      productos.forEach(async (producto) => {
+        await actualizarStockProducto(producto.id, producto.cantidad);
+      });
     } catch (error) {
       console.error("Error al guardar el pedido: ", error);
     }
@@ -106,8 +132,8 @@ const FinalizarPedido = () => {
       const snapshot = await uploadBytes(storageRef, blob);
       const downloadUrl = await getDownloadURL(snapshot.ref);
 
-      setUrlDescarga(downloadUrl); // Guardar URL para usarla luego
-      setPdfGenerado(true); // Activar el estado para mostrar el botón de descarga
+      setUrlDescarga(downloadUrl); 
+      setPdfGenerado(true); 
     } catch (error) {
       console.error("Error al subir el PDF: ", error);
     }
@@ -128,14 +154,9 @@ const FinalizarPedido = () => {
   };
 
   const downloadPdf = () => {
-    // Abrir el PDF en una nueva pestaña
     window.open(urlDescarga, "_blank");
-
-    // Redirigir la pestaña actual a la página de inicio
     navigate("/");
-};
-
-  
+  };
 
   useEffect(() => {
     if (pedidoFinalizado && urlDescarga) {
@@ -177,8 +198,6 @@ const FinalizarPedido = () => {
           </button>
         </form>
         <ToastContainer />
-
-        
       </div>
 
       <div className="resumen-container">
@@ -203,7 +222,7 @@ const FinalizarPedido = () => {
         </div>
         {pdfGenerado && (
           <button className="btn-descargar" onClick={downloadPdf}>
-            Descargar PDF
+            Descargar resumen de compra
           </button>
         )}
       </div>

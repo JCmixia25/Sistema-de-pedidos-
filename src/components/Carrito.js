@@ -23,15 +23,30 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
     });
   };
 
+  // Nueva notificación para stock máximo alcanzado
+  const notifyStockMaximo = (nombreProducto, stockDisponible) => {
+    toast.warning(`Solo puedes pedir ${stockDisponible} unidades`, {
+      position: "top-center",
+    });
+  };
+
   useEffect(() => {
     // Almacenar los productos en las cookies cada vez que se actualiza el estado
     Cookies.set("cart", JSON.stringify(productos));
   }, [productos]);
 
   const aumentarCantidad = (id) => {
-    const nuevosProductos = productos.map((prod) =>
-      prod.id === id ? { ...prod, cantidad: prod.cantidad + 1 } : prod
-    );
+    const nuevosProductos = productos.map((prod) => {
+      if (prod.id === id) {
+        if (prod.cantidad < prod.stock) {
+          return { ...prod, cantidad: prod.cantidad + 1 };
+        } else {
+          // Mostrar la notificación de que no se puede agregar más del stock disponible
+          notifyStockMaximo(prod.nombre, prod.stock);
+        }
+      }
+      return prod;
+    });
     setProductos(nuevosProductos);
   };
 
@@ -67,7 +82,6 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
       setTimeout(() => setBlinking(false), 2000);
     }
   };
-  
 
   return (
     <div className="carrito-container">
@@ -98,6 +112,7 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
                   <FaPlus size={16} color="green" />
                 </button>
               </div>
+              <p>Stock disponible: {producto.stock}</p> {/* Mostrar el stock disponible */}
             </div>
             <button
               onClick={() => eliminarProducto(producto.id)}

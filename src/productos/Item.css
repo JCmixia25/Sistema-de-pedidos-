@@ -73,3 +73,8 @@
   background-color: #12549bc9;
 
 }
+.btn-rojo {
+  background-color: red;
+  color: white;
+  cursor: not-allowed;
+}
