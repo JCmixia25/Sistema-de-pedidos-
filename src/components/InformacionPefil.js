@@ -8,62 +8,61 @@ import { getAuth } from "firebase/auth";
 
 const InformacionPerfil = () => {
   const navigate = useNavigate();
-  const {setEstado2 } = useAuth(); 
+  const { setEstado2 } = useAuth(); 
+  const datoscuenta = localStorage.getItem("cuenta");
 
   const [profileData, setProfileData] = useState({
     nombre: "",
     apellido: "",
     telefono: "",
     direccion: "",
-    pais: "",
     departamento: "",
+    municipio: "",
     rol: "Cliente", // Rol por defecto
   });
 
   const [error, setError] = useState(""); // Estado para manejar el mensaje de error
+  const [municipiosDisponibles, setMunicipiosDisponibles] = useState([]); // Lista dinámica de municipios
 
   const handleChange = ({ target: { name, value } }) => {
     setProfileData({ ...profileData, [name]: value });
     setError(""); // Limpiar el error al cambiar un campo
+
+    if (name === "departamento") {
+      // Actualizar la lista de municipios según el departamento seleccionado
+      setMunicipiosDisponibles(municipiosPorDepartamento[value] || []);
+    }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Validar si todos los campos están llenos
-    const { nombre, apellido, telefono, direccion, pais, departamento } = profileData;
+    const { nombre, apellido, telefono, direccion, municipio, departamento } = profileData;
 
-    if (!nombre || !apellido || !telefono || !direccion || !pais || !departamento) {
+    if (!nombre || !apellido || !telefono || !direccion || !departamento || !municipio) {
       setError("Por favor, completa todos los campos.");
       return;
     }
 
     try {
-      // Obtener el uid del usuario autenticado
       const auth = getAuth();
       const user = auth.currentUser;
 
-      // Asegurarse de que el usuario esté autenticado
       if (!user) {
         setError("No hay usuario autenticado.");
         return;
       }
 
-      // Agregar el perfil a Firebase
-      await addDoc(collection(db, 'cuenta'), { ...profileData, usuario_uid: user.uid }); // Incluye el uid
+      await addDoc(collection(db, 'cuenta'), { ...profileData, usuario_uid: user.uid });
       console.log("Datos del perfil guardados:", profileData);
 
-       // Recargar el estado del usuario para obtener los últimos cambios
-    await user.reload();
+      await user.reload();
 
-      // Verificar si el correo ha sido verificado
       if (!user.emailVerified) {
         setError("Por favor verifica tu correo antes de iniciar sesión.");
         return;
       }
 
-      
-      // Redirigir según el rol del usuario
       if (profileData.rol === "Administrador") {
         console.log("Redirigiendo a inicio");
         navigate("/inicio");
@@ -72,36 +71,30 @@ const InformacionPerfil = () => {
         setEstado2(true);
         localStorage.setItem("rol", "Cliente");
         navigate("/productos");
-
-
       }
 
     } catch (error) {
       console.error("Error al guardar los datos del perfil:", error);
       setError("Error al guardar la información. Inténtalo de nuevo.");
     }
-
   };
 
-  const paises = [
-    'Argentina',
-    'Brasil',
-    'Chile',
-    'Colombia',
-    'México'
+  // Listado de departamentos y sus municipios
+  const departamentos = [
+    'Guatemala', 'Escuintla', 'Baja Verapaz', 'Alta Verapaz', 'Zacapa'
   ];
 
-  const departamentos = [
-    'Ventas',
-    'Marketing',
-    'Recursos Humanos',
-    'Tecnología',
-    'Finanzas'
-  ];
+  const municipiosPorDepartamento = {
+    'Guatemala': ['Mixco', 'Villa Nueva', 'Guatemala Ciudad'],
+    'Escuintla': ['La Gomera', 'Santa Lucía Cotzumalguapa', 'Escuintla'],
+    'Baja Verapaz': ['Salamá', 'Purulhá', 'San Jerónimo'],
+    'Alta Verapaz': ['Cobán', 'San Pedro Carchá', 'Chisec'],
+    'Zacapa': ['Zacapa', 'Teculután', 'Río Hondo'],
+  };
 
   const isFormValid = () => {
-    const { nombre, apellido, telefono, direccion, pais, departamento } = profileData;
-    return nombre && apellido && telefono && direccion && pais && departamento;
+    const { nombre, apellido, telefono, direccion, departamento, municipio } = profileData;
+    return nombre && apellido && telefono && direccion && departamento && municipio;
   };
 
   return (
@@ -154,21 +147,6 @@ const InformacionPerfil = () => {
         </label>
 
         <label>
-          País
-          <select
-            name="pais"
-            value={profileData.pais}
-            onChange={handleChange}
-            required
-          >
-            <option value="">Selecciona un país</option>
-            {paises.map((pais) => (
-              <option key={pais} value={pais}>{pais}</option>
-            ))}
-          </select>
-        </label>
-
-        <label>
           Departamento
           <select
             name="departamento"
@@ -176,9 +154,24 @@ const InformacionPerfil = () => {
             onChange={handleChange}
             required
           >
-            <option value="">Selecciona un departamento</option>
-            {departamentos.map((dep) => (
-              <option key={dep} value={dep}>{dep}</option>
+            <option value="">Selecciona un Departamento</option>
+            {departamentos.map((departamento) => (
+              <option key={departamento} value={departamento}>{departamento}</option>
+            ))}
+          </select>
+        </label>
+
+        <label>
+          Municipio
+          <select
+            name="municipio"
+            value={profileData.municipio}
+            onChange={handleChange}
+            required
+          >
+            <option value="">Selecciona un Municipio</option>
+            {municipiosDisponibles.map((municipio) => (
+              <option key={municipio} value={municipio}>{municipio}</option>
             ))}
           </select>
         </label>
@@ -189,7 +182,6 @@ const InformacionPerfil = () => {
       </form>
     </div>
   );
-
 };
 
 export default InformacionPerfil;
