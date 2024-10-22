@@ -4,9 +4,9 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { pdf } from "@react-pdf/renderer";
 import PdfDocument from "./pdf.jsx";
-import { collection, addDoc, doc, getDoc } from "firebase/firestore";
+import { collection, addDoc } from "firebase/firestore";
 import { db, storage } from "../conexion/firebase.js";
-import { ref, uploadBytes, getDownloadURL } from "firebase/storage"; 
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth } from "firebase/auth";
 
 const FinalizarPedido = () => {
@@ -22,7 +22,7 @@ const FinalizarPedido = () => {
     nombres: "",
     apellidos: "",
     departamento: "",
-    ciudad: "",
+    municipio: "",
     direccion: "",
     telefono: "",
     email: "",
@@ -30,23 +30,21 @@ const FinalizarPedido = () => {
   });
 
   useEffect(() => {
-    const auth = getAuth();
-    const usuario = auth.currentUser;
     let datos = JSON.parse(datoscuenta);
-    console.log (datos.apellido);
+    if (datos) {
+      setProduct({
+        nombres: datos.nombre || "",
+        apellidos: datos.apellido || "",
+        departamento: datos.departamento || "",
+        ciudad: datos.municipio || "",
+        direccion: datos.direccion || "",
+        telefono: datos.telefono || "",
+        email: datos.email || "",
+        nit: datos.nit || "",
+      });
+    }
+  }, [datoscuenta]);
 
-              setProduct({
-              nombres: datos.nombre || "",
-              apellidos: datos.apellido || "",
-              departamento: datos.departamento || "",
-              ciudad: datos.municipio || "",
-              direccion: datos.direccion || "",
-              telefono: datos.telefono || "",
-              email: datos.email || "",
-              nit: datos.nit || "",
-            });
- 
-          });
   const [ciudades, setCiudades] = useState([]);
 
   const departamentosCiudades = {
@@ -161,30 +159,52 @@ const FinalizarPedido = () => {
       <div className="form-container">
         <h2>Detalles de Envío</h2>
         <form onSubmit={handleProductSubmit} className="product-form">
-          <label>Nombres<input type="text" name="nombres" onChange={handleProductChange} value={product.nombres} /></label>
-          <label>Apellidos<input type="text" name="apellidos" onChange={handleProductChange} value={product.apellidos} /></label>
+          <label>
+            Nombres
+            <input type="text" name="nombres" onChange={handleProductChange} value={product.nombres} />
+          </label>
+          <label>
+            Apellidos
+            <input type="text" name="apellidos" onChange={handleProductChange} value={product.apellidos} />
+          </label>
           <label>
             Departamento
             <select name="departamento" onChange={handleProductChange} value={product.departamento}>
               <option value="">Seleccione un departamento</option>
               {Object.keys(departamentosCiudades).map((departamento) => (
-                <option key={departamento} value={departamento}>{departamento}</option>
+                <option key={departamento} value={departamento}>
+                  {departamento}
+                </option>
               ))}
             </select>
           </label>
           <label>
             Ciudad
-            <select name="ciudad" onChange={handleProductChange} value={product.ciudad}>
-              <option value="">Seleccione una ciudad</option>
+            <select name="municipio" onChange={handleProductChange} value={product.municipio}>
+              <option value="">Seleccione un municipio</option>
               {ciudades.map((ciudad) => (
-                <option key={ciudad} value={ciudad}>{ciudad}</option>
+                <option key={ciudad} value={ciudad}>
+                  {ciudad}
+                </option>
               ))}
             </select>
           </label>
-          <label>Dirección de envío<input type="text" name="direccion" onChange={handleProductChange} value={product.direccion} /></label>
-          <label>Teléfono<input type="number" name="telefono" onChange={handleProductChange} value={product.telefono} /></label>
-          <label>Correo Electrónico<input type="email" name="email" onChange={handleProductChange} value={product.email} /></label>
-          <label>NIT (Opcional)<input type="text" name="nit" onChange={handleProductChange} value={product.nit} /></label>
+          <label>
+            Dirección de envío
+            <input type="text" name="direccion" onChange={handleProductChange} value={product.direccion} />
+          </label>
+          <label>
+            Teléfono
+            <input type="number" name="telefono" onChange={handleProductChange} value={product.telefono} />
+          </label>
+          <label>
+            Correo Electrónico
+            <input type="email" name="email" onChange={handleProductChange} value={product.email} />
+          </label>
+          <label>
+            NIT (Opcional)
+            <input type="text" name="nit" onChange={handleProductChange} value={product.nit} />
+          </label>
           <button type="submit" className="btn-finalizar" disabled={pedidoFinalizado}>
             {pedidoFinalizado ? "Pedido Finalizado" : "FINALIZAR PEDIDO"}
           </button>
