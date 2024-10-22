@@ -45,18 +45,40 @@ const FinalizarPedido = () => {
     }
   }, [datoscuenta]);
 
-  const [ciudades, setCiudades] = useState([]);
+  const [municipio, setmunicipio] = useState([]);
 
-  const departamentosCiudades = {
-    Guatemala: ["Ciudad de Guatemala", "Mixco", "Villa Nueva"],
-    Escuintla: ["Escuintla", "Santa Lucía Cotzumalguapa", "La Gomera"],
+  const departamentosmunicipio = {
+    Guatemala: ['Mixco', 'Villa Nueva', 'Guatemala Ciudad', 'Villa Canales', 'San José Pinula', 'Amatitlán', 'Santa Catarina Pinula', 'Palencia', 'San Pedro Ayampuc', 'San Juan Sacatepéquez', 'San Miguel Petapa', 'Chinautla', 'Fraijanes', 'San Raymundo'],
+    Escuintla: ['Escuintla', 'La Gomera', 'Santa Lucía Cotzumalguapa', 'Puerto San José', 'Palín', 'Iztapa', 'Tiquisate', 'Nueva Concepción', 'Siquinalá', 'Masagua', 'San Vicente Pacaya', 'Guanagazapa'],
+    "Baja Verapaz": ['Salamá', 'Purulhá', 'San Jerónimo', 'San Miguel Chicaj', 'Cubulco', 'Rabinal', 'Granados', 'El Chol'],
+    "Alta Verapaz": ['Cobán', 'San Pedro Carchá', 'Chisec', 'San Cristóbal Verapaz', 'Tucurú', 'Santa Cruz Verapaz', 'Tactic', 'Fray Bartolomé de las Casas', 'Raxruhá', 'Senahú', 'Panzós', 'Cahabón', 'Santa María Cahabón', 'Chahal', 'Santa Catalina La Tinta', 'Tamahú', 'San Juan Chamelco'],
+    Zacapa: ['Zacapa', 'Teculután', 'Río Hondo', 'Gualán', 'La Unión', 'Huité', 'Usumatlán', 'Cabañas', 'San Jorge'],
+    Chimaltenango: ['Chimaltenango', 'San Juan Comalapa', 'San Martín Jilotepeque', 'San José Poaquil', 'Santa Apolonia', 'Tecpán Guatemala', 'Patzún', 'Pochuta', 'Patzicía', 'Santa Cruz Balanyá', 'Acatenango', 'Yepocapa', 'El Tejar', 'Parramos'],
+    Chiquimula: ['Chiquimula', 'Esquipulas', 'Concepción Las Minas', 'Quezaltepeque', 'San Jacinto', 'San José La Arada', 'Ipala', 'Olopa', 'Camotán', 'Jocotán'],
+    "El Progreso": ['Guastatoya', 'Morazán', 'Sanarate', 'Sansare', 'El Jícaro', 'San Antonio La Paz', 'San Agustín Acasaguastlán', 'San Cristóbal Acasaguastlán'],
+    Huehuetenango: ['Huehuetenango', 'Santa Ana Huista', 'San Antonio Huista', 'San Sebastián Coatán', 'Todos Santos Cuchumatán', 'San Pedro Soloma', 'La Democracia', 'La Libertad', 'Colotenango', 'San Ildefonso Ixtahuacán', 'Santa Cruz Barillas', 'Santa Eulalia', 'San Rafael La Independencia', 'San Miguel Acatán', 'San Juan Atitán', 'San Sebastián Huehuetenango', 'Santiago Chimaltenango', 'San Mateo Ixtatán', 'San Gaspar Ixchil', 'Nentón', 'Jacaltenango', 'Cuilco', 'Chiantla', 'Malacatancito', 'San Juan Ixcoy'],
+    Izabal: ['Puerto Barrios', 'Livingston', 'El Estor', 'Morales', 'Los Amates'],
+    Jalapa: ['Jalapa', 'San Pedro Pinula', 'San Luis Jilotepeque', 'San Manuel Chaparrón', 'San Carlos Alzatate', 'Monjas', 'Mataquescuintla'],
+    Jutiapa: ['Jutiapa', 'El Progreso', 'Santa Catarina Mita', 'Agua Blanca', 'Asunción Mita', 'Yupiltepeque', 'Atescatempa', 'Jalpatagua', 'Comapa', 'Jerez', 'Conguaco', 'Moyuta', 'Pasaco', 'Quesada', 'San José Acatempa', 'Zapotitlán'],
+    Petén: ['Flores', 'San Benito', 'San Andrés', 'San José', 'Melchor de Mencos', 'Poptún', 'Santa Ana', 'San Luis', 'Sayaxché', 'Las Cruces', 'La Libertad', 'El Chal', 'Dolores'],
+    Quetzaltenango: ['Quetzaltenango', 'Salcajá', 'Olintepeque', 'San Carlos Sija', 'Sibilia', 'Cabricán', 'Cajolá', 'San Miguel Sigüilá', 'San Juan Ostuncalco', 'Concepción Chiquirichapa', 'San Martín Sacatepéquez', 'Almolonga', 'Cantel', 'Zunil', 'Colomba', 'El Palmar', 'Coatepeque', 'Flores Costa Cuca', 'Génova', 'Huitán', 'San Francisco La Unión'],
+    Quiché: ['Santa Cruz del Quiché', 'Joyabaj', 'Zacualpa', 'Chiché', 'Chinique', 'San Andrés Sajcabajá', 'San Bartolomé Jocotenango', 'Canillá', 'Chajul', 'Nebaj', 'Sacapulas', 'San Pedro Jocopilas', 'Uspantán', 'Pachalum', 'Chicamán', 'Cunén', 'San Juan Cotzal'],
+    Retalhuleu: ['Retalhuleu', 'Champerico', 'San Martín Zapotitlán', 'San Felipe Retalhuleu', 'San Andrés Villa Seca', 'Santa Cruz Muluá', 'Nuevo San Carlos', 'El Asintal'],
+    Sacatepéquez: ['Antigua Guatemala', 'Ciudad Vieja', 'Jocotenango', 'Pastores', 'Sumpango', 'Santo Domingo Xenacoj', 'Santiago Sacatepéquez', 'San Lucas Sacatepéquez', 'San Bartolomé Milpas Altas', 'San Antonio Aguas Calientes', 'Santa Catarina Barahona', 'Santa Lucía Milpas Altas', 'Magdalena Milpas Altas', 'San Juan Alotenango'],
+    "San Marcos": ['San Marcos', 'Ayutla (Tecún Umán)', 'Catarina', 'Comitancillo', 'Concepción Tutuapa', 'El Quetzal', 'El Tumbador', 'Ixchiguán', 'La Reforma', 'Malacatán', 'Nuevo Progreso', 'Ocós', 'Pajapita', 'Río Blanco', 'San Antonio Sacatepéquez', 'San Cristóbal Cucho', 'San José Ojetenam', 'San Lorenzo', 'San Miguel Ixtahuacán', 'San Pablo', 'San Pedro Sacatepéquez', 'Sibinal', 'Sipacapa', 'Tacaná', 'Tajumulco', 'Tejutla'],
+    "Santa Rosa": ['Cuilapa', 'Barberena', 'Chiquimulilla', 'Guazacapán', 'Nueva Santa Rosa', 'Oratorio', 'Pueblo Nuevo Viñas', 'San Juan Tecuaco', 'Santa Cruz Naranjo', 'Santa María Ixhuatán', 'Taxisco', 'Casillas', 'Santa Rosa de Lima', 'San Rafael Las Flores'],
+    Sololá: ['Sololá', 'San José Chacayá', 'Santa María Visitación', 'Santa Lucía Utatlán', 'Nahualá', 'Panajachel', 'San Andrés Semetabaj', 'San Antonio Palopó', 'San Juan La Laguna', 'San Lucas Tolimán', 'San Marcos La Laguna', 'Santa Catarina Palopó', 'Santa Clara La Laguna', 'Santa Cruz La Laguna', 'Santa Lucía Utatlán', 'Santiago Atitlán'],   
+    Suchitepéquez: ['Mazatenango', 'San Francisco Zapotitlán', 'San Bernardino', 'San José El Ídolo', 'Santo Domingo Suchitepéquez', 'Patulul', 'Santa Bárbara', 'San Juan Bautista', 'San Lorenzo', 'San Miguel Panán', 'Samayac', 'Chicacao', 'Zunilito', 'Cuyotenango', 'Pueblo Nuevo', 'Río Bravo', 'Santo Tomás La Unión'],
+    Totonicapán: ['Totonicapán', 'San Cristóbal Totonicapán', 'San Francisco El Alto', 'San Andrés Xecul', 'Momostenango', 'Santa Lucía La Reforma', 'Santa María Chiquimula', 'San Bartolo Aguas Calientes']
+  
+
   };
 
   const handleProductChange = ({ target: { name, value } }) => {
     setProduct({ ...product, [name]: value });
 
     if (name === "departamento") {
-      setCiudades(departamentosCiudades[value] || []);
+      setmunicipio(departamentosmunicipio[value] || []);
       setProduct((prevProduct) => ({
         ...prevProduct,
         municipio: "",
@@ -194,7 +216,7 @@ const FinalizarPedido = () => {
             Departamento
             <select name="departamento" onChange={handleProductChange} value={product.departamento}>
               <option value="">Seleccione un departamento</option>
-              {Object.keys(departamentosCiudades).map((departamento) => (
+              {Object.keys(departamentosmunicipio).map((departamento) => (
                 <option key={departamento} value={departamento}>
                   {departamento}
                 </option>
@@ -205,9 +227,9 @@ const FinalizarPedido = () => {
             Municipio
             <select name="municipio" onChange={handleProductChange} value={product.municipio}>
               <option value="">Seleccione un municipio</option>
-              {ciudades.map((ciudad) => (
-                <option key={ciudad} value={ciudad}>
-                  {ciudad}
+              {municipio.map((municipio) => (
+                <option key={municipio} value={municipio}>
+                  {municipio}
                 </option>
               ))}
             </select>

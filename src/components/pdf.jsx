@@ -71,7 +71,7 @@ const PdfDocument = ({ product, productos, total }) => {
           <Text style={styles.text}>Nombres: {product.nombres}</Text>
           <Text style={styles.text}>Apellidos: {product.apellidos}</Text>
           <Text style={styles.text}>Departamento: {product.departamento}</Text>
-          <Text style={styles.text}>Ciudad: {product.ciudad}</Text>
+          <Text style={styles.text}>municipio: {product.municipio}</Text>
           <Text style={styles.text}>Dirección: {product.direccion}</Text>
           <Text style={styles.text}>Teléfono: {product.telefono}</Text>
           <Text style={styles.text}>Correo: {product.email}</Text>
