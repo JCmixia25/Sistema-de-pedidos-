@@ -2,11 +2,16 @@ import { Navigate } from 'react-router-dom';
 import { useAuth } from "../context/authContext";
 
 const ProtectedRoute = ({ allowedRoles, children }) => {
-  const userRol = localStorage.getItem('rol'); // Asume que guardas el rol del usuario en localStorage
+  const { datosUsuario } = useAuth(); // Obtener el usuario y el rol desde el contexto
 
+  const userRol = datosUsuario?.[0]?.rol; // Asegúrate de que estás obteniendo el rol correctamente
+
+  // Si el usuario no tiene un rol permitido, redirigir
   if (!allowedRoles.includes(userRol)) {
-    return <Navigate to="/mensaje" replace/>;
+    return <Navigate to="/mensaje" replace />;
   }
+
+  // Si el rol es válido, renderiza los hijos
   return children;
 };
 

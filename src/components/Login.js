@@ -60,10 +60,7 @@ export function Login() {
 
           console.log("Datos del usuario:", datos.rol,"Nombre: ", datos.nombre);
           setDatosUsuario([datos]); // Usar setDatosUsuario para actualizar el estado
-          localStorage.setItem("rol", datos.rol);
-          localStorage.setItem("nombre", datos.nombre);
-          localStorage.setItem("direccion", datos.direccion);
-          localStorage.setItem("telefono", datos.telefono);
+          localStorage.setItem("cuenta", JSON.stringify(datos));
           setEstado2(true);
           setRol(datos.rol);
 

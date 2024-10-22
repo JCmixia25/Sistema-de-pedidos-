@@ -3,46 +3,85 @@ import "./FinalizarPedido.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { pdf } from "@react-pdf/renderer";
-import PdfDocument from "./pdf.jsx"; // Documento PDF
-import { collection, addDoc, doc, updateDoc, getDoc } from "firebase/firestore";
+import PdfDocument from "./pdf.jsx";
+import { collection, addDoc, doc, writeBatch } from "firebase/firestore";
 import { db, storage } from "../conexion/firebase.js";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { getAuth } from "firebase/auth";
 
 const FinalizarPedido = () => {
   const location = useLocation();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [productos, setProductos] = useState(location.state?.productos || []);
   const [pedidoFinalizado, setPedidoFinalizado] = useState(false);
   const [urlDescarga, setUrlDescarga] = useState(null);
-  const [pdfGenerado, setPdfGenerado] = useState(false); 
+  const [pdfGenerado, setPdfGenerado] = useState(false);
+  const datoscuenta = localStorage.getItem("cuenta");
 
   const [product, setProduct] = useState({
     nombres: "",
     apellidos: "",
     departamento: "",
-    ciudad: "",
+    municipio: "",
     direccion: "",
     telefono: "",
     email: "",
     nit: "",
   });
 
-  const [ciudades, setCiudades] = useState([]);
+  useEffect(() => {
+    let datos = JSON.parse(datoscuenta);
+    if (datos) {
+      setProduct({
+        nombres: datos.nombre || "",
+        apellidos: datos.apellido || "",
+        departamento: datos.departamento || "",
+        municipio: datos.municipio || "", 
+        direccion: datos.direccion || "",
+        telefono: datos.telefono || "",
+        email: datos.email || "",
+        nit: datos.nit || "",
+      });
+    }
+  }, [datoscuenta]);
 
-  const departamentosCiudades = {
-    Guatemala: ["Ciudad de Guatemala", "Mixco", "Villa Nueva"],
-    Escuintla: ["Escuintla", "Santa Lucía Cotzumalguapa", "La Gomera", "Siquinalá"],
-    // Otros departamentos...
+  const [municipio, setmunicipio] = useState([]);
+
+  const departamentosmunicipio = {
+    Guatemala: ['Mixco', 'Villa Nueva', 'Guatemala Ciudad', 'Villa Canales', 'San José Pinula', 'Amatitlán', 'Santa Catarina Pinula', 'Palencia', 'San Pedro Ayampuc', 'San Juan Sacatepéquez', 'San Miguel Petapa', 'Chinautla', 'Fraijanes', 'San Raymundo'],
+    Escuintla: ['Escuintla', 'La Gomera', 'Santa Lucía Cotzumalguapa', 'Puerto San José', 'Palín', 'Iztapa', 'Tiquisate', 'Nueva Concepción', 'Siquinalá', 'Masagua', 'San Vicente Pacaya', 'Guanagazapa'],
+    "Baja Verapaz": ['Salamá', 'Purulhá', 'San Jerónimo', 'San Miguel Chicaj', 'Cubulco', 'Rabinal', 'Granados', 'El Chol'],
+    "Alta Verapaz": ['Cobán', 'San Pedro Carchá', 'Chisec', 'San Cristóbal Verapaz', 'Tucurú', 'Santa Cruz Verapaz', 'Tactic', 'Fray Bartolomé de las Casas', 'Raxruhá', 'Senahú', 'Panzós', 'Cahabón', 'Santa María Cahabón', 'Chahal', 'Santa Catalina La Tinta', 'Tamahú', 'San Juan Chamelco'],
+    Zacapa: ['Zacapa', 'Teculután', 'Río Hondo', 'Gualán', 'La Unión', 'Huité', 'Usumatlán', 'Cabañas', 'San Jorge'],
+    Chimaltenango: ['Chimaltenango', 'San Juan Comalapa', 'San Martín Jilotepeque', 'San José Poaquil', 'Santa Apolonia', 'Tecpán Guatemala', 'Patzún', 'Pochuta', 'Patzicía', 'Santa Cruz Balanyá', 'Acatenango', 'Yepocapa', 'El Tejar', 'Parramos'],
+    Chiquimula: ['Chiquimula', 'Esquipulas', 'Concepción Las Minas', 'Quezaltepeque', 'San Jacinto', 'San José La Arada', 'Ipala', 'Olopa', 'Camotán', 'Jocotán'],
+    "El Progreso": ['Guastatoya', 'Morazán', 'Sanarate', 'Sansare', 'El Jícaro', 'San Antonio La Paz', 'San Agustín Acasaguastlán', 'San Cristóbal Acasaguastlán'],
+    Huehuetenango: ['Huehuetenango', 'Santa Ana Huista', 'San Antonio Huista', 'San Sebastián Coatán', 'Todos Santos Cuchumatán', 'San Pedro Soloma', 'La Democracia', 'La Libertad', 'Colotenango', 'San Ildefonso Ixtahuacán', 'Santa Cruz Barillas', 'Santa Eulalia', 'San Rafael La Independencia', 'San Miguel Acatán', 'San Juan Atitán', 'San Sebastián Huehuetenango', 'Santiago Chimaltenango', 'San Mateo Ixtatán', 'San Gaspar Ixchil', 'Nentón', 'Jacaltenango', 'Cuilco', 'Chiantla', 'Malacatancito', 'San Juan Ixcoy'],
+    Izabal: ['Puerto Barrios', 'Livingston', 'El Estor', 'Morales', 'Los Amates'],
+    Jalapa: ['Jalapa', 'San Pedro Pinula', 'San Luis Jilotepeque', 'San Manuel Chaparrón', 'San Carlos Alzatate', 'Monjas', 'Mataquescuintla'],
+    Jutiapa: ['Jutiapa', 'El Progreso', 'Santa Catarina Mita', 'Agua Blanca', 'Asunción Mita', 'Yupiltepeque', 'Atescatempa', 'Jalpatagua', 'Comapa', 'Jerez', 'Conguaco', 'Moyuta', 'Pasaco', 'Quesada', 'San José Acatempa', 'Zapotitlán'],
+    Petén: ['Flores', 'San Benito', 'San Andrés', 'San José', 'Melchor de Mencos', 'Poptún', 'Santa Ana', 'San Luis', 'Sayaxché', 'Las Cruces', 'La Libertad', 'El Chal', 'Dolores'],
+    Quetzaltenango: ['Quetzaltenango', 'Salcajá', 'Olintepeque', 'San Carlos Sija', 'Sibilia', 'Cabricán', 'Cajolá', 'San Miguel Sigüilá', 'San Juan Ostuncalco', 'Concepción Chiquirichapa', 'San Martín Sacatepéquez', 'Almolonga', 'Cantel', 'Zunil', 'Colomba', 'El Palmar', 'Coatepeque', 'Flores Costa Cuca', 'Génova', 'Huitán', 'San Francisco La Unión'],
+    Quiché: ['Santa Cruz del Quiché', 'Joyabaj', 'Zacualpa', 'Chiché', 'Chinique', 'San Andrés Sajcabajá', 'San Bartolomé Jocotenango', 'Canillá', 'Chajul', 'Nebaj', 'Sacapulas', 'San Pedro Jocopilas', 'Uspantán', 'Pachalum', 'Chicamán', 'Cunén', 'San Juan Cotzal'],
+    Retalhuleu: ['Retalhuleu', 'Champerico', 'San Martín Zapotitlán', 'San Felipe Retalhuleu', 'San Andrés Villa Seca', 'Santa Cruz Muluá', 'Nuevo San Carlos', 'El Asintal'],
+    Sacatepéquez: ['Antigua Guatemala', 'Ciudad Vieja', 'Jocotenango', 'Pastores', 'Sumpango', 'Santo Domingo Xenacoj', 'Santiago Sacatepéquez', 'San Lucas Sacatepéquez', 'San Bartolomé Milpas Altas', 'San Antonio Aguas Calientes', 'Santa Catarina Barahona', 'Santa Lucía Milpas Altas', 'Magdalena Milpas Altas', 'San Juan Alotenango'],
+    "San Marcos": ['San Marcos', 'Ayutla (Tecún Umán)', 'Catarina', 'Comitancillo', 'Concepción Tutuapa', 'El Quetzal', 'El Tumbador', 'Ixchiguán', 'La Reforma', 'Malacatán', 'Nuevo Progreso', 'Ocós', 'Pajapita', 'Río Blanco', 'San Antonio Sacatepéquez', 'San Cristóbal Cucho', 'San José Ojetenam', 'San Lorenzo', 'San Miguel Ixtahuacán', 'San Pablo', 'San Pedro Sacatepéquez', 'Sibinal', 'Sipacapa', 'Tacaná', 'Tajumulco', 'Tejutla'],
+    "Santa Rosa": ['Cuilapa', 'Barberena', 'Chiquimulilla', 'Guazacapán', 'Nueva Santa Rosa', 'Oratorio', 'Pueblo Nuevo Viñas', 'San Juan Tecuaco', 'Santa Cruz Naranjo', 'Santa María Ixhuatán', 'Taxisco', 'Casillas', 'Santa Rosa de Lima', 'San Rafael Las Flores'],
+    Sololá: ['Sololá', 'San José Chacayá', 'Santa María Visitación', 'Santa Lucía Utatlán', 'Nahualá', 'Panajachel', 'San Andrés Semetabaj', 'San Antonio Palopó', 'San Juan La Laguna', 'San Lucas Tolimán', 'San Marcos La Laguna', 'Santa Catarina Palopó', 'Santa Clara La Laguna', 'Santa Cruz La Laguna', 'Santa Lucía Utatlán', 'Santiago Atitlán'],   
+    Suchitepéquez: ['Mazatenango', 'San Francisco Zapotitlán', 'San Bernardino', 'San José El Ídolo', 'Santo Domingo Suchitepéquez', 'Patulul', 'Santa Bárbara', 'San Juan Bautista', 'San Lorenzo', 'San Miguel Panán', 'Samayac', 'Chicacao', 'Zunilito', 'Cuyotenango', 'Pueblo Nuevo', 'Río Bravo', 'Santo Tomás La Unión'],
+    Totonicapán: ['Totonicapán', 'San Cristóbal Totonicapán', 'San Francisco El Alto', 'San Andrés Xecul', 'Momostenango', 'Santa Lucía La Reforma', 'Santa María Chiquimula', 'San Bartolo Aguas Calientes']
+  
+
   };
 
   const handleProductChange = ({ target: { name, value } }) => {
     setProduct({ ...product, [name]: value });
 
     if (name === "departamento") {
-      setCiudades(departamentosCiudades[value] || []);
+      setmunicipio(departamentosmunicipio[value] || []);
       setProduct((prevProduct) => ({
         ...prevProduct,
-        ciudad: "",
+        municipio: "",
       }));
     }
   };
@@ -52,7 +91,7 @@ const FinalizarPedido = () => {
       product.nombres.trim() !== "" &&
       product.apellidos.trim() !== "" &&
       product.departamento.trim() !== "" &&
-      product.ciudad.trim() !== "" &&
+      product.municipio.trim() !== "" &&
       product.direccion.trim() !== "" &&
       product.telefono.trim() !== "" &&
       product.email.trim() !== ""
@@ -73,27 +112,6 @@ const FinalizarPedido = () => {
 
   const total = productos.reduce((acc, prod) => acc + prod.cantidad * prod.precio, 0);
 
-  // Función para actualizar el stock de un producto
-  const actualizarStockProducto = async (productoId, cantidadComprada) => {
-    try {
-      const productoRef = doc(db, "productos", productoId);
-      const productoSnap = await getDoc(productoRef);
-
-      if (productoSnap.exists()) {
-        const productoData = productoSnap.data();
-        const nuevoStock = productoData.stock - cantidadComprada;
-
-        // Actualizar el stock en la base de datos
-        await updateDoc(productoRef, { stock: nuevoStock });
-        console.log(`Stock actualizado para el producto ${productoId}: nuevo stock = ${nuevoStock}`);
-      } else {
-        console.log("El producto no existe.");
-      }
-    } catch (error) {
-      console.error("Error al actualizar el stock: ", error);
-    }
-  };
-
   const comprar = async () => {
     if (!urlDescarga) {
       console.error("URL del PDF no está disponible");
@@ -113,11 +131,6 @@ const FinalizarPedido = () => {
       const pedidosRef = collection(db, "pedidos");
       await addDoc(pedidosRef, pedido);
       console.log("Pedido guardado exitosamente");
-
-      // Después de guardar el pedido, actualizar el stock de los productos
-      productos.forEach(async (producto) => {
-        await actualizarStockProducto(producto.id, producto.cantidad);
-      });
     } catch (error) {
       console.error("Error al guardar el pedido: ", error);
     }
@@ -128,14 +141,35 @@ const FinalizarPedido = () => {
       const blob = await pdf(<PdfDocument product={product} productos={productos} total={total} />).toBlob();
       const storageRef = ref(storage, `pdfs/pedido_${new Date().getTime()}.pdf`);
 
-      // Subir PDF a Firebase Storage
       const snapshot = await uploadBytes(storageRef, blob);
       const downloadUrl = await getDownloadURL(snapshot.ref);
 
-      setUrlDescarga(downloadUrl); 
-      setPdfGenerado(true); 
+      setUrlDescarga(downloadUrl);
+      setPdfGenerado(true);
     } catch (error) {
       console.error("Error al subir el PDF: ", error);
+    }
+  };
+
+  const actualizarStockProductos = async () => {
+    const batch = writeBatch(db); // Crear un batch para actualizaciones en lote
+
+    productos.forEach((producto) => {
+      const productRef = doc(db, "productos", producto.id); // Referencia del producto en Firestore
+      const nuevoStock = producto.stock - producto.cantidad; // Calcular nuevo stock
+
+      if (nuevoStock >= 0) { // Solo actualizar si el stock no será negativo
+        batch.update(productRef, { stock: nuevoStock });
+      } else {
+        console.error(`Stock insuficiente para el producto: ${producto.titulo}`);
+      }
+    });
+
+    try {
+      await batch.commit(); // Ejecutar el batch para actualizar todos los productos
+      console.log("Stock actualizado correctamente");
+    } catch (error) {
+      console.error("Error al actualizar el stock: ", error);
     }
   };
 
@@ -147,7 +181,7 @@ const FinalizarPedido = () => {
     if (isFormValid()) {
       notifylisto();
       setPedidoFinalizado(true);
-      await generatePdf(); // Genera y sube el PDF a Firebase
+      await generatePdf();
     } else {
       notify();
     }
@@ -160,7 +194,8 @@ const FinalizarPedido = () => {
 
   useEffect(() => {
     if (pedidoFinalizado && urlDescarga) {
-      comprar(); // Llamar a la función comprar después de obtener la URL del PDF
+      comprar();
+      actualizarStockProductos(); // Actualizar el stock después de generar el pedido
     }
   }, [pedidoFinalizado, urlDescarga]);
 
@@ -169,30 +204,52 @@ const FinalizarPedido = () => {
       <div className="form-container">
         <h2>Detalles de Envío</h2>
         <form onSubmit={handleProductSubmit} className="product-form">
-          <label>Nombres<input type="text" name="nombres" onChange={handleProductChange} value={product.nombres} /></label>
-          <label>Apellidos<input type="text" name="apellidos" onChange={handleProductChange} value={product.apellidos} /></label>
+          <label>
+            Nombres
+            <input type="text" name="nombres" onChange={handleProductChange} value={product.nombres} />
+          </label>
+          <label>
+            Apellidos
+            <input type="text" name="apellidos" onChange={handleProductChange} value={product.apellidos} />
+          </label>
           <label>
             Departamento
             <select name="departamento" onChange={handleProductChange} value={product.departamento}>
               <option value="">Seleccione un departamento</option>
-              {Object.keys(departamentosCiudades).map((departamento) => (
-                <option key={departamento} value={departamento}>{departamento}</option>
+              {Object.keys(departamentosmunicipio).map((departamento) => (
+                <option key={departamento} value={departamento}>
+                  {departamento}
+                </option>
               ))}
             </select>
           </label>
           <label>
-            Ciudad
-            <select name="ciudad" onChange={handleProductChange} value={product.ciudad}>
-              <option value="">Seleccione una ciudad</option>
-              {ciudades.map((ciudad) => (
-                <option key={ciudad} value={ciudad}>{ciudad}</option>
+            Municipio
+            <select name="municipio" onChange={handleProductChange} value={product.municipio}>
+              <option value="">Seleccione un municipio</option>
+              {municipio.map((municipio) => (
+                <option key={municipio} value={municipio}>
+                  {municipio}
+                </option>
               ))}
             </select>
           </label>
-          <label>Dirección de envío<input type="text" name="direccion" onChange={handleProductChange} value={product.direccion} /></label>
-          <label>Teléfono<input type="number" name="telefono" onChange={handleProductChange} value={product.telefono} /></label>
-          <label>Correo Electrónico<input type="email" name="email" onChange={handleProductChange} value={product.email} /></label>
-          <label>NIT (Opcional)<input type="text" name="nit" onChange={handleProductChange} value={product.nit} /></label>
+          <label>
+            Dirección de envío
+            <input type="text" name="direccion" onChange={handleProductChange} value={product.direccion} />
+          </label>
+          <label>
+            Teléfono
+            <input type="number" name="telefono" onChange={handleProductChange} value={product.telefono} />
+          </label>
+          <label>
+            Correo Electrónico
+            <input type="email" name="email" onChange={handleProductChange} value={product.email} />
+          </label>
+          <label>
+            NIT (Opcional)
+            <input type="text" name="nit" onChange={handleProductChange} value={product.nit} />
+          </label>
           <button type="submit" className="btn-finalizar" disabled={pedidoFinalizado}>
             {pedidoFinalizado ? "Pedido Finalizado" : "FINALIZAR PEDIDO"}
           </button>
@@ -222,7 +279,7 @@ const FinalizarPedido = () => {
         </div>
         {pdfGenerado && (
           <button className="btn-descargar" onClick={downloadPdf}>
-            Descargar resumen de compra
+            Descargar PDF
           </button>
         )}
       </div>

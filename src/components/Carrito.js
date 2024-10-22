@@ -24,7 +24,7 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
   };
 
   // Nueva notificación para stock máximo alcanzado
-  const notifyStockMaximo = (nombreProducto, stockDisponible) => {
+  const notifyStockMaximo = ( stockDisponible) => {
     toast.warning(`Solo puedes pedir ${stockDisponible} unidades`, {
       position: "top-center",
     });
@@ -42,7 +42,7 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
           return { ...prod, cantidad: prod.cantidad + 1 };
         } else {
           // Mostrar la notificación de que no se puede agregar más del stock disponible
-          notifyStockMaximo(prod.nombre, prod.stock);
+          notifyStockMaximo(prod.stock);
         }
       }
       return prod;

@@ -84,7 +84,7 @@ function App() {
             }
           />
           <Route path="/register" element={<Register />} />
-
+          <Route path="/contact" element={<Contacts />} />
           <Route path="/home/:id" element={<ProductDetail />} />
           <Route path="/listaProductos" element={<ListaProductos />} />
           <Route
@@ -111,6 +111,7 @@ function App() {
             }
           />
           <Route path="/listBotones" element={<VerticalButtons />} />
+          <Route path="/contacto" element={<Contacto />} />
         </Routes>
         <PieDePagina />
       </div>
