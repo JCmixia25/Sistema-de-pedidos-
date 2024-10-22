@@ -4,7 +4,7 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import { pdf } from "@react-pdf/renderer";
 import PdfDocument from "./pdf.jsx";
-import { collection, addDoc } from "firebase/firestore";
+import { collection, addDoc, doc, writeBatch } from "firebase/firestore";
 import { db, storage } from "../conexion/firebase.js";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { getAuth } from "firebase/auth";
@@ -36,7 +36,7 @@ const FinalizarPedido = () => {
         nombres: datos.nombre || "",
         apellidos: datos.apellido || "",
         departamento: datos.departamento || "",
-        ciudad: datos.municipio || "",
+        municipio: datos.municipio || "", 
         direccion: datos.direccion || "",
         telefono: datos.telefono || "",
         email: datos.email || "",
@@ -59,7 +59,7 @@ const FinalizarPedido = () => {
       setCiudades(departamentosCiudades[value] || []);
       setProduct((prevProduct) => ({
         ...prevProduct,
-        ciudad: "",
+        municipio: "",
       }));
     }
   };
@@ -69,7 +69,7 @@ const FinalizarPedido = () => {
       product.nombres.trim() !== "" &&
       product.apellidos.trim() !== "" &&
       product.departamento.trim() !== "" &&
-      product.ciudad.trim() !== "" &&
+      product.municipio.trim() !== "" &&
       product.direccion.trim() !== "" &&
       product.telefono.trim() !== "" &&
       product.email.trim() !== ""
@@ -129,6 +129,28 @@ const FinalizarPedido = () => {
     }
   };
 
+  const actualizarStockProductos = async () => {
+    const batch = writeBatch(db); // Crear un batch para actualizaciones en lote
+
+    productos.forEach((producto) => {
+      const productRef = doc(db, "productos", producto.id); // Referencia del producto en Firestore
+      const nuevoStock = producto.stock - producto.cantidad; // Calcular nuevo stock
+
+      if (nuevoStock >= 0) { // Solo actualizar si el stock no será negativo
+        batch.update(productRef, { stock: nuevoStock });
+      } else {
+        console.error(`Stock insuficiente para el producto: ${producto.titulo}`);
+      }
+    });
+
+    try {
+      await batch.commit(); // Ejecutar el batch para actualizar todos los productos
+      console.log("Stock actualizado correctamente");
+    } catch (error) {
+      console.error("Error al actualizar el stock: ", error);
+    }
+  };
+
   const handleProductSubmit = async (e) => {
     e.preventDefault();
 
@@ -151,6 +173,7 @@ const FinalizarPedido = () => {
   useEffect(() => {
     if (pedidoFinalizado && urlDescarga) {
       comprar();
+      actualizarStockProductos(); // Actualizar el stock después de generar el pedido
     }
   }, [pedidoFinalizado, urlDescarga]);
 
@@ -179,7 +202,7 @@ const FinalizarPedido = () => {
             </select>
           </label>
           <label>
-            Ciudad
+            Municipio
             <select name="municipio" onChange={handleProductChange} value={product.municipio}>
               <option value="">Seleccione un municipio</option>
               {ciudades.map((ciudad) => (
