@@ -9,7 +9,6 @@ import { getAuth } from "firebase/auth";
 const InformacionPerfil = () => {
   const navigate = useNavigate();
   const { setEstado2 } = useAuth(); 
-  const datoscuenta = localStorage.getItem("cuenta");
 
   const [profileData, setProfileData] = useState({
     nombre: "",
