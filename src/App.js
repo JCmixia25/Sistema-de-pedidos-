@@ -3,9 +3,7 @@ import "./App.css";
 import { Botones } from "./components/Botones";
 import Login from "./components/Login.js";
 import Register from "./components/Register.js";
-import RestablecerPassword from "./components/RestablecerPassword.js";
 import Home from "./components/Home.js";
-import Contacts from "./components/Contacts.js";
 import { AddProduct } from "./components-Administrador/agregarpro.js";
 import { EncabezadoAdmin } from "./components-Administrador/EncabezadoAdmin.js";
 import ControlPedidos from "./components-Administrador/ControlPedidos.js";
@@ -22,18 +20,16 @@ import ItemDetailContainer from "./productos/ItemDetailContainer.js";
 import ItemListContainer from "./productos/ItemListContainer.js";
 import VerticalButtons from "./components/VerticalButtons.js";
 import { useEffect, useState } from "react";
-import { CartContext, CartProvider } from "./context/CartContext.js";
-import Contacto from "./productos/Contacto.js";
 import ItemDetail from "./productos/ItemDetail.js";
 import Cookies from "js-cookie";
 import ProtectedRoute from "./context/ProtectedRoute.js";
-import Mensaje from "./components/mensaje.js"
+import Mensaje from "./components/mensaje.js";
 import InformacionPerfil from "./components/InformacionPefil.js";
 import { EncabezadoInformacion } from "./components/EncabezadoInformacion.js";
-
+import AgregarImagenes from "./components-Administrador/agregarImagenes.jsx";
 
 function App() {
-  const { estado, datosUsuario, estado2} = useAuth();
+  const { estado, datosUsuario, estado2 } = useAuth();
   const [cart, setCart] = useState([]);
   const [searchTerm, setSearchTerm] = useState(""); // Estado para el término de búsqueda
   const [isBlinking, setIsBlinking] = useState(false); // Estado para el parpadeo
@@ -107,21 +103,28 @@ function App() {
           <Route path="/detalle" element={<ItemDetail />} />
           <Route
             path="/productos/:categoria"
-            element={<ItemListContainer onAddToCart={agregarAlCarrito} searchTerm={searchTerm}/>}
+            element={
+              <ItemListContainer
+                onAddToCart={agregarAlCarrito}
+                searchTerm={searchTerm}
+              />
+            }
           />
           <Route path="/listBotones" element={<VerticalButtons />} />
- 
         </Routes>
         <PieDePagina />
       </div>
     );
-  }else if (estado==true && estado2==true) {
+  } else if (estado == true && estado2 == true) {
     return (
       <div className="App">
         {estado ? (
           // Verificar el rol del usuario
           datosUsuario[0]?.rol === "Administrador" ? (
-            <EncabezadoAdmin setSearchTerm={setSearchTerm} isBlinking={isBlinking}/>
+            <EncabezadoAdmin
+              setSearchTerm={setSearchTerm}
+              isBlinking={isBlinking}
+            />
           ) : (
             <Encabezado setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
           )
@@ -129,21 +132,29 @@ function App() {
           // Renderizar botones para usuarios no autenticados
           <Botones setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
         )}
-        
+
         <Routes>
           <Route path="/" element={<Bienvenida />} />
           <Route path="/inicio" element={<Bienvenida />} />
-          <Route path="/informacion" element={<Informacion/>}/>
-
-            {/* </Route>
+          <Route path="/informacion" element={<Informacion />} />
+          {/* </Route>
               <ProtectedRoute allowedRoles={['Administrador']}>
                 <Informacion />
               </ProtectedRoute>
           /> */}
+
+          <Route
+            path="/agregarImagenes/:id"
+            element={
+              <ProtectedRoute allowedRoles={["Administrador"]}>
+                <AgregarImagenes/>
+              </ProtectedRoute>
+            }
+          />
           <Route
             path="/agregarpro"
             element={
-              <ProtectedRoute allowedRoles={['Administrador']}>
+              <ProtectedRoute allowedRoles={["Administrador"]}>
                 <AddProduct />
               </ProtectedRoute>
             }
@@ -152,7 +163,7 @@ function App() {
           <Route
             path="/agregarpro/:id"
             element={
-              <ProtectedRoute allowedRoles={['Administrador']}>
+              <ProtectedRoute allowedRoles={["Administrador"]}>
                 <AddProduct />
               </ProtectedRoute>
             }
@@ -160,7 +171,7 @@ function App() {
           <Route
             path="/ControlPedidos"
             element={
-              <ProtectedRoute allowedRoles={['Administrador']}>
+              <ProtectedRoute allowedRoles={["Administrador"]}>
                 <ControlPedidos />
               </ProtectedRoute>
             }
@@ -168,7 +179,12 @@ function App() {
           <Route path="/mensaje" element={<Mensaje />} />
           <Route
             path="/productos"
-            element={<ItemListContainer onAddToCart={agregarAlCarrito} searchTerm={searchTerm} />}
+            element={
+              <ItemListContainer
+                onAddToCart={agregarAlCarrito}
+                searchTerm={searchTerm}
+              />
+            }
           />
           <Route
             path="/item/:id"
@@ -176,7 +192,12 @@ function App() {
           />
           <Route
             path="/productos/:categoria"
-            element={<ItemListContainer onAddToCart={agregarAlCarrito} searchTerm={searchTerm} />}
+            element={
+              <ItemListContainer
+                onAddToCart={agregarAlCarrito}
+                searchTerm={searchTerm}
+              />
+            }
           />
           <Route
             path="/carrito"
@@ -193,15 +214,17 @@ function App() {
         <PieDePagina />
       </div>
     );
-  } else if(estado == true && !estado2){
+  } else if (estado == true && !estado2) {
     return (
       <div className="App">
-    <EncabezadoInformacion setSearchTerm={setSearchTerm} isBlinking={isBlinking} />
-    <Routes>
-    <Route path="/InformacionPerfil" element={<InformacionPerfil />} />
-
-    </Routes>
-    </div>
+        <EncabezadoInformacion
+          setSearchTerm={setSearchTerm}
+          isBlinking={isBlinking}
+        />
+        <Routes>
+          <Route path="/InformacionPerfil" element={<InformacionPerfil />} />
+        </Routes>
+      </div>
     );
   }
   console.log(estado, estado2);

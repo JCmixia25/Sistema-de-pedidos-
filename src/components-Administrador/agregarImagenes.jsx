@@ -4,7 +4,6 @@ import { collection, addDoc, doc, updateDoc, getDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate, useLocation } from "react-router-dom";
 
-
 export function AddProduct() {
   const [product, setProduct] = useState({
     id: null,
@@ -63,7 +62,7 @@ export function AddProduct() {
         setMessage("Producto agregado exitosamente");
       }
 
-      navigate("/agrearImagenes");
+      navigate("/productos");
     } catch (error) {
       console.error("Error al guardar el producto: ", error);
       setMessage("Error al guardar el producto");
