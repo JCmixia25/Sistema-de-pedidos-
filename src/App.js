@@ -75,6 +75,7 @@ function App() {
           <Route path="/bienvenida" element={<Bienvenida />} />
           <Route path="/inicio" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/RestablecerPassword" element={<RestablecerPassword />} />
 
           {/* Pasar el carrito y la función agregar al carrito a los componentes */}
           <Route
@@ -134,7 +135,7 @@ function App() {
           <Route path="/" element={<Bienvenida />} />
           <Route path="/inicio" element={<Bienvenida />} />
          
-          <Route path="/RestablecerPassword" element={<RestablecerPassword />} />
+          
 
           <Route
             path="/informacion"
