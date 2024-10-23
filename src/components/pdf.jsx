@@ -26,12 +26,14 @@ const styles = StyleSheet.create({
   },
   text: {
     marginBottom: 5,
+    fontFamily: 'Helvetica', // Aplicar fuente sans-serif
   },
   productRow: {
     display: "flex",
     flexDirection: "row",
     justifyContent: "space-between",
     marginBottom: 5,
+    fontFamily: 'Courier', // Aplicar estilo teletype
   },
   tableHeader: {
     display: "flex",
@@ -41,10 +43,12 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderBottomColor: "#000",
     paddingBottom: 5,
-    fontWeight: "bold",
+    fontFamily: 'Times-Roman', // Aplicar fuente Roman
+    fontWeight: "bold", // Mantener en negrita
   },
   boldText: {
     fontWeight: "bold",
+    fontFamily: 'Times-Roman', // Negrita con estilo Roman
   },
   doubleSpace: {
     marginBottom: 20,
@@ -61,7 +65,6 @@ const PdfDocument = ({ product, productos, total }) => {
           <View style={styles.informacionempresa}>
             <Text>PEDIDOS PERSIA</Text>
             <Text>Persia@gmail.com</Text>
-            <Text>Gracias por tu compra</Text>
           </View>
         </View>
 
@@ -100,7 +103,7 @@ const PdfDocument = ({ product, productos, total }) => {
               <Text>Q{producto.precio * producto.cantidad}</Text>
             </View>
           ))}
-           <View style={styles.doubleSpace} />
+          <View style={styles.doubleSpace} />
           {/* Total */}
           <View style={styles.productRow}>
             <Text style={styles.boldText}>Total</Text>
