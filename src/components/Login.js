@@ -75,6 +75,7 @@ export function Login() {
           }
         } else {
           console.log("No se encontraron datos para el usuario.");
+          localStorage.setItem("correo", userLogin.user.email);
          // navigate("/InformacionPerfil");
          navigate("/InformacionPerfil", { replace: true }); // Redirige a la página de información de perfil
         }

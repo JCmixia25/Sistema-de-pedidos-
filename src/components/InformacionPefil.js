@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { db } from '../conexion/firebase';
 import { collection, addDoc } from 'firebase/firestore';
 import { useNavigate } from 'react-router-dom';
@@ -21,6 +21,16 @@ const InformacionPerfil = () => {
     correo: "",
   });
 
+  useEffect(() => {
+    // Recuperar el correo desde localStorage
+    const savedEmail = localStorage.getItem("correo");
+    if (savedEmail) {
+      setProfileData((prevData) => ({
+        ...prevData,
+        correo: savedEmail,
+      }));
+    }
+  }, []);
   const [error, setError] = useState(""); // Estado para manejar el mensaje de error
   const [municipiosDisponibles, setMunicipiosDisponibles] = useState([]); // Lista dinámica de municipios
 
