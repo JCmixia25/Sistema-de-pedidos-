@@ -19,7 +19,7 @@ export function Login() {
     email: "",
     password: "",
   });
-
+  const [passwordVisible, setPasswordVisible] = useState(false);
   const { setEstado, login, setDatosUsuario,setEstado2 } = useAuth(); // Asegúrate de incluir setDatosUsuario
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState("");
@@ -27,6 +27,10 @@ export function Login() {
 
   const handleChange = ({ target: { name, value } }) => {
     setUser({ ...user, [name]: value });
+  };
+
+  const togglePasswordVisibility = () => {
+    setPasswordVisible(!passwordVisible);
   };
 
   const handleSubmit = async (e) => {
@@ -110,14 +114,24 @@ export function Login() {
         </label>
         <label htmlFor="password">
           Contraseña
+          <div className="password-container">
           <input
-            type="password"
+            type={passwordVisible ? "text" : "password"}
+            
             name="password"
             id="password"
             onChange={handleChange}
             placeholder="******"
             required
           />
+          <button
+              type="button"
+              className="toggle-password"
+              onClick={togglePasswordVisibility}
+            >
+              <i className={passwordVisible ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+            </button>
+            </div>
         </label>
         
 
