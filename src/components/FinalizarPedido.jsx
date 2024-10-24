@@ -7,7 +7,6 @@ import PdfDocument from "./pdf.jsx";
 import { collection, addDoc, doc, writeBatch } from "firebase/firestore";
 import { db, storage } from "../conexion/firebase.js";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
-import { getAuth } from "firebase/auth";
 
 const FinalizarPedido = () => {
   const location = useLocation();
@@ -36,7 +35,7 @@ const FinalizarPedido = () => {
         nombres: datos.nombre || "",
         apellidos: datos.apellido || "",
         departamento: datos.departamento || "",
-        municipio: datos.municipio || "", 
+        municipio: datos.municipio || "",
         direccion: datos.direccion || "",
         telefono: datos.telefono || "",
         email: datos.email || "",
@@ -67,12 +66,11 @@ const FinalizarPedido = () => {
     Sacatepéquez: ['Antigua Guatemala', 'Ciudad Vieja', 'Jocotenango', 'Pastores', 'Sumpango', 'Santo Domingo Xenacoj', 'Santiago Sacatepéquez', 'San Lucas Sacatepéquez', 'San Bartolomé Milpas Altas', 'San Antonio Aguas Calientes', 'Santa Catarina Barahona', 'Santa Lucía Milpas Altas', 'Magdalena Milpas Altas', 'San Juan Alotenango'],
     "San Marcos": ['San Marcos', 'Ayutla (Tecún Umán)', 'Catarina', 'Comitancillo', 'Concepción Tutuapa', 'El Quetzal', 'El Tumbador', 'Ixchiguán', 'La Reforma', 'Malacatán', 'Nuevo Progreso', 'Ocós', 'Pajapita', 'Río Blanco', 'San Antonio Sacatepéquez', 'San Cristóbal Cucho', 'San José Ojetenam', 'San Lorenzo', 'San Miguel Ixtahuacán', 'San Pablo', 'San Pedro Sacatepéquez', 'Sibinal', 'Sipacapa', 'Tacaná', 'Tajumulco', 'Tejutla'],
     "Santa Rosa": ['Cuilapa', 'Barberena', 'Chiquimulilla', 'Guazacapán', 'Nueva Santa Rosa', 'Oratorio', 'Pueblo Nuevo Viñas', 'San Juan Tecuaco', 'Santa Cruz Naranjo', 'Santa María Ixhuatán', 'Taxisco', 'Casillas', 'Santa Rosa de Lima', 'San Rafael Las Flores'],
-    Sololá: ['Sololá', 'San José Chacayá', 'Santa María Visitación', 'Santa Lucía Utatlán', 'Nahualá', 'Panajachel', 'San Andrés Semetabaj', 'San Antonio Palopó', 'San Juan La Laguna', 'San Lucas Tolimán', 'San Marcos La Laguna', 'Santa Catarina Palopó', 'Santa Clara La Laguna', 'Santa Cruz La Laguna', 'Santa Lucía Utatlán', 'Santiago Atitlán'],   
+    Sololá: ['Sololá', 'San José Chacayá', 'Santa María Visitación', 'Santa Lucía Utatlán', 'Nahualá', 'Panajachel', 'San Andrés Semetabaj', 'San Antonio Palopó', 'San Juan La Laguna', 'San Lucas Tolimán', 'San Marcos La Laguna', 'Santa Catarina Palopó', 'Santa Clara La Laguna', 'Santa Cruz La Laguna', 'Santa Lucía Utatlán', 'Santiago Atitlán'],
     Suchitepéquez: ['Mazatenango', 'San Francisco Zapotitlán', 'San Bernardino', 'San José El Ídolo', 'Santo Domingo Suchitepéquez', 'Patulul', 'Santa Bárbara', 'San Juan Bautista', 'San Lorenzo', 'San Miguel Panán', 'Samayac', 'Chicacao', 'Zunilito', 'Cuyotenango', 'Pueblo Nuevo', 'Río Bravo', 'Santo Tomás La Unión'],
     Totonicapán: ['Totonicapán', 'San Cristóbal Totonicapán', 'San Francisco El Alto', 'San Andrés Xecul', 'Momostenango', 'Santa Lucía La Reforma', 'Santa María Chiquimula', 'San Bartolo Aguas Calientes']
-  
-
-  };
+    
+    };
 
   const handleProductChange = ({ target: { name, value } }) => {
     setProduct({ ...product, [name]: value });
@@ -111,6 +109,10 @@ const FinalizarPedido = () => {
   };
 
   const total = productos.reduce((acc, prod) => acc + prod.cantidad * prod.precio, 0);
+
+  const formatCurrency = (amount) => {
+    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  };
 
   const comprar = async () => {
     if (!urlDescarga) {
@@ -206,15 +208,15 @@ const FinalizarPedido = () => {
         <form onSubmit={handleProductSubmit} className="product-form">
           <label>
             Nombres
-            <input type="text" name="nombres" onChange={handleProductChange} value={product.nombres} />
+            <input type="text" name="nombres" onChange={handleProductChange} value={product.nombres} required />
           </label>
           <label>
             Apellidos
-            <input type="text" name="apellidos" onChange={handleProductChange} value={product.apellidos} />
+            <input type="text" name="apellidos" onChange={handleProductChange} value={product.apellidos} required />
           </label>
           <label>
             Departamento
-            <select name="departamento" onChange={handleProductChange} value={product.departamento}>
+            <select name="departamento" onChange={handleProductChange} value={product.departamento} required>
               <option value="">Seleccione un departamento</option>
               {Object.keys(departamentosmunicipio).map((departamento) => (
                 <option key={departamento} value={departamento}>
@@ -225,26 +227,26 @@ const FinalizarPedido = () => {
           </label>
           <label>
             Municipio
-            <select name="municipio" onChange={handleProductChange} value={product.municipio}>
+            <select name="municipio" onChange={handleProductChange} value={product.municipio} required>
               <option value="">Seleccione un municipio</option>
-              {municipio.map((municipio) => (
-                <option key={municipio} value={municipio}>
-                  {municipio}
+              {municipio.map((muni) => (
+                <option key={muni} value={muni}>
+                  {muni}
                 </option>
               ))}
             </select>
           </label>
           <label>
             Dirección de envío
-            <input type="text" name="direccion" onChange={handleProductChange} value={product.direccion} />
+            <input type="text" name="direccion" onChange={handleProductChange} value={product.direccion} required />
           </label>
           <label>
             Teléfono
-            <input type="number" name="telefono" onChange={handleProductChange} value={product.telefono} />
+            <input type="tel" name="telefono" onChange={handleProductChange} value={product.telefono} required />
           </label>
           <label>
             Correo Electrónico
-            <input type="email" name="email" onChange={handleProductChange} value={product.email} />
+            <input type="email" name="email" onChange={handleProductChange} value={product.email} required />
           </label>
           <label>
             NIT (Opcional)
@@ -266,8 +268,8 @@ const FinalizarPedido = () => {
               <div className="resumen-producto-info">
                 <p>Nombre: {producto.titulo}</p>
                 <p>Cantidad: {producto.cantidad}</p>
-                <p>Precio: Q{producto.precio}</p>
-                <p>Total: Q{producto.cantidad * producto.precio}</p>
+                <p>Precio: Q{formatCurrency(producto.precio)}</p>
+                <p>Total: Q{formatCurrency(producto.cantidad * producto.precio)}</p>
               </div>
             </div>
           ))
@@ -275,7 +277,7 @@ const FinalizarPedido = () => {
           <p>No hay productos en el carrito</p>
         )}
         <div className="resumen-total">
-          <h3>Total: Q{total}</h3>
+          <h3>Total: Q{formatCurrency(total)}</h3>
         </div>
         {pdfGenerado && (
           <button className="btn-descargar" onClick={downloadPdf}>

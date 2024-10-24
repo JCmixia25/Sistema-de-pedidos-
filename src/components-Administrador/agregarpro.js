@@ -27,7 +27,13 @@ export function AddProduct() {
   }, [location.state]);
 
   const handleProductChange = ({ target: { name, value } }) => {
-    setProduct({ ...product, [name]: value });
+    if (name === "precio") {
+      // Formatear el precio con comas
+      const formattedPrice = Number(value.replace(/[^0-9.-]+/g, "")).toLocaleString();
+      setProduct({ ...product, [name]: formattedPrice });
+    } else {
+      setProduct({ ...product, [name]: value });
+    }
   };
 
   const handleImageChange = (e) => {
@@ -67,6 +73,10 @@ export function AddProduct() {
     try {
       let imageUrl = product.imagen;
 
+      // Extraer el valor numérico del precio con comas
+      const precio = parseFloat(product.precio.replace(/,/g, ""));
+      if (isNaN(precio)) throw new Error("Precio inválido");
+
       // Subir la imagen principal si hay un archivo nuevo
       if (typeof product.imagen === "object") {
         const storage = getStorage();
@@ -79,12 +89,12 @@ export function AddProduct() {
       let productId;
       if (product.id) {
         // Actualizar producto existente
-        await updateDoc(doc(db, "productos", product.id), { ...product, imagen: imageUrl });
+        await updateDoc(doc(db, "productos", product.id), { ...product, precio, imagen: imageUrl });
         productId = product.id;
         setMessage("Producto actualizado exitosamente");
       } else {
         // Crear nuevo producto
-        const newProduct = await addDoc(collection(db, "productos"), { ...product, imagen: imageUrl });
+        const newProduct = await addDoc(collection(db, "productos"), { ...product, precio, imagen: imageUrl });
         productId = newProduct.id;
         setProduct({ ...product, id: productId });
         setMessage("Producto agregado exitosamente");
@@ -142,7 +152,7 @@ export function AddProduct() {
         <label>
           Precio
           <input
-            type="number"
+            type="text"
             name="precio"
             onChange={handleProductChange}
             value={product.precio}

@@ -123,7 +123,7 @@ const Carrito = ({ productos, setProductos, setBlinking }) => {
           </div>
         ))
       ) : (
-        <p>No hay productos en el carrito</p>
+        <p>NO HAY PRODUCTOS AÑADIDOS A CARRITO</p>
       )}
       <div className="resumen-compra">
         <h3>Resumen de compra</h3>
