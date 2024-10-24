@@ -15,7 +15,7 @@ const FinalizarPedido = () => {
   const [pedidoFinalizado, setPedidoFinalizado] = useState(false);
   const [urlDescarga, setUrlDescarga] = useState(null);
   const [pdfGenerado, setPdfGenerado] = useState(false);
-  const datoscuenta = localStorage.getItem("cuenta");
+ 
 
   const [product, setProduct] = useState({
     nombres: "",
@@ -28,21 +28,7 @@ const FinalizarPedido = () => {
     nit: "",
   });
 
-  useEffect(() => {
-    let datos = JSON.parse(datoscuenta);
-    if (datos) {
-      setProduct({
-        nombres: datos.nombre || "",
-        apellidos: datos.apellido || "",
-        departamento: datos.departamento || "",
-        municipio: datos.municipio || "",
-        direccion: datos.direccion || "",
-        telefono: datos.telefono || "",
-        email: datos.email || "",
-        nit: datos.nit || "",
-      });
-    }
-  }, [datoscuenta]);
+ 
 
   const [municipio, setmunicipio] = useState([]);
 
