@@ -3,6 +3,8 @@ import { db } from "../conexion/firebase";
 import { collection, addDoc, doc, updateDoc, query, where, getDocs } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate, useLocation } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export function AddProduct() {
   const [product, setProduct] = useState({
@@ -16,7 +18,7 @@ export function AddProduct() {
     titulo: "",
   });
   const [message, setMessage] = useState("");
-  const [error, setError] = useState(""); // Estado para el mensaje de error
+  const [error, setError] = useState("");
   const [muestraImages, setMuestraImages] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
@@ -34,6 +36,12 @@ export function AddProduct() {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     setProduct({ ...product, imagen: file });
+  };
+
+  const notify = () => {
+    toast.error("Este producto ya existe!", {
+      position: "top-center",
+    });
   };
 
   const handleMuestraImageChange = (e, index) => {
@@ -68,13 +76,14 @@ export function AddProduct() {
 
   const handleProductSubmit = async (e) => {
     e.preventDefault();
-    setError(""); // Limpiar error previo
+    setError("");
 
     try {
       const codigoExists = await checkCodigoExists(product.codigo);
 
-      if (codigoExists && !product.id) { // Si ya existe y es un nuevo producto
+      if (codigoExists && !product.id) {
         setError("El código del producto ya existe. Elige otro código.");
+        notify(); // Mostrar notificación si el código ya existe
         return;
       }
 
@@ -131,7 +140,7 @@ export function AddProduct() {
             required
           />
         </label>
-        {error && <p className="error-message">{error}</p>} {/* Mostrar error si existe */}
+        {error && <p className="error-message">{error}</p>}
         <label>
           Categoría
           <select
@@ -197,7 +206,6 @@ export function AddProduct() {
           <input type="file" accept="image/*" onChange={handleImageChange} />
         </label>
 
-        {/* Sección para agregar imágenes de muestra */}
         <label>
           Imágenes de Muestra
           {[0, 1, 2].map((index) => (
@@ -213,17 +221,12 @@ export function AddProduct() {
         <button type="submit">
           {product.id ? "Actualizar Producto" : "Agregar Producto"}
         </button>
-        
-        
       </form>
+
       {message && <p className="message">{message}</p>}
+      <ToastContainer />
     </div>
   );
 }
 
 export default AddProduct;
-
-   
-
- 
-   
