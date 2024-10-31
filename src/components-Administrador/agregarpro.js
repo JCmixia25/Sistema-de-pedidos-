@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { db } from "../conexion/firebase";
-import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
+import { collection, addDoc, doc, updateDoc, query, where, getDocs } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate, useLocation } from "react-router-dom";
 
 export function AddProduct() {
   const [product, setProduct] = useState({
     id: null,
+    codigo: "",
     categoria: "",
     descripcion: "",
     imagen: null,
@@ -15,11 +16,11 @@ export function AddProduct() {
     titulo: "",
   });
   const [message, setMessage] = useState("");
-  const [muestraImages, setMuestraImages] = useState([]); // Estado para las imágenes de muestra
+  const [error, setError] = useState(""); // Estado para el mensaje de error
+  const [muestraImages, setMuestraImages] = useState([]);
   const navigate = useNavigate();
   const location = useLocation();
 
-  // Obtener el producto a editar desde el estado de la navegación
   useEffect(() => {
     if (location.state && location.state.item) {
       setProduct(location.state.item);
@@ -31,21 +32,19 @@ export function AddProduct() {
   };
 
   const handleImageChange = (e) => {
-    const file = e.target.files[0]; // Tomar el primer archivo
+    const file = e.target.files[0];
     setProduct({ ...product, imagen: file });
   };
 
   const handleMuestraImageChange = (e, index) => {
-    const files = Array.from(e.target.files); // Asegura que tomamos múltiples archivos si hay
+    const files = Array.from(e.target.files);
     const updatedMuestraImages = [...muestraImages];
-    updatedMuestraImages[index] = files[0]; // Guardar solo la primera imagen del archivo en la posición adecuada
+    updatedMuestraImages[index] = files[0];
     setMuestraImages(updatedMuestraImages);
   };
 
   const uploadMuestraImages = async (producto_id) => {
     const storage = getStorage();
-
-    // Subir cada imagen de muestra a Firebase Storage y luego agregar su URL a Firestore
     for (let i = 0; i < muestraImages.length; i++) {
       const image = muestraImages[i];
       if (image) {
@@ -53,7 +52,6 @@ export function AddProduct() {
         await uploadBytes(storageRef, image);
         const imagen = await getDownloadURL(storageRef);
 
-        // Guardar la URL de la imagen en la colección "Imágenes"
         await addDoc(collection(db, "imagenes"), {
           producto_id: producto_id,
           imagen: imagen,
@@ -62,12 +60,26 @@ export function AddProduct() {
     }
   };
 
+  const checkCodigoExists = async (codigo) => {
+    const q = query(collection(db, "productos"), where("codigo", "==", codigo));
+    const querySnapshot = await getDocs(q);
+    return !querySnapshot.empty;
+  };
+
   const handleProductSubmit = async (e) => {
     e.preventDefault();
+    setError(""); // Limpiar error previo
+
     try {
+      const codigoExists = await checkCodigoExists(product.codigo);
+
+      if (codigoExists && !product.id) { // Si ya existe y es un nuevo producto
+        setError("El código del producto ya existe. Elige otro código.");
+        return;
+      }
+
       let imageUrl = product.imagen;
 
-      // Subir la imagen principal si hay un archivo nuevo
       if (typeof product.imagen === "object") {
         const storage = getStorage();
         const storageRef = ref(storage, `imagenes/${product.imagen.name}`);
@@ -75,10 +87,8 @@ export function AddProduct() {
         imageUrl = await getDownloadURL(storageRef);
       }
 
-      // Guardar el producto en Firestore
       let productId;
       if (product.id) {
-        // Actualizar producto existente
         await updateDoc(doc(db, "productos", product.id), {
           ...product,
           imagen: imageUrl,
@@ -86,7 +96,6 @@ export function AddProduct() {
         productId = product.id;
         setMessage("Producto actualizado exitosamente");
       } else {
-        // Crear nuevo producto
         const newProduct = await addDoc(collection(db, "productos"), {
           ...product,
           imagen: imageUrl,
@@ -96,7 +105,6 @@ export function AddProduct() {
         setMessage("Producto agregado exitosamente");
       }
 
-      // Subir imágenes de muestra si se han añadido
       if (muestraImages.length > 0) {
         await uploadMuestraImages(productId);
       }
@@ -123,6 +131,7 @@ export function AddProduct() {
             required
           />
         </label>
+        {error && <p className="error-message">{error}</p>} {/* Mostrar error si existe */}
         <label>
           Categoría
           <select
@@ -204,12 +213,17 @@ export function AddProduct() {
         <button type="submit">
           {product.id ? "Actualizar Producto" : "Agregar Producto"}
         </button>
+        
+        
       </form>
-
-      {/* Mostrar mensaje de estado */}
       {message && <p className="message">{message}</p>}
     </div>
   );
 }
 
 export default AddProduct;
+
+   
+
+ 
+   
