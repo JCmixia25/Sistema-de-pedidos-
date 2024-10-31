@@ -4,7 +4,6 @@ import { collection, addDoc, doc, updateDoc } from "firebase/firestore";
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { useNavigate, useLocation } from "react-router-dom";
 
-
 export function AddProduct() {
   const [product, setProduct] = useState({
     id: null,
@@ -80,12 +79,18 @@ export function AddProduct() {
       let productId;
       if (product.id) {
         // Actualizar producto existente
-        await updateDoc(doc(db, "productos", product.id), { ...product, imagen: imageUrl });
+        await updateDoc(doc(db, "productos", product.id), {
+          ...product,
+          imagen: imageUrl,
+        });
         productId = product.id;
         setMessage("Producto actualizado exitosamente");
       } else {
         // Crear nuevo producto
-        const newProduct = await addDoc(collection(db, "productos"), { ...product, imagen: imageUrl });
+        const newProduct = await addDoc(collection(db, "productos"), {
+          ...product,
+          imagen: imageUrl,
+        });
         productId = newProduct.id;
         setProduct({ ...product, id: productId });
         setMessage("Producto agregado exitosamente");
@@ -108,8 +113,24 @@ export function AddProduct() {
       <h2>{product.id ? "Editar Producto" : "Agregar Producto"}</h2>
       <form onSubmit={handleProductSubmit} className="product-form">
         <label>
+          Código
+          <input
+            type="text"
+            name="codigo"
+            onChange={handleProductChange}
+            value={product.codigo}
+            placeholder="Código del producto"
+            required
+          />
+        </label>
+        <label>
           Categoría
-          <select name="categoria" onChange={handleProductChange} value={product.categoria} required>
+          <select
+            name="categoria"
+            onChange={handleProductChange}
+            value={product.categoria}
+            required
+          >
             <option value="">Selecciona una categoría</option>
             <option value="Eléctricos">ELECTRICO</option>
             <option value="Mecánicos">MECANICA</option>
@@ -164,11 +185,7 @@ export function AddProduct() {
         </label>
         <label>
           Imagen del Producto
-          <input
-            type="file"
-            accept="image/*"
-            onChange={handleImageChange}
-          />
+          <input type="file" accept="image/*" onChange={handleImageChange} />
         </label>
 
         {/* Sección para agregar imágenes de muestra */}
@@ -184,7 +201,9 @@ export function AddProduct() {
           ))}
         </label>
 
-        <button type="submit">{product.id ? "Actualizar Producto" : "Agregar Producto"}</button>
+        <button type="submit">
+          {product.id ? "Actualizar Producto" : "Agregar Producto"}
+        </button>
       </form>
 
       {/* Mostrar mensaje de estado */}
