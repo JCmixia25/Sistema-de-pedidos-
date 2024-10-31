@@ -303,11 +303,11 @@
       background-color: white;
     }
   
+
     .cerrar-sesion {
       padding-top: 0; /* Mantiene el ajuste de posición */
       margin-right: 0; /* Aumenta este valor para separar más de "Mi carrito" */
-     
-
+    
     }
   
     .carrito-boton .iniciar-sesion-text {
@@ -403,7 +403,13 @@
       border-color: #088395; /* Darker green on focus */
     }
   }
-  
+
+  .btn-cerrar-sesion{
+    background-color: aqua;
+    height: 50px;
+    width: 200px;
+  }
+
   .search-input:focus {
     border-color: #088395; /* Darker green on focus */
   }

@@ -6,11 +6,9 @@ import { useNavigate } from "react-router-dom";
 import icono from "./icono.png";
 import { FaSearch, FaShoppingCart, FaUser, FaPowerOff } from "react-icons/fa";
 
-
-export const Encabezado = ({ setSearchTerm, isBlinking}) => {
-  const { setEstado,setEstado2 } = useAuth();
+export const Encabezado = ({ setSearchTerm, isBlinking }) => {
+  const { setEstado, setEstado2 } = useAuth();
   const navigate = useNavigate();
-
 
   function cerrarSesion() {
     setEstado(false);
@@ -25,12 +23,12 @@ export const Encabezado = ({ setSearchTerm, isBlinking}) => {
   const handleSearchChange = (e) => {
     const term = e.target.value;
     setSearchInput(term);
-    setSearchTerm(term); 
+    setSearchTerm(term);
   };
 
   const handleSearchSubmit = (e) => {
     if (e.key === "Enter" || e.type === "click") {
-      setSearchTerm(searchInput); 
+      setSearchTerm(searchInput);
     }
   };
 
@@ -77,6 +75,7 @@ export const Encabezado = ({ setSearchTerm, isBlinking}) => {
                   <p className="inicio-sesion-text">Mi Carrito</p>
                 </div>
               </NavLink>
+
               <button
                 id="btnLogout"
                 onClick={cerrarSesion}

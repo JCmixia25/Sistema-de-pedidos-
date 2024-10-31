@@ -27,6 +27,9 @@ import Mensaje from "./components/mensaje.js";
 import InformacionPerfil from "./components/InformacionPefil.js";
 import { EncabezadoInformacion } from "./components/EncabezadoInformacion.js";
 import AgregarImagenes from "./components-Administrador/agregarImagenes.jsx";
+import RestablecerPassword from "./components/RestablecerPassword.js";
+import Contacts from "./components/Contacts";
+import Contacto from "./components/Contacts.js"
 
 function App() {
   const { estado, datosUsuario, estado2 } = useAuth();
@@ -71,6 +74,7 @@ function App() {
           <Route path="/bienvenida" element={<Bienvenida />} />
           <Route path="/inicio" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          <Route path="/RestablecerPassword" element={<RestablecerPassword />} />
 
           {/* Pasar el carrito y la función agregar al carrito a los componentes */}
           <Route
@@ -137,12 +141,8 @@ function App() {
         <Routes>
           <Route path="/" element={<Bienvenida />} />
           <Route path="/inicio" element={<Bienvenida />} />
-          <Route path="/informacion" element={<Informacion />} />
-          {/* </Route>
-              <ProtectedRoute allowedRoles={['Administrador']}>
-                <Informacion />
-              </ProtectedRoute>
-          /> */}
+         
+          <Route path="/Informacion" element={<Informacion />} />
 
           <Route
             path="/agregarImagenes/:id"

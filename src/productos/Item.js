@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useNavigate } from "react-router-dom";
-import { authContext } from "../context/authContext"; 
+import { authContext } from "../context/authContext";
 import "./Item.css";
 
 const Item = ({ producto, onAddToCart }) => {
@@ -17,7 +17,10 @@ const Item = ({ producto, onAddToCart }) => {
   };
 
   // Verificar si el usuario es Administrador
-  const esAdministrador = datosUsuario && datosUsuario.length > 0 && datosUsuario[0]?.rol === "Administrador";
+  const esAdministrador =
+    datosUsuario &&
+    datosUsuario.length > 0 &&
+    datosUsuario[0]?.rol === "Administrador";
 
   // Mostrar el botón solo si no es administrador
   const mostrarBotonAgregar = !esAdministrador;
@@ -48,7 +51,9 @@ const Item = ({ producto, onAddToCart }) => {
           <div>
             <button
               onClick={stockDisponible ? agregar : null}
-              className={`informacion-ver ${!stockDisponible ? 'btn-rojo' : ''}`}
+              className={`informacion-ver ${
+                !stockDisponible ? "btn-rojo" : ""
+              }`}
               disabled={!stockDisponible}
             >
               {stockDisponible ? "Agregar a carrito" : "No disponible"}

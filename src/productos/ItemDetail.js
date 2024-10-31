@@ -53,9 +53,10 @@ const ItemDetail = ({ item, onAddToCart, imagenes }) => {
       <div className="item-detail-text">
         <h3>{item.titulo}</h3>
         <p>{item.descripcion}</p>
+        <p className="item-category" >codigo: {item.codigo}</p>
         <p className="item-category">Categoría: {item.categoria}</p>
         <p className="item-Stock">Stock: {item.stock}</p>
-        <p className="item-price">Q{item.precio}</p>
+        <p className="item-price">Q{item.precio.toLocaleString()}</p>
 
         {esAdministrador ? (
           <button onClick={handleEditProduct} className="edit-product-btn">
