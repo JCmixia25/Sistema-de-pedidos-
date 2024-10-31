@@ -53,6 +53,12 @@ export function AuthProvider({ children }) {
     } else{
       setEstado(false);
     }
+
+    if (localStorage.getItem("estado2")){
+      setEstado2(true);
+    } else{
+      setEstado2(false);
+    }
   }, []);
 
 

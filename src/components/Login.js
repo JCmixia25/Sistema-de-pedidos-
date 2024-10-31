@@ -39,6 +39,7 @@ export function Login() {
     // Limpiar localStorage antes de iniciar sesión para que no guarde Rol Anterior
     localStorage.removeItem("rol");
     localStorage.removeItem("login");
+    localStorage.removeItem("estado2");
 
     try {
       const userLogin = await login(user.email, user.password);
@@ -66,6 +67,8 @@ export function Login() {
           setDatosUsuario([datos]); // Usar setDatosUsuario para actualizar el estado
           localStorage.setItem("cuenta", JSON.stringify(datos));
           setEstado2(true);
+          localStorage.setItem("estado2", "true");
+        
           setRol(datos.rol);
 
           if (datos.rol === "Administrador") {

@@ -15,6 +15,7 @@ export const Encabezado = ({ setSearchTerm, isBlinking }) => {
     setEstado2(false);
     localStorage.removeItem("login");
     localStorage.removeItem("rol");
+    localStorage.removeItem("estado2");
     navigate("/");
   }
 
