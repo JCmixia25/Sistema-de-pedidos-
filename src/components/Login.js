@@ -6,13 +6,12 @@ import { collection, getDocs, query, where } from "firebase/firestore";
 import { db } from "../conexion/firebase";
 
 // Importar los componentes de Cliente
-import { Encabezado } from '../components-Cliente/Encabezado';
-import Informacion from '../components-Cliente/informacion';
+import { Encabezado } from "../components-Cliente/Encabezado";
+import Informacion from "../components-Cliente/informacion";
 
 // Importar el componente de Administrador
-import AgregarPro from '../components-Administrador/agregarpro';
-import { EncabezadoAdmin } from '../components-Administrador/EncabezadoAdmin';
-
+import AgregarPro from "../components-Administrador/agregarpro";
+import { EncabezadoAdmin } from "../components-Administrador/EncabezadoAdmin";
 
 export function Login() {
   const [user, setUser] = useState({
@@ -20,7 +19,7 @@ export function Login() {
     password: "",
   });
   const [passwordVisible, setPasswordVisible] = useState(false);
-  const { setEstado, login, setDatosUsuario,setEstado2 } = useAuth(); // Asegúrate de incluir setDatosUsuario
+  const { setEstado, login, setDatosUsuario, setEstado2 } = useAuth(); // Asegúrate de incluir setDatosUsuario
   const navigate = useNavigate();
   const [mensaje, setMensaje] = useState("");
   const [rol, setRol] = useState(localStorage.getItem("rol")); // Manejar el rol en el estado
@@ -56,52 +55,54 @@ export function Login() {
         setMensaje("");
 
         const refCuenta = collection(db, "cuenta");
-        const q = query(refCuenta, where("usuario_uid", "==", userLogin.user.uid));
+        const q = query(
+          refCuenta,
+          where("usuario_uid", "==", userLogin.user.uid)
+        );
         const snapshot = await getDocs(q);
 
         if (!snapshot.empty) {
           const doc = snapshot.docs[0];
           const datos = { ...doc.data(), id: doc.id };
 
-          console.log("Datos del usuario:", datos.rol,"Nombre: ", datos.nombre);
+          console.log(
+            "Datos del usuario:",
+            datos.rol,
+            "Nombre: ",
+            datos.nombre
+          );
           setDatosUsuario([datos]); // Usar setDatosUsuario para actualizar el estado
           localStorage.setItem("cuenta", JSON.stringify(datos));
           setEstado2(true);
           localStorage.setItem("estado2", "true");
-        
+
           setRol(datos.rol);
 
           if (datos.rol === "Administrador") {
             console.log("Redirigiendo a inicio");
             navigate("/inicio");
-        
           } else if (datos.rol === "Cliente") {
             console.log("Redirigiendo a productos");
             navigate("/productos");
- 
           }
         } else {
           console.log("No se encontraron datos para el usuario.");
-         // navigate("/InformacionPerfil");
-         navigate("/InformacionPerfil", { replace: true }); // Redirige a la página de información de perfil
+          // navigate("/InformacionPerfil");
+          navigate("/InformacionPerfil", { replace: true }); // Redirige a la página de información de perfil
         }
-
-      
       }
-     
-
     } catch (error) {
-      if (error.code === "auth/user-not-found") {
-        setMensaje("Usuario no encontrado.");
-      } else if (error.code === "auth/wrong-password") {
-        setMensaje("Contraseña incorrecta.");
+      if (error.code === "auth/invalid-credential"){
+        setMensaje("Error al verificar credenciales. Por favor verifica tus datos.");
+      } else if ("auth/too-many-requests") {
+        setMensaje("Haz realizado demasiados intentos. Por favor, espera unos minutos antes de intentar nuevamente.");
       } else {
-        setMensaje("Error al iniciar sesión: " + error.message);
+        setMensaje("Error al iniciar sesión. Por favor, verifica tu correo electrónico.");
       }
     }
   };
+
   return (
-    
     <div className="login-container">
       <form onSubmit={handleSubmit}>
         <label htmlFor="email">
@@ -118,27 +119,27 @@ export function Login() {
         <label htmlFor="password">
           Contraseña
           <div className="password-container">
-          <input
-            type={passwordVisible ? "text" : "password"}
-            
-            name="password"
-            id="password"
-            onChange={handleChange}
-            placeholder="******"
-            required
-          />
-          <button
+            <input
+              type={passwordVisible ? "text" : "password"}
+              name="password"
+              id="password"
+              onChange={handleChange}
+              placeholder="******"
+              required
+            />
+            <button
               type="button"
               className="toggle-password"
               onClick={togglePasswordVisibility}
             >
-              <i className={passwordVisible ? "fas fa-eye-slash" : "fas fa-eye"}></i>
+              <i
+                className={passwordVisible ? "fas fa-eye-slash" : "fas fa-eye"}
+              ></i>
             </button>
-            </div>
+          </div>
         </label>
-        
 
-        <button type="submit" className="btn-ingresar" >
+        <button type="submit" className="btn-ingresar">
           INGRESAR
         </button>
 
@@ -169,9 +170,7 @@ export function Login() {
         </>
       )}
     </div>
-    
   );
-
 }
 
-export default Login;    
+export default Login;
