@@ -2,7 +2,15 @@ import React, { useContext, useState } from "react";
 import "./ItemDetail.css";
 import { useNavigate } from "react-router-dom";
 import { authContext } from "../context/authContext";
-import { ToastContainer, toast } from 'react-toastify';
+import { ToastContainer } from 'react-toastify';
+
+const formatPrice = (price) => {
+  const numberPrice = Number(price); // Asegúrate de que sea un número
+  if (isNaN(numberPrice)) {
+    return "Error: Precio inválido"; // Manejo de precio no válido
+  }
+  return `Q${numberPrice.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`;
+};
 
 const ItemDetail = ({ item, onAddToCart, imagenes }) => {
   const { datosUsuario } = useContext(authContext);
@@ -22,7 +30,7 @@ const ItemDetail = ({ item, onAddToCart, imagenes }) => {
   };
 
   const handleEditProduct = () => {
-    navigate(`/agregarpro/${item.id}`, { state: { item } }); // Navegar a la vista de Agregar Producto y pasar el item como estado
+    navigate(`/agregarpro/${item.id}`, { state: { item } });
   };
 
   const handleAddToCart = () => {
@@ -35,7 +43,7 @@ const ItemDetail = ({ item, onAddToCart, imagenes }) => {
 
   return (
     <div className="item-detail">
-      <ToastContainer /> {/* Añadir el contenedor de Toast */}
+      <ToastContainer />
       <div>
         {imagenes && Array.isArray(imagenes) && imagenes.length > 0 && (
           <div className="carousel">
@@ -53,10 +61,10 @@ const ItemDetail = ({ item, onAddToCart, imagenes }) => {
       <div className="item-detail-text">
         <h3>{item.titulo}</h3>
         <p>{item.descripcion}</p>
-        <p className="item-category" >Código: {item.codigo}</p>
+        <p className="item-category">Código: {item.codigo}</p>
         <p className="item-category">Categoría: {item.categoria}</p>
         <p className="item-Stock">Stock: {item.stock}</p>
-        <p className="item-price">Q{item.precio.toLocaleString()}</p>
+        <p className="item-price">{formatPrice(item.precio)}</p>
 
         {esAdministrador ? (
           <button onClick={handleEditProduct} className="edit-product-btn">

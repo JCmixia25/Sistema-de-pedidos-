@@ -97,7 +97,13 @@ const FinalizarPedido = () => {
   const total = productos.reduce((acc, prod) => acc + prod.cantidad * prod.precio, 0);
 
   const formatCurrency = (amount) => {
-    return amount.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    const numAmount = parseFloat(amount); // Convertir a número
+    if (!isNaN(numAmount)) {
+      const formattedAmount = numAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return formattedAmount;
+    } else {
+      return amount; // Retornar el valor original si no es un número
+    }
   };
 
   const comprar = async () => {
