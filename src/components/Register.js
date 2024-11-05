@@ -50,7 +50,12 @@ export function Register() {
         navigate("/Login");
       }
     } catch (error) {
-      setMensaje(error.message);
+      if(error.code==="auth/password-does-not-meet-requirements"){
+        setMensaje("La contraseña debe contener al menos una letra mayúscula, una minúscula y un carácter especial y un número.")
+      }
+      else{
+        setMensaje("Intenta nuevamente con otra contraseña") 
+      }
     } finally {
       // Reiniciar el reCAPTCHA después de enviar el formulario
       recaptchaRef.current.reset();
