@@ -53,9 +53,34 @@ const styles = StyleSheet.create({
   doubleSpace: {
     marginBottom: 20,
   },
+  // Nuevos estilos para las columnas fijas
+  productColumn: {
+    padding: 5,
+  },
+  productName: {
+    flexBasis: '50%', // 50% del espacio para el nombre del producto
+    paddingRight: 10,  // Espacio entre el nombre y la cantidad
+  },
+  productQuantity: {
+    flexBasis: '20%', // 20% del espacio para la cantidad
+    textAlign: 'center',  // Alinear cantidad al centro
+  },
+  productPrice: {
+    flexBasis: '30%', // 30% del espacio para el precio
+    textAlign: 'right', // Alinear precio a la derecha
+  },
 });
 
 const PdfDocument = ({ product, productos, total }) => {
+  const formatCurrency = (amount) => {
+    const numAmount = parseFloat(amount); // Convertir a número
+    if (!isNaN(numAmount)) {
+      const formattedAmount = numAmount.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+      return formattedAmount;
+    } else {
+      return amount; // Retornar el valor original si no es un número
+    }
+  };
   return (
     <Document>
       <Page size="A4" style={styles.page}>
@@ -90,17 +115,23 @@ const PdfDocument = ({ product, productos, total }) => {
           <View style={styles.doubleSpace} />
           {/* Encabezados de la Tabla */}
           <View style={styles.tableHeader}>
-            <Text>Producto</Text>
-            <Text>Cantidad</Text>
-            <Text>Precio</Text>
+            <Text style={styles.productName}>Producto</Text>
+            <Text style={styles.productQuantity}>Cantidad</Text>
+            <Text style={styles.productPrice}>Precio</Text>
           </View>
 
           {/* Filas de Productos */}
           {productos.map((producto) => (
             <View key={producto.id} style={styles.productRow}>
-              <Text>{producto.titulo}</Text>
-              <Text>{producto.cantidad}</Text>
-              <Text>Q{producto.precio * producto.cantidad}</Text>
+              <View style={[styles.productColumn, styles.productName]}>
+                <Text>{producto.titulo}</Text>
+              </View>
+              <View style={[styles.productColumn, styles.productQuantity]}>
+                <Text>{producto.cantidad}</Text>
+              </View>
+              <View style={[styles.productColumn, styles.productPrice]}>
+                <Text>Q {formatCurrency(producto.precio * producto.cantidad)}</Text>
+              </View>
             </View>
           ))}
           <View style={styles.doubleSpace} />
@@ -108,7 +139,7 @@ const PdfDocument = ({ product, productos, total }) => {
           <View style={styles.productRow}>
             <Text style={styles.boldText}>Total</Text>
             <Text></Text> {/* Espacio vacío para alinear el total a la derecha */}
-            <Text style={styles.boldText}>Q{total}</Text>
+            <Text style={styles.boldText}>Q{formatCurrency(total)}</Text>
           </View>
         </View>
       </Page>
